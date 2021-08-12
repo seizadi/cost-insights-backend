@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "chart.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+{{ include "chart.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "chart.fullname" . }}
+      app.kubernetes.io/name: {{ include "chart.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: {{ .Values.internal.port | quote }}
+      labels:
+        app: {{ include "chart.fullname" . }}
+        app.kubernetes.io/name: {{ include "chart.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      {{- if .Values.rbac.enable }}
+      serviceAccountName: {{ include "chart.fullname" . }}-serviceaccount
+      {{- end }}
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.registry }}{{ .Values.image.name }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+
+          ports:
+            - name: grpc
+              containerPort: {{ .Values.app.grpcPort }}
+              protocol: {{ .Values.grpcProtocol }}
+            - name: http
+              containerPort: {{ .Values.app.httpPort }}
+              protocol: {{ .Values.httpProtocol }}
+            - name: internal
+              containerPort: {{ .Values.internal.port }}
+          args: [
+
+          ]
+{{- if .Values.internal.enable }}
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: {{ .Values.internal.port }}
+              scheme: HTTP
+            initialDelaySeconds: 3
+            timeoutSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: {{ .Values.internal.port }}
+              scheme: HTTP
+            initialDelaySeconds: 2
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 10
+{{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}

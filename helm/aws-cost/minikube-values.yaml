@@ -1,0 +1,30 @@
+
+version: latest
+docker:
+  registry: soheileizadi
+  username: "{ Fill this in }"
+  password: "{ Fill this in }"
+
+rbac:
+  enable: true
+
+#### Values that will be populated from env values
+env: "minikube"
+zone: "local"
+
+image:
+  pullPolicy: IfNotPresent
+
+
+
+app:
+  namespace: "aws-cost-{{ .Values.env }}"
+  httpPort: 8080
+  grpcPort: 9090
+
+internal:
+  enable: false
+  port: 8081
+
+secrets:
+  enabled: true
