@@ -15,6 +15,15 @@
     "version": "version not set"
   },
   "paths": {
+    "/get_last_complete_billing_date": {
+      "get": {
+        "tags": [
+          "CostInsightsApi"
+        ],
+        "operationId": "CostInsightsApiGetLastCompleteBillingDate",
+        "responses": {}
+      }
+    },
     "/version": {
       "get": {
         "tags": [

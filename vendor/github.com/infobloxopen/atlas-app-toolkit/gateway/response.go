@@ -7,17 +7,17 @@ import (
 	"io"
 	"net/http"
 
+	"github.com/golang/protobuf/proto"
 	"google.golang.org/grpc/grpclog"
-	"google.golang.org/protobuf/reflect/protoreflect"
 
-	runtime "github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	runtime "github.com/grpc-ecosystem/grpc-gateway/runtime"
 )
 
 type (
 	// ForwardResponseMessageFunc forwards gRPC response to HTTP client inaccordance with REST API Syntax
-	ForwardResponseMessageFunc func(context.Context, *runtime.ServeMux, runtime.Marshaler, http.ResponseWriter, *http.Request, protoreflect.ProtoMessage, ...func(context.Context, http.ResponseWriter, protoreflect.ProtoMessage) error)
+	ForwardResponseMessageFunc func(context.Context, *runtime.ServeMux, runtime.Marshaler, http.ResponseWriter, *http.Request, proto.Message, ...func(context.Context, http.ResponseWriter, proto.Message) error)
 	// ForwardResponseStreamFunc forwards gRPC stream response to HTTP client inaccordance with REST API Syntax
-	ForwardResponseStreamFunc func(context.Context, *runtime.ServeMux, runtime.Marshaler, http.ResponseWriter, *http.Request, func() (protoreflect.ProtoMessage, error), ...func(context.Context, http.ResponseWriter, protoreflect.ProtoMessage) error)
+	ForwardResponseStreamFunc func(context.Context, *runtime.ServeMux, runtime.Marshaler, http.ResponseWriter, *http.Request, func() (proto.Message, error), ...func(context.Context, http.ResponseWriter, proto.Message) error)
 )
 
 // ResponseForwarder implements ForwardResponseMessageFunc in method ForwardMessage
@@ -27,7 +27,7 @@ type (
 // for format of JSON response.
 type ResponseForwarder struct {
 	OutgoingHeaderMatcher runtime.HeaderMatcherFunc
-	MessageErrHandler     runtime.ErrorHandlerFunc
+	MessageErrHandler     runtime.ProtoErrorHandlerFunc
 	StreamErrHandler      ProtoStreamErrorHandlerFunc
 }
 
@@ -47,19 +47,19 @@ func IncludeStatusDetails(withDetails bool) {
 }
 
 // NewForwardResponseMessage returns ForwardResponseMessageFunc
-func NewForwardResponseMessage(out runtime.HeaderMatcherFunc, meh runtime.ErrorHandlerFunc, seh ProtoStreamErrorHandlerFunc) ForwardResponseMessageFunc {
+func NewForwardResponseMessage(out runtime.HeaderMatcherFunc, meh runtime.ProtoErrorHandlerFunc, seh ProtoStreamErrorHandlerFunc) ForwardResponseMessageFunc {
 	fw := &ResponseForwarder{out, meh, seh}
 	return fw.ForwardMessage
 }
 
 // NewForwardResponseStream returns ForwardResponseStreamFunc
-func NewForwardResponseStream(out runtime.HeaderMatcherFunc, meh runtime.ErrorHandlerFunc, seh ProtoStreamErrorHandlerFunc) ForwardResponseStreamFunc {
+func NewForwardResponseStream(out runtime.HeaderMatcherFunc, meh runtime.ProtoErrorHandlerFunc, seh ProtoStreamErrorHandlerFunc) ForwardResponseStreamFunc {
 	fw := &ResponseForwarder{out, meh, seh}
 	return fw.ForwardStream
 }
 
 // ForwardMessage implements runtime.ForwardResponseMessageFunc
-func (fw *ResponseForwarder) ForwardMessage(ctx context.Context, mux *runtime.ServeMux, marshaler runtime.Marshaler, rw http.ResponseWriter, req *http.Request, resp protoreflect.ProtoMessage, opts ...func(context.Context, http.ResponseWriter, protoreflect.ProtoMessage) error) {
+func (fw *ResponseForwarder) ForwardMessage(ctx context.Context, mux *runtime.ServeMux, marshaler runtime.Marshaler, rw http.ResponseWriter, req *http.Request, resp proto.Message, opts ...func(context.Context, http.ResponseWriter, proto.Message) error) {
 	md, ok := runtime.ServerMetadataFromContext(ctx)
 	if !ok {
 		grpclog.Infof("forward response message: failed to extract ServerMetadata from context")
@@ -69,7 +69,7 @@ func (fw *ResponseForwarder) ForwardMessage(ctx context.Context, mux *runtime.Se
 	handleForwardResponseServerMetadata(fw.OutgoingHeaderMatcher, rw, md)
 	handleForwardResponseTrailerHeader(rw, md)
 
-	rw.Header().Set("Content-Type", marshaler.ContentType(nil))
+	rw.Header().Set("Content-Type", marshaler.ContentType())
 
 	if err := handleForwardResponseOptions(ctx, rw, resp, opts); err != nil {
 		fw.MessageErrHandler(ctx, mux, marshaler, rw, req, err)
@@ -124,6 +124,7 @@ func (fw *ResponseForwarder) ForwardMessage(ctx context.Context, mux *runtime.Se
 		grpclog.Infof("forward response: failed to marshal response: %v", err)
 		fw.MessageErrHandler(ctx, mux, marshaler, rw, req, err)
 	}
+
 	rw.WriteHeader(httpStatus)
 
 	if _, err = rw.Write(data); err != nil {
@@ -140,7 +141,7 @@ type delimited interface {
 
 // ForwardStream implements runtime.ForwardResponseStreamFunc.
 // RestStatus comes first in the chuncked result.
-func (fw *ResponseForwarder) ForwardStream(ctx context.Context, mux *runtime.ServeMux, marshaler runtime.Marshaler, rw http.ResponseWriter, req *http.Request, recv func() (protoreflect.ProtoMessage, error), opts ...func(context.Context, http.ResponseWriter, protoreflect.ProtoMessage) error) {
+func (fw *ResponseForwarder) ForwardStream(ctx context.Context, mux *runtime.ServeMux, marshaler runtime.Marshaler, rw http.ResponseWriter, req *http.Request, recv func() (proto.Message, error), opts ...func(context.Context, http.ResponseWriter, proto.Message) error) {
 	flusher, ok := rw.(http.Flusher)
 	if !ok {
 		grpclog.Infof("forward response stream: flush not supported in %T", rw)
@@ -157,7 +158,7 @@ func (fw *ResponseForwarder) ForwardStream(ctx context.Context, mux *runtime.Ser
 	handleForwardResponseServerMetadata(fw.OutgoingHeaderMatcher, rw, md)
 
 	rw.Header().Set("Transfer-Encoding", "chunked")
-	rw.Header().Set("Content-Type", marshaler.ContentType(nil))
+	rw.Header().Set("Content-Type", marshaler.ContentType())
 
 	if err := handleForwardResponseOptions(ctx, rw, nil, opts); err != nil {
 		fw.StreamErrHandler(ctx, false, mux, marshaler, rw, req, err)
@@ -212,7 +213,7 @@ func (fw *ResponseForwarder) ForwardStream(ctx context.Context, mux *runtime.Ser
 	}
 }
 
-func handleForwardResponseOptions(ctx context.Context, rw http.ResponseWriter, resp protoreflect.ProtoMessage, opts []func(context.Context, http.ResponseWriter, protoreflect.ProtoMessage) error) error {
+func handleForwardResponseOptions(ctx context.Context, rw http.ResponseWriter, resp proto.Message, opts []func(context.Context, http.ResponseWriter, proto.Message) error) error {
 	if len(opts) == 0 {
 		return nil
 	}

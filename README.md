@@ -1,8 +1,21 @@
 # aws-cost
 
-_This generated README.md file loosely follows a [popular template](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)._
+We want to build a Cost Explorer into the Backstage Dev Portal, the 
+[Backstage Cost Insight Plugin](https://backstage.io/blog/2020/10/22/cost-insights-plugin) will be the
+starting point. The Backstage plugin is an overlay on top of Cloud Provider cost management, 
+e.g. [AWS Billing and Cost Management API](https://docs.aws.amazon.com/aws-cost-anagement/latest/APIReference/API_GetCostAndUsage.html).
+We will try to extend the AWS Cost using Kubernetes labels 
+to AWS tags to extract cost information for each application team. 
+Backstage currently does not provide a CostInsightsApi client out of the box. This project is
+intended to implement a CostInsightsApi client that can be called by Backstage Cost Insight Plugin.
 
-One paragraph of project description goes here.
+General flow of the implementation:
+
+   * Reference the [Cost Insight AWS Doc](https://github.com/backstage/backstage/blob/master/plugins/cost-insights/contrib/aws-cost-explorer-api.md)
+as a guide.
+   * Implement the [CostInsightApi](https://github.com/backstage/backstage/blob/master/plugins/cost-insights/src/api/CostInsightsApi.ts) as stubs that return static data and test with plugin
+   * Integrate with [AWS Billing and Cost Management API](https://docs.aws.amazon.com/aws-cost-anagement/latest/APIReference/API_GetCostAndUsage.html) and test with plugin
+
 
 ## Getting Started
 
@@ -51,3 +64,12 @@ Give an example
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/seizadi/aws-cost/tags).
+
+## Testing
+
+```bash
+curl http://localhost:8080/aws-cost/v1/version
+
+curl http://localhost:8080/aws-cost/v1/get_last_complete_billing_date
+
+```

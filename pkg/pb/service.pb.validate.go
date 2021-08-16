@@ -102,3 +102,148 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = VersionResponseValidationError{}
+
+// Validate checks the field values on ProductInsightsOptions with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *ProductInsightsOptions) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Product
+
+	// no validation rules for Group
+
+	// no validation rules for Intervals
+
+	// no validation rules for Project
+
+	return nil
+}
+
+// ProductInsightsOptionsValidationError is the validation error returned by
+// ProductInsightsOptions.Validate if the designated constraints aren't met.
+type ProductInsightsOptionsValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ProductInsightsOptionsValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ProductInsightsOptionsValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ProductInsightsOptionsValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ProductInsightsOptionsValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ProductInsightsOptionsValidationError) ErrorName() string {
+	return "ProductInsightsOptionsValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ProductInsightsOptionsValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sProductInsightsOptions.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ProductInsightsOptionsValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ProductInsightsOptionsValidationError{}
+
+// Validate checks the field values on LastCompleteBillingDateResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *LastCompleteBillingDateResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Date
+
+	return nil
+}
+
+// LastCompleteBillingDateResponseValidationError is the validation error
+// returned by LastCompleteBillingDateResponse.Validate if the designated
+// constraints aren't met.
+type LastCompleteBillingDateResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e LastCompleteBillingDateResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e LastCompleteBillingDateResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e LastCompleteBillingDateResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e LastCompleteBillingDateResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e LastCompleteBillingDateResponseValidationError) ErrorName() string {
+	return "LastCompleteBillingDateResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e LastCompleteBillingDateResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sLastCompleteBillingDateResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = LastCompleteBillingDateResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = LastCompleteBillingDateResponseValidationError{}

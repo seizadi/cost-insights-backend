@@ -8,19 +8,18 @@ import (
 	"net/http"
 	"strings"
 	"time"
-
+	
 	"github.com/golang/protobuf/proto"
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
-	"github.com/seizadi/aws-cost/pkg/pb"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
-
+	
 	"github.com/infobloxopen/atlas-app-toolkit/gateway"
 	"github.com/infobloxopen/atlas-app-toolkit/server"
-
+	
 	"github.com/infobloxopen/atlas-app-toolkit/gorm/resource"
 	"github.com/infobloxopen/atlas-app-toolkit/health"
 )
@@ -107,7 +106,7 @@ func ServeExternal(logger *logrus.Logger) error {
 				runtime.WithIncomingHeaderMatcher(gateway.AtlasDefaultHeaderMatcher()),
 			),
 			gateway.WithServerAddress(fmt.Sprintf("%s:%s", viper.GetString("server.address"), viper.GetString("server.port"))),
-			gateway.WithEndpointRegistration(viper.GetString("gateway.endpoint"), pb.RegisterAwsCostHandlerFromEndpoint),
+			RegisterGatewayEndpoints(),
 		),
 		server.WithHandler("/swagger/", NewSwaggerHandler(viper.GetString("gateway.swaggerFile"))),
 	)

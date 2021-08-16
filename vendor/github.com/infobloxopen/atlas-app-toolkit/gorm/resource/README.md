@@ -131,7 +131,7 @@ func main() {
 
 ## How to customize name of my PB type?
 
-Implement `Namer` interface (`ResourceName() string` function) or add `XXX_MessageName() string` method to you PB type. See [Name](resource.go) function.
+Add `XXX_MessageName() string` method to you PB type. See [Name](resource.go) function.
 
 ## I want to validate/generate atlas.rpc.Identifier for PB types in my application
 

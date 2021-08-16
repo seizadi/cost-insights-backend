@@ -357,7 +357,7 @@ import (
 
 func main() {
     // create error handler option
-    errHandler := runtime.WithErrorHandler(gateway.DefaultProtoErrorHandler)
+    errHandler := runtime.WithProtoErrorHandler(gateway.DefaultProtoErrorHandler)
 
     // pass that option as a parameter
     mux := runtime.NewServeMux(errHandler)
