@@ -1,4 +1,4 @@
-# aws-cost
+# cost-insight-backend
 
 We want to build a Cost Explorer into the Backstage Dev Portal, the 
 [Backstage Cost Insight Plugin](https://backstage.io/blog/2020/10/22/cost-insights-plugin) will be the
@@ -63,23 +63,23 @@ Give an example
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/seizadi/aws-cost/tags).
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/seizadi/cost-insight-backend/tags).
 
 ## Testing
 
 ```bash
-curl http://localhost:8080/aws-cost/v1/version
-curl http://localhost:8080/aws-cost/v1/last_complete_billing_date
-curl http://localhost:8080/aws-cost/v1/user_groups
-curl http://localhost:8080/aws-cost/v1/user_groups?user_id=some_id
-curl http://localhost:8080/aws-cost/v1/group_projects
-curl http://localhost:8080/aws-cost/v1/group_projects?group=group_id
-curl http://localhost:8080/aws-cost/v1/daily_metric_data?intervals="R2/P30D/2020-09-01"
-curl http://localhost:8080/aws-cost/v1/group_daily_cost?group=group_id&intervals="R2/P30D/2020-09-01"
-curl http://localhost:8080/aws-cost/v1/product_insights?product=computeEngine&intervals="R2/P30D/2020-09-01"
-curl http://localhost:8080/aws-cost/v1/product_insights?product=cloudDataflow&intervals="R2/P30D/2020-09-01"
-curl http://localhost:8080/aws-cost/v1/product_insights?product=cloudStorage&intervals="R2/P30D/2020-09-01"
-curl http://localhost:8080/aws-cost/v1/product_insights?product=bigQuery&intervals="R2/P30D/2020-09-01"
-curl http://localhost:8080/aws-cost/v1/product_insights?product=events&intervals="R2/P30D/2020-09-01"
-curl http://localhost:8080/aws-cost/v1/alerts?group=group_id | jq
+curl http://localhost:8080/cost-insight-backend/v1/version
+curl http://localhost:8080/cost-insight-backend/v1/last_complete_billing_date
+curl http://localhost:8080/cost-insight-backend/v1/user_groups
+curl http://localhost:8080/cost-insight-backend/v1/user_groups?user_id=some_id
+curl http://localhost:8080/cost-insight-backend/v1/group_projects
+curl http://localhost:8080/cost-insight-backend/v1/group_projects?group=group_id
+curl http://localhost:8080/cost-insight-backend/v1/daily_metric_data?intervals="R2/P30D/2020-09-01"
+curl http://localhost:8080/cost-insight-backend/v1/group_daily_cost?group=group_id&intervals="R2/P30D/2020-09-01"
+curl http://localhost:8080/cost-insight-backend/v1/product_insights?product=computeEngine&intervals="R2/P30D/2020-09-01"
+curl http://localhost:8080/cost-insight-backend/v1/product_insights?product=cloudDataflow&intervals="R2/P30D/2020-09-01"
+curl http://localhost:8080/cost-insight-backend/v1/product_insights?product=cloudStorage&intervals="R2/P30D/2020-09-01"
+curl http://localhost:8080/cost-insight-backend/v1/product_insights?product=bigQuery&intervals="R2/P30D/2020-09-01"
+curl http://localhost:8080/cost-insight-backend/v1/product_insights?product=events&intervals="R2/P30D/2020-09-01"
+curl http://localhost:8080/cost-insight-backend/v1/alerts?group=group_id
 ```

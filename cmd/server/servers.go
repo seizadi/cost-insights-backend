@@ -9,8 +9,8 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/keepalive"
 	
-	"github.com/seizadi/aws-cost/pkg/pb"
-	"github.com/seizadi/aws-cost/pkg/svc"
+	"github.com/seizadi/cost-insight-backend/pkg/pb"
+	"github.com/seizadi/cost-insight-backend/pkg/svc"
 )
 
 func CreateServer(logger *logrus.Logger, interceptors []grpc.UnaryServerInterceptor) (*grpc.Server, error) {

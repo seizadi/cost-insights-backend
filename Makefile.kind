@@ -54,15 +54,15 @@ kind-redis: helm-install kind-dapr create-namespace
 	rm kind/redis.yaml; else \
 	echo "dapr-component is already installed"; fi
 
-kind-deploy: kind-deploy-aws-cost
+kind-deploy: kind-deploy-cost-insight-backend
 
 create-deployment: helm-install .id
-	@$(HELM) template aws-cost helm/aws-cost \
+	@$(HELM) template cost-insight-backend helm/cost-insight-backend \
 		--wait --namespace $(TARGET_NAMESPACE) \
 		--set image.tag=$(IMAGE_VERSION)$(shell $(DOCKERCREDS)) \
-		-f helm/aws-cost/minikube-values.yaml > deploy-$(IMAGE_NAME).yaml
+		-f helm/cost-insight-backend/minikube-values.yaml > deploy-$(IMAGE_NAME).yaml
 
-deploy-aws-cost: create-namespace create-deployment
+deploy-cost-insight-backend: create-namespace create-deployment
 	@$(KUBECTL) delete --ignore-not-found=true -f deploy-$(IMAGE_NAME).yaml
 	@$(KUBECTL) apply -f deploy-$(IMAGE_NAME).yaml
 	@rm -f deploy-$(IMAGE_NAME).yaml
@@ -120,7 +120,7 @@ kind-destroy: kind-download
 	@$(KIND) delete cluster --name ${KIND_NAME}
 
 kind-clean:
-	@rm -f .image-* aws-cost-*
+	@rm -f .image-* cost-insight-backend-*
 
 bin/kubectl:
 	@mkdir -p bin

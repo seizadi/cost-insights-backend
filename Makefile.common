@@ -41,7 +41,7 @@ WITH_GATEWAY  ?= false
 GO_MOD = go.mod
 
 
-CHART := aws-cost
+CHART := cost-insight-backend
 CHART_VERSION := $(IMAGE_VERSION)
 CHART_FILE := $(CHART)-$(CHART_VERSION).tgz
 
@@ -175,7 +175,7 @@ helm-install: helm-download
 
 .PHONY: helm-delete
 helm-delete: helm-download
-	$(HELM) delete --purge aws-cost
+	$(HELM) delete --purge cost-insight-backend
 
 .PHONY: clean-chart
 clean-chart:

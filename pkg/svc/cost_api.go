@@ -7,9 +7,9 @@ import (
 	
 	"github.com/golang/protobuf/ptypes/empty"
 	
-	"github.com/seizadi/aws-cost/pkg/pb"
-	"github.com/seizadi/aws-cost/pkg/types"
-	"github.com/seizadi/aws-cost/pkg/utils"
+	"github.com/seizadi/cost-insight-backend/pkg/pb"
+	"github.com/seizadi/cost-insight-backend/pkg/types"
+	"github.com/seizadi/cost-insight-backend/pkg/utils"
 )
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

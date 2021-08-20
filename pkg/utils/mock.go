@@ -3,8 +3,8 @@ package utils
 import (
 	"time"
 	
-	"github.com/seizadi/aws-cost/pkg/pb"
-	"github.com/seizadi/aws-cost/pkg/types"
+	"github.com/seizadi/cost-insight-backend/pkg/pb"
+	"github.com/seizadi/cost-insight-backend/pkg/types"
 )
 
 func MockComputeEngineInsights() *pb.Entity {

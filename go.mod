@@ -1,4 +1,4 @@
-module github.com/seizadi/aws-cost
+module github.com/seizadi/cost-insight-backend
 
 go 1.16
 

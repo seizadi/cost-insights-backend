@@ -11,7 +11,7 @@
   ],
   "swagger": "2.0",
   "info": {
-    "title": "github.com/seizadi/aws-cost/pkg/pb/service.proto",
+    "title": "github.com/seizadi/cost-insight-backend/pkg/pb/service.proto",
     "version": "version not set"
   },
   "paths": {

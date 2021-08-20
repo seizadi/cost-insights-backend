@@ -3,7 +3,7 @@ import (
 	"github.com/infobloxopen/atlas-app-toolkit/gateway"
 	"github.com/spf13/viper"
 	
-	"github.com/seizadi/aws-cost/pkg/pb"
+	"github.com/seizadi/cost-insight-backend/pkg/pb"
 )
 
 func RegisterGatewayEndpoints() gateway.Option {

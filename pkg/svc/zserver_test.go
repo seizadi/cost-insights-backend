@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/golang/protobuf/ptypes/empty"
-	"github.com/seizadi/aws-cost/pkg/pb"
+	"github.com/seizadi/cost-insight-backend/pkg/pb"
 )
 
 func TestGetVersion(t *testing.T) {
