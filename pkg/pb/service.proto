@@ -45,35 +45,6 @@ service AwsCost {
 
 }
 
-// export type ProductInsightsOptions = {
-//   /**
-//    * The product from the cost-insights configuration in app-config.yaml
-//    */
-//   product: string;
-//
-//   /**
-//    * The group id from getUserGroups or query parameters
-//    */
-//   group: string;
-//
-//   /**
-//    * An ISO 8601 repeating interval string, such as R2/P3M/2020-09-01
-//    */
-//   intervals: string;
-//
-//   /**
-//    * (optional) The project id from getGroupProjects or query parameters
-//    */
-//   project: Maybe<string>;
-// };
-
-message ProductInsightsOptions {
-	string product = 1;
-	string group = 2;
-	string intervals = 3;
-	string project = 4;
-}
-
 // export type CostInsightsApi = {
 //   /**
 //    * Get the most current date for which billing data is complete, in YYYY-MM-DD format. This helps
@@ -173,17 +144,210 @@ message ProductInsightsOptions {
 //   getAlerts(group: string): Promise<Alert[]>;
 // };
 
-// TODO: Structure your own protobuf messages. Each protocol buffer message is a
-// small logical record of information, containing a series of name-value pairs.
 message LastCompleteBillingDateResponse {
   string date = 1;
+}
+
+message Group {
+  string id = 1;
+}
+
+message UserGroupsRequest {
+  string user_id = 1;
+}
+
+message UserGroupsResponse {
+  repeated Group groups = 1;
+}
+
+message Project {
+  string id = 1;
+  string name = 2;
+}
+
+message GroupProjectsRequest {
+  string group = 1;
+}
+
+message GroupProjectsResponse {
+  repeated Project projects = 1;
+}
+
+message DateAggregation {
+  string date = 1; // YYYY-MM-DD
+  int32 amount = 2;
+}
+
+message ChangeStatistic {
+  // The ratio of change from one duration to another, expressed as: (newSum - oldSum) / oldSum
+  // If a ratio cannot be calculated - such as when a new or old sum is zero,
+  // the ratio can be omitted and where applicable, ∞ or -∞ will display based on amount.
+  float ratio = 1;
+  // The actual USD change between time periods (can be negative if costs decreased)
+  int32 amount = 2;
+}
+message Trendline {
+  float slope = 1;
+  float intercept = 2;
+}
+
+message ProductCost {
+  string id = 1;
+  repeated DateAggregation aggregation = 2;
+}
+
+message ProjectCost {
+  string id = 1;
+  repeated DateAggregation aggregation = 2;
+}
+
+message GroupedCosts {
+  repeated ProductCost product = 1;
+  repeated ProjectCost project = 2;
+}
+
+message GroupDailyCostRequest {
+  string group = 1;
+  string intervals = 2;
+}
+
+message GroupDailyCostResponse {
+  string id = 1;
+  string format = 2; // 'number' | 'currency'
+  repeated DateAggregation aggregation = 3;
+  ChangeStatistic change = 4;
+  Trendline trendline = 5;
+  GroupedCosts grouped_costs = 6;
+}
+
+message ProjectDailyCostRequest {
+  string project = 1;
+  string intervals = 2;
+}
+
+message ProjectDailyCostResponse {
+  string id = 1;
+  string format = 2; // 'number' | 'currency'
+  repeated DateAggregation aggregation = 3;
+  ChangeStatistic change = 4;
+  Trendline trendline = 5;
+  GroupedCosts grouped_costs = 6;
+}
+
+message DailyMetricDataRequest {
+  string metric = 1;
+  string intervals = 2;
+}
+
+message DailyMetricDataResponse {
+  string id = 1;
+  string format = 2; // 'number' | 'currency'
+  repeated DateAggregation aggregation = 3;
+  ChangeStatistic change = 4;
+  Trendline trendline = 5;
+}
+
+message ProductInsightsRequest {
+  // The product from the cost-insights configuration in app-config.yaml
+  string product = 1;
+
+  // The group id from getUserGroups or query parameters
+  string group = 2;
+
+  // An ISO 8601 repeating interval string, such as R2/P3M/2020-09-01
+  string intervals = 3;
+
+  // (optional) The project id from getGroupProjects or query parameters
+  string project = 4;
+}
+
+message Record {
+  repeated Entity event = 1;
+  repeated Entity service = 2;
+  repeated Entity deployment = 3;
+  repeated Entity SKU = 4;
+  repeated Entity bucket = 5;
+  repeated Entity pipeline = 6;
+  repeated Entity dataset = 7;
+  repeated Entity product = 8;
+}
+
+// TODO - Eliminate camel-case paramters
+message Entity {
+  string id = 1;
+  repeated int32 aggregation = 2;
+  Record entities = 3;
+  ChangeStatistic change = 4;
+  string startDate = 5;
+  string endDate = 6;
+  string project = 7;
+  string periodStart = 8;
+  string periodEnd = 9;
+  int32 labeledCost = 10;
+  int32 unlabeledCost = 11;
+  repeated Entity projects = 12;
+  repeated Entity products = 13;
+  repeated Entity services = 14;
+
+}
+
+message AlertRequest {
+  string group = 1;
+}
+
+message AlertResponse {
+  repeated Entity alerts = 1;
 }
 
 service CostInsightsApi {
   rpc GetLastCompleteBillingDate (google.protobuf.Empty) returns (LastCompleteBillingDateResponse) {
     option (google.api.http) = {
-      get: "/get_last_complete_billing_date"
+      get: "/last_complete_billing_date"
     };
   }
 
+	rpc GetUserGroups (UserGroupsRequest) returns (UserGroupsResponse) {
+	  option (google.api.http) = {
+	    get: "/user_groups"
+	  };
+	}
+
+  rpc GetGroupProjects (GroupProjectsRequest) returns (GroupProjectsResponse) {
+    option (google.api.http) = {
+      get: "/group_projects"
+    };
+  }
+
+  rpc GetDailyMetricData (DailyMetricDataRequest) returns (DailyMetricDataResponse) {
+    option (google.api.http) = {
+      get: "/daily_metric_data"
+    };
+  }
+
+  rpc GetGroupDailyCost (GroupDailyCostRequest) returns (GroupDailyCostResponse) {
+    option (google.api.http) = {
+      get: "/group_daily_cost"
+    };
+  }
+
+  rpc GetProductInsights (ProductInsightsRequest) returns (Entity) {
+    option (google.api.http) = {
+      get: "/product_insights"
+    };
+  }
+
+  rpc GetProjectDailyCost (ProjectDailyCostRequest) returns (ProjectDailyCostResponse) {
+    option (google.api.http) = {
+      get: "/project_daily_cost"
+    };
+  }
+
+  rpc GetAlerts (AlertRequest) returns (AlertResponse) {
+    option (google.api.http) = {
+      get: "/alerts"
+    };
+  }
 }
+
+
+

@@ -67,71 +67,6 @@ func (m *VersionResponse) GetVersion() string {
 	return ""
 }
 
-type ProductInsightsOptions struct {
-	Product              string   `protobuf:"bytes,1,opt,name=product,proto3" json:"product,omitempty"`
-	Group                string   `protobuf:"bytes,2,opt,name=group,proto3" json:"group,omitempty"`
-	Intervals            string   `protobuf:"bytes,3,opt,name=intervals,proto3" json:"intervals,omitempty"`
-	Project              string   `protobuf:"bytes,4,opt,name=project,proto3" json:"project,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *ProductInsightsOptions) Reset()         { *m = ProductInsightsOptions{} }
-func (m *ProductInsightsOptions) String() string { return proto.CompactTextString(m) }
-func (*ProductInsightsOptions) ProtoMessage()    {}
-func (*ProductInsightsOptions) Descriptor() ([]byte, []int) {
-	return fileDescriptor_32bf3e45ff3a1a40, []int{1}
-}
-
-func (m *ProductInsightsOptions) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ProductInsightsOptions.Unmarshal(m, b)
-}
-func (m *ProductInsightsOptions) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ProductInsightsOptions.Marshal(b, m, deterministic)
-}
-func (m *ProductInsightsOptions) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ProductInsightsOptions.Merge(m, src)
-}
-func (m *ProductInsightsOptions) XXX_Size() int {
-	return xxx_messageInfo_ProductInsightsOptions.Size(m)
-}
-func (m *ProductInsightsOptions) XXX_DiscardUnknown() {
-	xxx_messageInfo_ProductInsightsOptions.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ProductInsightsOptions proto.InternalMessageInfo
-
-func (m *ProductInsightsOptions) GetProduct() string {
-	if m != nil {
-		return m.Product
-	}
-	return ""
-}
-
-func (m *ProductInsightsOptions) GetGroup() string {
-	if m != nil {
-		return m.Group
-	}
-	return ""
-}
-
-func (m *ProductInsightsOptions) GetIntervals() string {
-	if m != nil {
-		return m.Intervals
-	}
-	return ""
-}
-
-func (m *ProductInsightsOptions) GetProject() string {
-	if m != nil {
-		return m.Project
-	}
-	return ""
-}
-
-// TODO: Structure your own protobuf messages. Each protocol buffer message is a
-// small logical record of information, containing a series of name-value pairs.
 type LastCompleteBillingDateResponse struct {
 	Date                 string   `protobuf:"bytes,1,opt,name=date,proto3" json:"date,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -143,7 +78,7 @@ func (m *LastCompleteBillingDateResponse) Reset()         { *m = LastCompleteBil
 func (m *LastCompleteBillingDateResponse) String() string { return proto.CompactTextString(m) }
 func (*LastCompleteBillingDateResponse) ProtoMessage()    {}
 func (*LastCompleteBillingDateResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_32bf3e45ff3a1a40, []int{2}
+	return fileDescriptor_32bf3e45ff3a1a40, []int{1}
 }
 
 func (m *LastCompleteBillingDateResponse) XXX_Unmarshal(b []byte) error {
@@ -171,10 +106,1316 @@ func (m *LastCompleteBillingDateResponse) GetDate() string {
 	return ""
 }
 
+type Group struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Group) Reset()         { *m = Group{} }
+func (m *Group) String() string { return proto.CompactTextString(m) }
+func (*Group) ProtoMessage()    {}
+func (*Group) Descriptor() ([]byte, []int) {
+	return fileDescriptor_32bf3e45ff3a1a40, []int{2}
+}
+
+func (m *Group) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Group.Unmarshal(m, b)
+}
+func (m *Group) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Group.Marshal(b, m, deterministic)
+}
+func (m *Group) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Group.Merge(m, src)
+}
+func (m *Group) XXX_Size() int {
+	return xxx_messageInfo_Group.Size(m)
+}
+func (m *Group) XXX_DiscardUnknown() {
+	xxx_messageInfo_Group.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Group proto.InternalMessageInfo
+
+func (m *Group) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+type UserGroupsRequest struct {
+	UserId               string   `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *UserGroupsRequest) Reset()         { *m = UserGroupsRequest{} }
+func (m *UserGroupsRequest) String() string { return proto.CompactTextString(m) }
+func (*UserGroupsRequest) ProtoMessage()    {}
+func (*UserGroupsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_32bf3e45ff3a1a40, []int{3}
+}
+
+func (m *UserGroupsRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UserGroupsRequest.Unmarshal(m, b)
+}
+func (m *UserGroupsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UserGroupsRequest.Marshal(b, m, deterministic)
+}
+func (m *UserGroupsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UserGroupsRequest.Merge(m, src)
+}
+func (m *UserGroupsRequest) XXX_Size() int {
+	return xxx_messageInfo_UserGroupsRequest.Size(m)
+}
+func (m *UserGroupsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_UserGroupsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UserGroupsRequest proto.InternalMessageInfo
+
+func (m *UserGroupsRequest) GetUserId() string {
+	if m != nil {
+		return m.UserId
+	}
+	return ""
+}
+
+type UserGroupsResponse struct {
+	Groups               []*Group `protobuf:"bytes,1,rep,name=groups,proto3" json:"groups,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *UserGroupsResponse) Reset()         { *m = UserGroupsResponse{} }
+func (m *UserGroupsResponse) String() string { return proto.CompactTextString(m) }
+func (*UserGroupsResponse) ProtoMessage()    {}
+func (*UserGroupsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_32bf3e45ff3a1a40, []int{4}
+}
+
+func (m *UserGroupsResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UserGroupsResponse.Unmarshal(m, b)
+}
+func (m *UserGroupsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UserGroupsResponse.Marshal(b, m, deterministic)
+}
+func (m *UserGroupsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UserGroupsResponse.Merge(m, src)
+}
+func (m *UserGroupsResponse) XXX_Size() int {
+	return xxx_messageInfo_UserGroupsResponse.Size(m)
+}
+func (m *UserGroupsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_UserGroupsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UserGroupsResponse proto.InternalMessageInfo
+
+func (m *UserGroupsResponse) GetGroups() []*Group {
+	if m != nil {
+		return m.Groups
+	}
+	return nil
+}
+
+type Project struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name                 string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Project) Reset()         { *m = Project{} }
+func (m *Project) String() string { return proto.CompactTextString(m) }
+func (*Project) ProtoMessage()    {}
+func (*Project) Descriptor() ([]byte, []int) {
+	return fileDescriptor_32bf3e45ff3a1a40, []int{5}
+}
+
+func (m *Project) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Project.Unmarshal(m, b)
+}
+func (m *Project) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Project.Marshal(b, m, deterministic)
+}
+func (m *Project) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Project.Merge(m, src)
+}
+func (m *Project) XXX_Size() int {
+	return xxx_messageInfo_Project.Size(m)
+}
+func (m *Project) XXX_DiscardUnknown() {
+	xxx_messageInfo_Project.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Project proto.InternalMessageInfo
+
+func (m *Project) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *Project) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+type GroupProjectsRequest struct {
+	Group                string   `protobuf:"bytes,1,opt,name=group,proto3" json:"group,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GroupProjectsRequest) Reset()         { *m = GroupProjectsRequest{} }
+func (m *GroupProjectsRequest) String() string { return proto.CompactTextString(m) }
+func (*GroupProjectsRequest) ProtoMessage()    {}
+func (*GroupProjectsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_32bf3e45ff3a1a40, []int{6}
+}
+
+func (m *GroupProjectsRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GroupProjectsRequest.Unmarshal(m, b)
+}
+func (m *GroupProjectsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GroupProjectsRequest.Marshal(b, m, deterministic)
+}
+func (m *GroupProjectsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GroupProjectsRequest.Merge(m, src)
+}
+func (m *GroupProjectsRequest) XXX_Size() int {
+	return xxx_messageInfo_GroupProjectsRequest.Size(m)
+}
+func (m *GroupProjectsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GroupProjectsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GroupProjectsRequest proto.InternalMessageInfo
+
+func (m *GroupProjectsRequest) GetGroup() string {
+	if m != nil {
+		return m.Group
+	}
+	return ""
+}
+
+type GroupProjectsResponse struct {
+	Projects             []*Project `protobuf:"bytes,1,rep,name=projects,proto3" json:"projects,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
+	XXX_unrecognized     []byte     `json:"-"`
+	XXX_sizecache        int32      `json:"-"`
+}
+
+func (m *GroupProjectsResponse) Reset()         { *m = GroupProjectsResponse{} }
+func (m *GroupProjectsResponse) String() string { return proto.CompactTextString(m) }
+func (*GroupProjectsResponse) ProtoMessage()    {}
+func (*GroupProjectsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_32bf3e45ff3a1a40, []int{7}
+}
+
+func (m *GroupProjectsResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GroupProjectsResponse.Unmarshal(m, b)
+}
+func (m *GroupProjectsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GroupProjectsResponse.Marshal(b, m, deterministic)
+}
+func (m *GroupProjectsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GroupProjectsResponse.Merge(m, src)
+}
+func (m *GroupProjectsResponse) XXX_Size() int {
+	return xxx_messageInfo_GroupProjectsResponse.Size(m)
+}
+func (m *GroupProjectsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GroupProjectsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GroupProjectsResponse proto.InternalMessageInfo
+
+func (m *GroupProjectsResponse) GetProjects() []*Project {
+	if m != nil {
+		return m.Projects
+	}
+	return nil
+}
+
+type DateAggregation struct {
+	Date                 string   `protobuf:"bytes,1,opt,name=date,proto3" json:"date,omitempty"`
+	Amount               int32    `protobuf:"varint,2,opt,name=amount,proto3" json:"amount,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *DateAggregation) Reset()         { *m = DateAggregation{} }
+func (m *DateAggregation) String() string { return proto.CompactTextString(m) }
+func (*DateAggregation) ProtoMessage()    {}
+func (*DateAggregation) Descriptor() ([]byte, []int) {
+	return fileDescriptor_32bf3e45ff3a1a40, []int{8}
+}
+
+func (m *DateAggregation) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DateAggregation.Unmarshal(m, b)
+}
+func (m *DateAggregation) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DateAggregation.Marshal(b, m, deterministic)
+}
+func (m *DateAggregation) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DateAggregation.Merge(m, src)
+}
+func (m *DateAggregation) XXX_Size() int {
+	return xxx_messageInfo_DateAggregation.Size(m)
+}
+func (m *DateAggregation) XXX_DiscardUnknown() {
+	xxx_messageInfo_DateAggregation.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DateAggregation proto.InternalMessageInfo
+
+func (m *DateAggregation) GetDate() string {
+	if m != nil {
+		return m.Date
+	}
+	return ""
+}
+
+func (m *DateAggregation) GetAmount() int32 {
+	if m != nil {
+		return m.Amount
+	}
+	return 0
+}
+
+type ChangeStatistic struct {
+	// The ratio of change from one duration to another, expressed as: (newSum - oldSum) / oldSum
+	// If a ratio cannot be calculated - such as when a new or old sum is zero,
+	// the ratio can be omitted and where applicable, ∞ or -∞ will display based on amount.
+	Ratio float32 `protobuf:"fixed32,1,opt,name=ratio,proto3" json:"ratio,omitempty"`
+	// The actual USD change between time periods (can be negative if costs decreased)
+	Amount               int32    `protobuf:"varint,2,opt,name=amount,proto3" json:"amount,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ChangeStatistic) Reset()         { *m = ChangeStatistic{} }
+func (m *ChangeStatistic) String() string { return proto.CompactTextString(m) }
+func (*ChangeStatistic) ProtoMessage()    {}
+func (*ChangeStatistic) Descriptor() ([]byte, []int) {
+	return fileDescriptor_32bf3e45ff3a1a40, []int{9}
+}
+
+func (m *ChangeStatistic) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ChangeStatistic.Unmarshal(m, b)
+}
+func (m *ChangeStatistic) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ChangeStatistic.Marshal(b, m, deterministic)
+}
+func (m *ChangeStatistic) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ChangeStatistic.Merge(m, src)
+}
+func (m *ChangeStatistic) XXX_Size() int {
+	return xxx_messageInfo_ChangeStatistic.Size(m)
+}
+func (m *ChangeStatistic) XXX_DiscardUnknown() {
+	xxx_messageInfo_ChangeStatistic.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ChangeStatistic proto.InternalMessageInfo
+
+func (m *ChangeStatistic) GetRatio() float32 {
+	if m != nil {
+		return m.Ratio
+	}
+	return 0
+}
+
+func (m *ChangeStatistic) GetAmount() int32 {
+	if m != nil {
+		return m.Amount
+	}
+	return 0
+}
+
+type Trendline struct {
+	Slope                float32  `protobuf:"fixed32,1,opt,name=slope,proto3" json:"slope,omitempty"`
+	Intercept            float32  `protobuf:"fixed32,2,opt,name=intercept,proto3" json:"intercept,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Trendline) Reset()         { *m = Trendline{} }
+func (m *Trendline) String() string { return proto.CompactTextString(m) }
+func (*Trendline) ProtoMessage()    {}
+func (*Trendline) Descriptor() ([]byte, []int) {
+	return fileDescriptor_32bf3e45ff3a1a40, []int{10}
+}
+
+func (m *Trendline) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Trendline.Unmarshal(m, b)
+}
+func (m *Trendline) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Trendline.Marshal(b, m, deterministic)
+}
+func (m *Trendline) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Trendline.Merge(m, src)
+}
+func (m *Trendline) XXX_Size() int {
+	return xxx_messageInfo_Trendline.Size(m)
+}
+func (m *Trendline) XXX_DiscardUnknown() {
+	xxx_messageInfo_Trendline.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Trendline proto.InternalMessageInfo
+
+func (m *Trendline) GetSlope() float32 {
+	if m != nil {
+		return m.Slope
+	}
+	return 0
+}
+
+func (m *Trendline) GetIntercept() float32 {
+	if m != nil {
+		return m.Intercept
+	}
+	return 0
+}
+
+type ProductCost struct {
+	Id                   string             `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Aggregation          []*DateAggregation `protobuf:"bytes,2,rep,name=aggregation,proto3" json:"aggregation,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
+	XXX_unrecognized     []byte             `json:"-"`
+	XXX_sizecache        int32              `json:"-"`
+}
+
+func (m *ProductCost) Reset()         { *m = ProductCost{} }
+func (m *ProductCost) String() string { return proto.CompactTextString(m) }
+func (*ProductCost) ProtoMessage()    {}
+func (*ProductCost) Descriptor() ([]byte, []int) {
+	return fileDescriptor_32bf3e45ff3a1a40, []int{11}
+}
+
+func (m *ProductCost) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ProductCost.Unmarshal(m, b)
+}
+func (m *ProductCost) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ProductCost.Marshal(b, m, deterministic)
+}
+func (m *ProductCost) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ProductCost.Merge(m, src)
+}
+func (m *ProductCost) XXX_Size() int {
+	return xxx_messageInfo_ProductCost.Size(m)
+}
+func (m *ProductCost) XXX_DiscardUnknown() {
+	xxx_messageInfo_ProductCost.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ProductCost proto.InternalMessageInfo
+
+func (m *ProductCost) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *ProductCost) GetAggregation() []*DateAggregation {
+	if m != nil {
+		return m.Aggregation
+	}
+	return nil
+}
+
+type ProjectCost struct {
+	Id                   string             `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Aggregation          []*DateAggregation `protobuf:"bytes,2,rep,name=aggregation,proto3" json:"aggregation,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
+	XXX_unrecognized     []byte             `json:"-"`
+	XXX_sizecache        int32              `json:"-"`
+}
+
+func (m *ProjectCost) Reset()         { *m = ProjectCost{} }
+func (m *ProjectCost) String() string { return proto.CompactTextString(m) }
+func (*ProjectCost) ProtoMessage()    {}
+func (*ProjectCost) Descriptor() ([]byte, []int) {
+	return fileDescriptor_32bf3e45ff3a1a40, []int{12}
+}
+
+func (m *ProjectCost) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ProjectCost.Unmarshal(m, b)
+}
+func (m *ProjectCost) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ProjectCost.Marshal(b, m, deterministic)
+}
+func (m *ProjectCost) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ProjectCost.Merge(m, src)
+}
+func (m *ProjectCost) XXX_Size() int {
+	return xxx_messageInfo_ProjectCost.Size(m)
+}
+func (m *ProjectCost) XXX_DiscardUnknown() {
+	xxx_messageInfo_ProjectCost.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ProjectCost proto.InternalMessageInfo
+
+func (m *ProjectCost) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *ProjectCost) GetAggregation() []*DateAggregation {
+	if m != nil {
+		return m.Aggregation
+	}
+	return nil
+}
+
+type GroupedCosts struct {
+	Product              []*ProductCost `protobuf:"bytes,1,rep,name=product,proto3" json:"product,omitempty"`
+	Project              []*ProjectCost `protobuf:"bytes,2,rep,name=project,proto3" json:"project,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
+	XXX_unrecognized     []byte         `json:"-"`
+	XXX_sizecache        int32          `json:"-"`
+}
+
+func (m *GroupedCosts) Reset()         { *m = GroupedCosts{} }
+func (m *GroupedCosts) String() string { return proto.CompactTextString(m) }
+func (*GroupedCosts) ProtoMessage()    {}
+func (*GroupedCosts) Descriptor() ([]byte, []int) {
+	return fileDescriptor_32bf3e45ff3a1a40, []int{13}
+}
+
+func (m *GroupedCosts) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GroupedCosts.Unmarshal(m, b)
+}
+func (m *GroupedCosts) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GroupedCosts.Marshal(b, m, deterministic)
+}
+func (m *GroupedCosts) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GroupedCosts.Merge(m, src)
+}
+func (m *GroupedCosts) XXX_Size() int {
+	return xxx_messageInfo_GroupedCosts.Size(m)
+}
+func (m *GroupedCosts) XXX_DiscardUnknown() {
+	xxx_messageInfo_GroupedCosts.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GroupedCosts proto.InternalMessageInfo
+
+func (m *GroupedCosts) GetProduct() []*ProductCost {
+	if m != nil {
+		return m.Product
+	}
+	return nil
+}
+
+func (m *GroupedCosts) GetProject() []*ProjectCost {
+	if m != nil {
+		return m.Project
+	}
+	return nil
+}
+
+type GroupDailyCostRequest struct {
+	Group                string   `protobuf:"bytes,1,opt,name=group,proto3" json:"group,omitempty"`
+	Intervals            string   `protobuf:"bytes,2,opt,name=intervals,proto3" json:"intervals,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GroupDailyCostRequest) Reset()         { *m = GroupDailyCostRequest{} }
+func (m *GroupDailyCostRequest) String() string { return proto.CompactTextString(m) }
+func (*GroupDailyCostRequest) ProtoMessage()    {}
+func (*GroupDailyCostRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_32bf3e45ff3a1a40, []int{14}
+}
+
+func (m *GroupDailyCostRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GroupDailyCostRequest.Unmarshal(m, b)
+}
+func (m *GroupDailyCostRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GroupDailyCostRequest.Marshal(b, m, deterministic)
+}
+func (m *GroupDailyCostRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GroupDailyCostRequest.Merge(m, src)
+}
+func (m *GroupDailyCostRequest) XXX_Size() int {
+	return xxx_messageInfo_GroupDailyCostRequest.Size(m)
+}
+func (m *GroupDailyCostRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GroupDailyCostRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GroupDailyCostRequest proto.InternalMessageInfo
+
+func (m *GroupDailyCostRequest) GetGroup() string {
+	if m != nil {
+		return m.Group
+	}
+	return ""
+}
+
+func (m *GroupDailyCostRequest) GetIntervals() string {
+	if m != nil {
+		return m.Intervals
+	}
+	return ""
+}
+
+type GroupDailyCostResponse struct {
+	Id                   string             `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Format               string             `protobuf:"bytes,2,opt,name=format,proto3" json:"format,omitempty"`
+	Aggregation          []*DateAggregation `protobuf:"bytes,3,rep,name=aggregation,proto3" json:"aggregation,omitempty"`
+	Change               *ChangeStatistic   `protobuf:"bytes,4,opt,name=change,proto3" json:"change,omitempty"`
+	Trendline            *Trendline         `protobuf:"bytes,5,opt,name=trendline,proto3" json:"trendline,omitempty"`
+	GroupedCosts         *GroupedCosts      `protobuf:"bytes,6,opt,name=grouped_costs,json=groupedCosts,proto3" json:"grouped_costs,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
+	XXX_unrecognized     []byte             `json:"-"`
+	XXX_sizecache        int32              `json:"-"`
+}
+
+func (m *GroupDailyCostResponse) Reset()         { *m = GroupDailyCostResponse{} }
+func (m *GroupDailyCostResponse) String() string { return proto.CompactTextString(m) }
+func (*GroupDailyCostResponse) ProtoMessage()    {}
+func (*GroupDailyCostResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_32bf3e45ff3a1a40, []int{15}
+}
+
+func (m *GroupDailyCostResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GroupDailyCostResponse.Unmarshal(m, b)
+}
+func (m *GroupDailyCostResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GroupDailyCostResponse.Marshal(b, m, deterministic)
+}
+func (m *GroupDailyCostResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GroupDailyCostResponse.Merge(m, src)
+}
+func (m *GroupDailyCostResponse) XXX_Size() int {
+	return xxx_messageInfo_GroupDailyCostResponse.Size(m)
+}
+func (m *GroupDailyCostResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GroupDailyCostResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GroupDailyCostResponse proto.InternalMessageInfo
+
+func (m *GroupDailyCostResponse) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *GroupDailyCostResponse) GetFormat() string {
+	if m != nil {
+		return m.Format
+	}
+	return ""
+}
+
+func (m *GroupDailyCostResponse) GetAggregation() []*DateAggregation {
+	if m != nil {
+		return m.Aggregation
+	}
+	return nil
+}
+
+func (m *GroupDailyCostResponse) GetChange() *ChangeStatistic {
+	if m != nil {
+		return m.Change
+	}
+	return nil
+}
+
+func (m *GroupDailyCostResponse) GetTrendline() *Trendline {
+	if m != nil {
+		return m.Trendline
+	}
+	return nil
+}
+
+func (m *GroupDailyCostResponse) GetGroupedCosts() *GroupedCosts {
+	if m != nil {
+		return m.GroupedCosts
+	}
+	return nil
+}
+
+type ProjectDailyCostRequest struct {
+	Project              string   `protobuf:"bytes,1,opt,name=project,proto3" json:"project,omitempty"`
+	Intervals            string   `protobuf:"bytes,2,opt,name=intervals,proto3" json:"intervals,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ProjectDailyCostRequest) Reset()         { *m = ProjectDailyCostRequest{} }
+func (m *ProjectDailyCostRequest) String() string { return proto.CompactTextString(m) }
+func (*ProjectDailyCostRequest) ProtoMessage()    {}
+func (*ProjectDailyCostRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_32bf3e45ff3a1a40, []int{16}
+}
+
+func (m *ProjectDailyCostRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ProjectDailyCostRequest.Unmarshal(m, b)
+}
+func (m *ProjectDailyCostRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ProjectDailyCostRequest.Marshal(b, m, deterministic)
+}
+func (m *ProjectDailyCostRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ProjectDailyCostRequest.Merge(m, src)
+}
+func (m *ProjectDailyCostRequest) XXX_Size() int {
+	return xxx_messageInfo_ProjectDailyCostRequest.Size(m)
+}
+func (m *ProjectDailyCostRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ProjectDailyCostRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ProjectDailyCostRequest proto.InternalMessageInfo
+
+func (m *ProjectDailyCostRequest) GetProject() string {
+	if m != nil {
+		return m.Project
+	}
+	return ""
+}
+
+func (m *ProjectDailyCostRequest) GetIntervals() string {
+	if m != nil {
+		return m.Intervals
+	}
+	return ""
+}
+
+type ProjectDailyCostResponse struct {
+	Id                   string             `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Format               string             `protobuf:"bytes,2,opt,name=format,proto3" json:"format,omitempty"`
+	Aggregation          []*DateAggregation `protobuf:"bytes,3,rep,name=aggregation,proto3" json:"aggregation,omitempty"`
+	Change               *ChangeStatistic   `protobuf:"bytes,4,opt,name=change,proto3" json:"change,omitempty"`
+	Trendline            *Trendline         `protobuf:"bytes,5,opt,name=trendline,proto3" json:"trendline,omitempty"`
+	GroupedCosts         *GroupedCosts      `protobuf:"bytes,6,opt,name=grouped_costs,json=groupedCosts,proto3" json:"grouped_costs,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
+	XXX_unrecognized     []byte             `json:"-"`
+	XXX_sizecache        int32              `json:"-"`
+}
+
+func (m *ProjectDailyCostResponse) Reset()         { *m = ProjectDailyCostResponse{} }
+func (m *ProjectDailyCostResponse) String() string { return proto.CompactTextString(m) }
+func (*ProjectDailyCostResponse) ProtoMessage()    {}
+func (*ProjectDailyCostResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_32bf3e45ff3a1a40, []int{17}
+}
+
+func (m *ProjectDailyCostResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ProjectDailyCostResponse.Unmarshal(m, b)
+}
+func (m *ProjectDailyCostResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ProjectDailyCostResponse.Marshal(b, m, deterministic)
+}
+func (m *ProjectDailyCostResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ProjectDailyCostResponse.Merge(m, src)
+}
+func (m *ProjectDailyCostResponse) XXX_Size() int {
+	return xxx_messageInfo_ProjectDailyCostResponse.Size(m)
+}
+func (m *ProjectDailyCostResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_ProjectDailyCostResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ProjectDailyCostResponse proto.InternalMessageInfo
+
+func (m *ProjectDailyCostResponse) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *ProjectDailyCostResponse) GetFormat() string {
+	if m != nil {
+		return m.Format
+	}
+	return ""
+}
+
+func (m *ProjectDailyCostResponse) GetAggregation() []*DateAggregation {
+	if m != nil {
+		return m.Aggregation
+	}
+	return nil
+}
+
+func (m *ProjectDailyCostResponse) GetChange() *ChangeStatistic {
+	if m != nil {
+		return m.Change
+	}
+	return nil
+}
+
+func (m *ProjectDailyCostResponse) GetTrendline() *Trendline {
+	if m != nil {
+		return m.Trendline
+	}
+	return nil
+}
+
+func (m *ProjectDailyCostResponse) GetGroupedCosts() *GroupedCosts {
+	if m != nil {
+		return m.GroupedCosts
+	}
+	return nil
+}
+
+type DailyMetricDataRequest struct {
+	Metric               string   `protobuf:"bytes,1,opt,name=metric,proto3" json:"metric,omitempty"`
+	Intervals            string   `protobuf:"bytes,2,opt,name=intervals,proto3" json:"intervals,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *DailyMetricDataRequest) Reset()         { *m = DailyMetricDataRequest{} }
+func (m *DailyMetricDataRequest) String() string { return proto.CompactTextString(m) }
+func (*DailyMetricDataRequest) ProtoMessage()    {}
+func (*DailyMetricDataRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_32bf3e45ff3a1a40, []int{18}
+}
+
+func (m *DailyMetricDataRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DailyMetricDataRequest.Unmarshal(m, b)
+}
+func (m *DailyMetricDataRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DailyMetricDataRequest.Marshal(b, m, deterministic)
+}
+func (m *DailyMetricDataRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DailyMetricDataRequest.Merge(m, src)
+}
+func (m *DailyMetricDataRequest) XXX_Size() int {
+	return xxx_messageInfo_DailyMetricDataRequest.Size(m)
+}
+func (m *DailyMetricDataRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_DailyMetricDataRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DailyMetricDataRequest proto.InternalMessageInfo
+
+func (m *DailyMetricDataRequest) GetMetric() string {
+	if m != nil {
+		return m.Metric
+	}
+	return ""
+}
+
+func (m *DailyMetricDataRequest) GetIntervals() string {
+	if m != nil {
+		return m.Intervals
+	}
+	return ""
+}
+
+type DailyMetricDataResponse struct {
+	Id                   string             `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Format               string             `protobuf:"bytes,2,opt,name=format,proto3" json:"format,omitempty"`
+	Aggregation          []*DateAggregation `protobuf:"bytes,3,rep,name=aggregation,proto3" json:"aggregation,omitempty"`
+	Change               *ChangeStatistic   `protobuf:"bytes,4,opt,name=change,proto3" json:"change,omitempty"`
+	Trendline            *Trendline         `protobuf:"bytes,5,opt,name=trendline,proto3" json:"trendline,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
+	XXX_unrecognized     []byte             `json:"-"`
+	XXX_sizecache        int32              `json:"-"`
+}
+
+func (m *DailyMetricDataResponse) Reset()         { *m = DailyMetricDataResponse{} }
+func (m *DailyMetricDataResponse) String() string { return proto.CompactTextString(m) }
+func (*DailyMetricDataResponse) ProtoMessage()    {}
+func (*DailyMetricDataResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_32bf3e45ff3a1a40, []int{19}
+}
+
+func (m *DailyMetricDataResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DailyMetricDataResponse.Unmarshal(m, b)
+}
+func (m *DailyMetricDataResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DailyMetricDataResponse.Marshal(b, m, deterministic)
+}
+func (m *DailyMetricDataResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DailyMetricDataResponse.Merge(m, src)
+}
+func (m *DailyMetricDataResponse) XXX_Size() int {
+	return xxx_messageInfo_DailyMetricDataResponse.Size(m)
+}
+func (m *DailyMetricDataResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_DailyMetricDataResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DailyMetricDataResponse proto.InternalMessageInfo
+
+func (m *DailyMetricDataResponse) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *DailyMetricDataResponse) GetFormat() string {
+	if m != nil {
+		return m.Format
+	}
+	return ""
+}
+
+func (m *DailyMetricDataResponse) GetAggregation() []*DateAggregation {
+	if m != nil {
+		return m.Aggregation
+	}
+	return nil
+}
+
+func (m *DailyMetricDataResponse) GetChange() *ChangeStatistic {
+	if m != nil {
+		return m.Change
+	}
+	return nil
+}
+
+func (m *DailyMetricDataResponse) GetTrendline() *Trendline {
+	if m != nil {
+		return m.Trendline
+	}
+	return nil
+}
+
+type ProductInsightsRequest struct {
+	// The product from the cost-insights configuration in app-config.yaml
+	Product string `protobuf:"bytes,1,opt,name=product,proto3" json:"product,omitempty"`
+	// The group id from getUserGroups or query parameters
+	Group string `protobuf:"bytes,2,opt,name=group,proto3" json:"group,omitempty"`
+	// An ISO 8601 repeating interval string, such as R2/P3M/2020-09-01
+	Intervals string `protobuf:"bytes,3,opt,name=intervals,proto3" json:"intervals,omitempty"`
+	// (optional) The project id from getGroupProjects or query parameters
+	Project              string   `protobuf:"bytes,4,opt,name=project,proto3" json:"project,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ProductInsightsRequest) Reset()         { *m = ProductInsightsRequest{} }
+func (m *ProductInsightsRequest) String() string { return proto.CompactTextString(m) }
+func (*ProductInsightsRequest) ProtoMessage()    {}
+func (*ProductInsightsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_32bf3e45ff3a1a40, []int{20}
+}
+
+func (m *ProductInsightsRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ProductInsightsRequest.Unmarshal(m, b)
+}
+func (m *ProductInsightsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ProductInsightsRequest.Marshal(b, m, deterministic)
+}
+func (m *ProductInsightsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ProductInsightsRequest.Merge(m, src)
+}
+func (m *ProductInsightsRequest) XXX_Size() int {
+	return xxx_messageInfo_ProductInsightsRequest.Size(m)
+}
+func (m *ProductInsightsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ProductInsightsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ProductInsightsRequest proto.InternalMessageInfo
+
+func (m *ProductInsightsRequest) GetProduct() string {
+	if m != nil {
+		return m.Product
+	}
+	return ""
+}
+
+func (m *ProductInsightsRequest) GetGroup() string {
+	if m != nil {
+		return m.Group
+	}
+	return ""
+}
+
+func (m *ProductInsightsRequest) GetIntervals() string {
+	if m != nil {
+		return m.Intervals
+	}
+	return ""
+}
+
+func (m *ProductInsightsRequest) GetProject() string {
+	if m != nil {
+		return m.Project
+	}
+	return ""
+}
+
+// TODOD - Can maybe combine service and services also product and products
+// https://github.com/backstage/backstage/blob/master/plugins/cost-insights/src/example/client.ts#L189
+type Record struct {
+	Event                []*Entity `protobuf:"bytes,1,rep,name=event,proto3" json:"event,omitempty"`
+	Service              []*Entity `protobuf:"bytes,2,rep,name=service,proto3" json:"service,omitempty"`
+	Deployment           []*Entity `protobuf:"bytes,3,rep,name=deployment,proto3" json:"deployment,omitempty"`
+	SKU                  []*Entity `protobuf:"bytes,4,rep,name=SKU,proto3" json:"SKU,omitempty"`
+	Bucket               []*Entity `protobuf:"bytes,5,rep,name=bucket,proto3" json:"bucket,omitempty"`
+	Pipeline             []*Entity `protobuf:"bytes,6,rep,name=pipeline,proto3" json:"pipeline,omitempty"`
+	Dataset              []*Entity `protobuf:"bytes,7,rep,name=dataset,proto3" json:"dataset,omitempty"`
+	Product              []*Entity `protobuf:"bytes,8,rep,name=product,proto3" json:"product,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
+	XXX_unrecognized     []byte    `json:"-"`
+	XXX_sizecache        int32     `json:"-"`
+}
+
+func (m *Record) Reset()         { *m = Record{} }
+func (m *Record) String() string { return proto.CompactTextString(m) }
+func (*Record) ProtoMessage()    {}
+func (*Record) Descriptor() ([]byte, []int) {
+	return fileDescriptor_32bf3e45ff3a1a40, []int{21}
+}
+
+func (m *Record) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Record.Unmarshal(m, b)
+}
+func (m *Record) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Record.Marshal(b, m, deterministic)
+}
+func (m *Record) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Record.Merge(m, src)
+}
+func (m *Record) XXX_Size() int {
+	return xxx_messageInfo_Record.Size(m)
+}
+func (m *Record) XXX_DiscardUnknown() {
+	xxx_messageInfo_Record.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Record proto.InternalMessageInfo
+
+func (m *Record) GetEvent() []*Entity {
+	if m != nil {
+		return m.Event
+	}
+	return nil
+}
+
+func (m *Record) GetService() []*Entity {
+	if m != nil {
+		return m.Service
+	}
+	return nil
+}
+
+func (m *Record) GetDeployment() []*Entity {
+	if m != nil {
+		return m.Deployment
+	}
+	return nil
+}
+
+func (m *Record) GetSKU() []*Entity {
+	if m != nil {
+		return m.SKU
+	}
+	return nil
+}
+
+func (m *Record) GetBucket() []*Entity {
+	if m != nil {
+		return m.Bucket
+	}
+	return nil
+}
+
+func (m *Record) GetPipeline() []*Entity {
+	if m != nil {
+		return m.Pipeline
+	}
+	return nil
+}
+
+func (m *Record) GetDataset() []*Entity {
+	if m != nil {
+		return m.Dataset
+	}
+	return nil
+}
+
+func (m *Record) GetProduct() []*Entity {
+	if m != nil {
+		return m.Product
+	}
+	return nil
+}
+
+// TODO - Eliminate camel-case paramters
+type Entity struct {
+	Id                   string           `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Aggregation          []int32          `protobuf:"varint,2,rep,packed,name=aggregation,proto3" json:"aggregation,omitempty"`
+	Entities             *Record          `protobuf:"bytes,3,opt,name=entities,proto3" json:"entities,omitempty"`
+	Change               *ChangeStatistic `protobuf:"bytes,4,opt,name=change,proto3" json:"change,omitempty"`
+	StartDate            string           `protobuf:"bytes,5,opt,name=startDate,proto3" json:"startDate,omitempty"`
+	EndDate              string           `protobuf:"bytes,6,opt,name=endDate,proto3" json:"endDate,omitempty"`
+	Project              string           `protobuf:"bytes,7,opt,name=project,proto3" json:"project,omitempty"`
+	PeriodStart          string           `protobuf:"bytes,8,opt,name=periodStart,proto3" json:"periodStart,omitempty"`
+	PeriodEnd            string           `protobuf:"bytes,9,opt,name=periodEnd,proto3" json:"periodEnd,omitempty"`
+	LabeledCost          int32            `protobuf:"varint,10,opt,name=labeledCost,proto3" json:"labeledCost,omitempty"`
+	UnlabeledCost        int32            `protobuf:"varint,11,opt,name=unlabeledCost,proto3" json:"unlabeledCost,omitempty"`
+	Projects             []*Entity        `protobuf:"bytes,12,rep,name=projects,proto3" json:"projects,omitempty"`
+	Products             []*Entity        `protobuf:"bytes,13,rep,name=products,proto3" json:"products,omitempty"`
+	Services             []*Entity        `protobuf:"bytes,14,rep,name=services,proto3" json:"services,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
+	XXX_unrecognized     []byte           `json:"-"`
+	XXX_sizecache        int32            `json:"-"`
+}
+
+func (m *Entity) Reset()         { *m = Entity{} }
+func (m *Entity) String() string { return proto.CompactTextString(m) }
+func (*Entity) ProtoMessage()    {}
+func (*Entity) Descriptor() ([]byte, []int) {
+	return fileDescriptor_32bf3e45ff3a1a40, []int{22}
+}
+
+func (m *Entity) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Entity.Unmarshal(m, b)
+}
+func (m *Entity) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Entity.Marshal(b, m, deterministic)
+}
+func (m *Entity) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Entity.Merge(m, src)
+}
+func (m *Entity) XXX_Size() int {
+	return xxx_messageInfo_Entity.Size(m)
+}
+func (m *Entity) XXX_DiscardUnknown() {
+	xxx_messageInfo_Entity.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Entity proto.InternalMessageInfo
+
+func (m *Entity) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *Entity) GetAggregation() []int32 {
+	if m != nil {
+		return m.Aggregation
+	}
+	return nil
+}
+
+func (m *Entity) GetEntities() *Record {
+	if m != nil {
+		return m.Entities
+	}
+	return nil
+}
+
+func (m *Entity) GetChange() *ChangeStatistic {
+	if m != nil {
+		return m.Change
+	}
+	return nil
+}
+
+func (m *Entity) GetStartDate() string {
+	if m != nil {
+		return m.StartDate
+	}
+	return ""
+}
+
+func (m *Entity) GetEndDate() string {
+	if m != nil {
+		return m.EndDate
+	}
+	return ""
+}
+
+func (m *Entity) GetProject() string {
+	if m != nil {
+		return m.Project
+	}
+	return ""
+}
+
+func (m *Entity) GetPeriodStart() string {
+	if m != nil {
+		return m.PeriodStart
+	}
+	return ""
+}
+
+func (m *Entity) GetPeriodEnd() string {
+	if m != nil {
+		return m.PeriodEnd
+	}
+	return ""
+}
+
+func (m *Entity) GetLabeledCost() int32 {
+	if m != nil {
+		return m.LabeledCost
+	}
+	return 0
+}
+
+func (m *Entity) GetUnlabeledCost() int32 {
+	if m != nil {
+		return m.UnlabeledCost
+	}
+	return 0
+}
+
+func (m *Entity) GetProjects() []*Entity {
+	if m != nil {
+		return m.Projects
+	}
+	return nil
+}
+
+func (m *Entity) GetProducts() []*Entity {
+	if m != nil {
+		return m.Products
+	}
+	return nil
+}
+
+func (m *Entity) GetServices() []*Entity {
+	if m != nil {
+		return m.Services
+	}
+	return nil
+}
+
+type AlertRequest struct {
+	Group                string   `protobuf:"bytes,1,opt,name=group,proto3" json:"group,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AlertRequest) Reset()         { *m = AlertRequest{} }
+func (m *AlertRequest) String() string { return proto.CompactTextString(m) }
+func (*AlertRequest) ProtoMessage()    {}
+func (*AlertRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_32bf3e45ff3a1a40, []int{23}
+}
+
+func (m *AlertRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AlertRequest.Unmarshal(m, b)
+}
+func (m *AlertRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AlertRequest.Marshal(b, m, deterministic)
+}
+func (m *AlertRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AlertRequest.Merge(m, src)
+}
+func (m *AlertRequest) XXX_Size() int {
+	return xxx_messageInfo_AlertRequest.Size(m)
+}
+func (m *AlertRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_AlertRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AlertRequest proto.InternalMessageInfo
+
+func (m *AlertRequest) GetGroup() string {
+	if m != nil {
+		return m.Group
+	}
+	return ""
+}
+
+type AlertResponse struct {
+	Alerts               []*Entity `protobuf:"bytes,1,rep,name=alerts,proto3" json:"alerts,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
+	XXX_unrecognized     []byte    `json:"-"`
+	XXX_sizecache        int32     `json:"-"`
+}
+
+func (m *AlertResponse) Reset()         { *m = AlertResponse{} }
+func (m *AlertResponse) String() string { return proto.CompactTextString(m) }
+func (*AlertResponse) ProtoMessage()    {}
+func (*AlertResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_32bf3e45ff3a1a40, []int{24}
+}
+
+func (m *AlertResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AlertResponse.Unmarshal(m, b)
+}
+func (m *AlertResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AlertResponse.Marshal(b, m, deterministic)
+}
+func (m *AlertResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AlertResponse.Merge(m, src)
+}
+func (m *AlertResponse) XXX_Size() int {
+	return xxx_messageInfo_AlertResponse.Size(m)
+}
+func (m *AlertResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_AlertResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AlertResponse proto.InternalMessageInfo
+
+func (m *AlertResponse) GetAlerts() []*Entity {
+	if m != nil {
+		return m.Alerts
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*VersionResponse)(nil), "awscost.VersionResponse")
-	proto.RegisterType((*ProductInsightsOptions)(nil), "awscost.ProductInsightsOptions")
 	proto.RegisterType((*LastCompleteBillingDateResponse)(nil), "awscost.LastCompleteBillingDateResponse")
+	proto.RegisterType((*Group)(nil), "awscost.Group")
+	proto.RegisterType((*UserGroupsRequest)(nil), "awscost.UserGroupsRequest")
+	proto.RegisterType((*UserGroupsResponse)(nil), "awscost.UserGroupsResponse")
+	proto.RegisterType((*Project)(nil), "awscost.Project")
+	proto.RegisterType((*GroupProjectsRequest)(nil), "awscost.GroupProjectsRequest")
+	proto.RegisterType((*GroupProjectsResponse)(nil), "awscost.GroupProjectsResponse")
+	proto.RegisterType((*DateAggregation)(nil), "awscost.DateAggregation")
+	proto.RegisterType((*ChangeStatistic)(nil), "awscost.ChangeStatistic")
+	proto.RegisterType((*Trendline)(nil), "awscost.Trendline")
+	proto.RegisterType((*ProductCost)(nil), "awscost.ProductCost")
+	proto.RegisterType((*ProjectCost)(nil), "awscost.ProjectCost")
+	proto.RegisterType((*GroupedCosts)(nil), "awscost.GroupedCosts")
+	proto.RegisterType((*GroupDailyCostRequest)(nil), "awscost.GroupDailyCostRequest")
+	proto.RegisterType((*GroupDailyCostResponse)(nil), "awscost.GroupDailyCostResponse")
+	proto.RegisterType((*ProjectDailyCostRequest)(nil), "awscost.ProjectDailyCostRequest")
+	proto.RegisterType((*ProjectDailyCostResponse)(nil), "awscost.ProjectDailyCostResponse")
+	proto.RegisterType((*DailyMetricDataRequest)(nil), "awscost.DailyMetricDataRequest")
+	proto.RegisterType((*DailyMetricDataResponse)(nil), "awscost.DailyMetricDataResponse")
+	proto.RegisterType((*ProductInsightsRequest)(nil), "awscost.ProductInsightsRequest")
+	proto.RegisterType((*Record)(nil), "awscost.Record")
+	proto.RegisterType((*Entity)(nil), "awscost.Entity")
+	proto.RegisterType((*AlertRequest)(nil), "awscost.AlertRequest")
+	proto.RegisterType((*AlertResponse)(nil), "awscost.AlertResponse")
 }
 
 func init() {
@@ -182,34 +1423,92 @@ func init() {
 }
 
 var fileDescriptor_32bf3e45ff3a1a40 = []byte{
-	// 427 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x84, 0x52, 0xc1, 0x6a, 0x14, 0x41,
-	0x10, 0x65, 0x62, 0x74, 0x4d, 0x5f, 0x22, 0x8d, 0x84, 0x61, 0x0d, 0x44, 0x07, 0x24, 0x01, 0xdd,
-	0x69, 0x89, 0x78, 0xf2, 0xb4, 0x89, 0x12, 0x04, 0xc1, 0x90, 0x83, 0x07, 0x3d, 0x2c, 0x3d, 0xb3,
-	0x65, 0xa7, 0x75, 0xb6, 0xab, 0xe9, 0xaa, 0x9d, 0x75, 0x3d, 0x89, 0x17, 0x3f, 0xc0, 0xa3, 0x9f,
-	0xe5, 0x2f, 0xf8, 0x21, 0x32, 0xd3, 0xbd, 0x6b, 0x48, 0x08, 0xb9, 0x75, 0xd5, 0xab, 0x7a, 0xef,
-	0x55, 0x55, 0x8b, 0x67, 0xc6, 0xf2, 0xf9, 0xbc, 0x2a, 0x6b, 0x9c, 0x29, 0x02, 0xfb, 0x4d, 0x4f,
-	0xad, 0xd2, 0x0b, 0x1a, 0xd5, 0x48, 0xac, 0xfc, 0x17, 0xa3, 0x7c, 0xa5, 0x08, 0x42, 0x6b, 0x6b,
-	0x28, 0x7d, 0x40, 0x46, 0x39, 0xd0, 0x0b, 0xea, 0xd0, 0xe1, 0x03, 0x83, 0x68, 0x1a, 0x50, 0x7d,
-	0xba, 0x9a, 0x7f, 0x52, 0x30, 0xf3, 0xbc, 0x8c, 0x55, 0xc3, 0xdd, 0x04, 0x6a, 0x6f, 0x95, 0x76,
-	0x0e, 0x59, 0xb3, 0x45, 0x47, 0x09, 0x1d, 0x5f, 0x50, 0x05, 0xd7, 0xe2, 0xd2, 0x07, 0xfc, 0xba,
-	0x8c, 0x4c, 0xf5, 0xc8, 0x80, 0x1b, 0xb5, 0xba, 0xb1, 0x53, 0xcd, 0xa0, 0xae, 0x3c, 0x12, 0xc5,
-	0xd3, 0x0b, 0xc5, 0xb4, 0xd0, 0xc6, 0x40, 0x50, 0xe8, 0x7b, 0x91, 0xab, 0x82, 0xc5, 0x13, 0xb1,
-	0xfd, 0x1e, 0x02, 0x59, 0x74, 0x67, 0x40, 0x1e, 0x1d, 0x81, 0xcc, 0xc5, 0xa0, 0x8d, 0xa9, 0x3c,
-	0x7b, 0x98, 0x1d, 0x6c, 0x9d, 0xad, 0xc2, 0xe2, 0x7b, 0x26, 0x76, 0x4e, 0x03, 0x4e, 0xe7, 0x35,
-	0xbf, 0x71, 0x64, 0xcd, 0x39, 0xd3, 0xbb, 0xc8, 0xdc, 0x35, 0xf9, 0x88, 0xac, 0x9a, 0x52, 0x28,
-	0xef, 0x8b, 0xdb, 0x26, 0xe0, 0xdc, 0xe7, 0x1b, 0x7d, 0x3e, 0x06, 0x72, 0x57, 0x6c, 0x59, 0xc7,
-	0x10, 0x5a, 0xdd, 0x50, 0x7e, 0xab, 0x47, 0xfe, 0x27, 0x12, 0xdb, 0x67, 0xa8, 0x39, 0xdf, 0x5c,
-	0xb3, 0x75, 0x61, 0xf1, 0x42, 0xec, 0xbd, 0xd5, 0xc4, 0xc7, 0x38, 0xf3, 0x0d, 0x30, 0x1c, 0xd9,
-	0xa6, 0xb1, 0xce, 0xbc, 0xd2, 0x0c, 0x6b, 0xff, 0x52, 0x6c, 0x76, 0xeb, 0x48, 0x3e, 0xfa, 0xf7,
-	0xe1, 0x47, 0x31, 0x18, 0x2f, 0xe8, 0x18, 0x89, 0xe5, 0xa9, 0x10, 0x27, 0xc0, 0x69, 0x68, 0xb9,
-	0x53, 0xc6, 0x7b, 0x94, 0xab, 0x63, 0x95, 0xaf, 0xbb, 0x63, 0x0d, 0xf3, 0x32, 0x5d, 0xb3, 0xbc,
-	0xb4, 0x9e, 0xe2, 0xde, 0x8f, 0x3f, 0x7f, 0x7f, 0x6d, 0x08, 0x79, 0x57, 0xa5, 0xb5, 0x1c, 0xfe,
-	0xce, 0xc4, 0x76, 0x47, 0xbd, 0xda, 0xc9, 0xd8, 0x5b, 0xf9, 0x33, 0x13, 0xc3, 0x13, 0xe0, 0x6b,
-	0xbc, 0x5e, 0x2b, 0x7b, 0xb0, 0x96, 0xbd, 0x61, 0xca, 0x62, 0xbf, 0xb7, 0xf1, 0x48, 0xee, 0x29,
-	0x03, 0x3c, 0x69, 0x34, 0xf1, 0xa4, 0x4e, 0xe5, 0x93, 0x2a, 0xd6, 0x4f, 0xba, 0xd1, 0x8f, 0xf6,
-	0x3f, 0x3c, 0xbe, 0xf9, 0x2b, 0xbf, 0xf4, 0x55, 0x75, 0xa7, 0xf7, 0xf2, 0xfc, 0x5f, 0x00, 0x00,
-	0x00, 0xff, 0xff, 0x3a, 0x1c, 0x5d, 0xbf, 0xfa, 0x02, 0x00, 0x00,
+	// 1355 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x58, 0xcf, 0x8f, 0xdb, 0xc4,
+	0x17, 0x57, 0xb2, 0x1b, 0x67, 0xf3, 0xf6, 0x47, 0xba, 0xd3, 0x6d, 0xd6, 0xdf, 0x6c, 0xfb, 0x6d,
+	0x6a, 0x5a, 0x5a, 0xd4, 0xdd, 0xb8, 0x2a, 0x42, 0x42, 0x05, 0x84, 0xb6, 0xed, 0x2a, 0xaa, 0x0a,
+	0xa8, 0xb8, 0x14, 0x09, 0x90, 0x88, 0x26, 0xf6, 0xd4, 0x75, 0xeb, 0x78, 0x8c, 0x67, 0xb2, 0xcb,
+	0x72, 0x42, 0xf0, 0x27, 0x70, 0x45, 0xfc, 0x53, 0xdc, 0xb8, 0x21, 0xf1, 0x17, 0x70, 0xe4, 0x84,
+	0x66, 0xe6, 0xd9, 0x71, 0x9c, 0x64, 0x57, 0x20, 0x4e, 0x88, 0x5b, 0xe6, 0xbd, 0xcf, 0xfb, 0xfd,
+	0xfc, 0xe6, 0x4d, 0xe0, 0x4e, 0x18, 0xc9, 0x17, 0x93, 0x51, 0xdf, 0xe7, 0x63, 0x57, 0xb0, 0xe8,
+	0x1b, 0x1a, 0x44, 0x2e, 0x3d, 0x11, 0x07, 0x3e, 0x17, 0xd2, 0x4d, 0x5f, 0x85, 0x6e, 0x3a, 0x72,
+	0x05, 0xcb, 0x8e, 0x23, 0x9f, 0xf5, 0xd3, 0x8c, 0x4b, 0x4e, 0x9a, 0xf4, 0x44, 0x28, 0x6e, 0x77,
+	0x2f, 0xe4, 0x3c, 0x8c, 0x99, 0xab, 0xc9, 0xa3, 0xc9, 0x73, 0x97, 0x8d, 0x53, 0x79, 0x6a, 0x50,
+	0xdd, 0xcb, 0xc8, 0xa4, 0x69, 0xe4, 0xd2, 0x24, 0xe1, 0x92, 0xca, 0x88, 0x27, 0x02, 0xb9, 0x87,
+	0x25, 0xab, 0x2c, 0x39, 0xe6, 0xa7, 0x69, 0xc6, 0xbf, 0x3e, 0x35, 0x9a, 0xfc, 0x83, 0x90, 0x25,
+	0x07, 0xc7, 0x34, 0x8e, 0x02, 0x2a, 0x99, 0x3b, 0xf7, 0x03, 0x55, 0xec, 0x97, 0xc0, 0xe2, 0x84,
+	0x86, 0x21, 0xcb, 0x5c, 0x9e, 0x6a, 0x23, 0xf3, 0x06, 0x9d, 0xdb, 0xd0, 0xfe, 0x94, 0x65, 0x22,
+	0xe2, 0x89, 0xc7, 0x44, 0xca, 0x13, 0xc1, 0x88, 0x0d, 0xcd, 0x63, 0x43, 0xb2, 0x6b, 0xbd, 0xda,
+	0xad, 0x96, 0x97, 0x1f, 0x9d, 0xb7, 0xe0, 0xea, 0x07, 0x54, 0xc8, 0x07, 0x7c, 0x9c, 0xc6, 0x4c,
+	0xb2, 0xfb, 0x51, 0x1c, 0x47, 0x49, 0xf8, 0x90, 0x4a, 0x56, 0x08, 0x13, 0x58, 0x55, 0xbe, 0xa0,
+	0xa4, 0xfe, 0xed, 0xec, 0x42, 0x63, 0x90, 0xf1, 0x49, 0x4a, 0xb6, 0xa0, 0x1e, 0x05, 0xc8, 0xaa,
+	0x47, 0x81, 0xb3, 0x0f, 0xdb, 0xcf, 0x04, 0xcb, 0x34, 0x53, 0x78, 0xec, 0xab, 0x09, 0x13, 0x92,
+	0xec, 0x42, 0x73, 0x22, 0x58, 0x36, 0x2c, 0x90, 0x96, 0x3a, 0x3e, 0x0a, 0x9c, 0x77, 0x81, 0x94,
+	0xd1, 0x68, 0xf0, 0x75, 0xb0, 0x42, 0x4d, 0xb1, 0x6b, 0xbd, 0x95, 0x5b, 0xeb, 0x77, 0xb7, 0xfa,
+	0x58, 0x86, 0xbe, 0x06, 0x7a, 0xc8, 0x75, 0x0e, 0xa0, 0xf9, 0x24, 0xe3, 0x2f, 0x99, 0x2f, 0xab,
+	0x6e, 0x28, 0x9f, 0x13, 0x3a, 0x66, 0x76, 0xdd, 0xf8, 0xac, 0x7e, 0x3b, 0xfb, 0xb0, 0xa3, 0xe5,
+	0x51, 0xa6, 0xf0, 0x6e, 0x07, 0x1a, 0x5a, 0x21, 0x8a, 0x9b, 0x83, 0x73, 0x04, 0x97, 0x2a, 0x68,
+	0xf4, 0x6e, 0x1f, 0xd6, 0x52, 0xa4, 0xa1, 0x7f, 0x17, 0x0a, 0xff, 0x10, 0xec, 0x15, 0x08, 0xe7,
+	0x3d, 0x68, 0xab, 0x64, 0x1e, 0x86, 0x61, 0xc6, 0x42, 0x5d, 0xa6, 0x45, 0xf9, 0x24, 0x1d, 0xb0,
+	0xe8, 0x98, 0x4f, 0x12, 0xa9, 0x3d, 0x6e, 0x78, 0x78, 0x72, 0xde, 0x87, 0xf6, 0x83, 0x17, 0x34,
+	0x09, 0xd9, 0x53, 0x55, 0x63, 0x21, 0x23, 0x5f, 0xb9, 0x9b, 0x29, 0x45, 0x5a, 0xbe, 0xee, 0x99,
+	0xc3, 0x19, 0x0a, 0x5a, 0x9f, 0x64, 0x2c, 0x09, 0xe2, 0x28, 0x61, 0x4a, 0x54, 0xc4, 0x3c, 0x65,
+	0xb9, 0xa8, 0x3e, 0x90, 0xcb, 0xd0, 0x8a, 0x12, 0xc9, 0x32, 0x9f, 0xa5, 0x46, 0xba, 0xee, 0x4d,
+	0x09, 0xce, 0x67, 0xb0, 0xfe, 0x24, 0xe3, 0xc1, 0xc4, 0x97, 0x0f, 0xb8, 0x98, 0x4f, 0xf4, 0x3d,
+	0x58, 0xa7, 0xd3, 0xd8, 0xec, 0xba, 0x4e, 0x88, 0x5d, 0x24, 0xa4, 0x12, 0xbb, 0x57, 0x06, 0xa3,
+	0x6a, 0x95, 0xa7, 0x7f, 0x5c, 0x75, 0x02, 0x1b, 0xba, 0x7a, 0x2c, 0x50, 0xaa, 0x05, 0xe9, 0x43,
+	0x33, 0x35, 0x51, 0x60, 0xcd, 0x76, 0xca, 0x35, 0xcb, 0xa3, 0xf3, 0x72, 0x10, 0xe2, 0x95, 0x6b,
+	0x68, 0x77, 0xa7, 0x5a, 0xe3, 0x02, 0xaf, 0x0e, 0xce, 0x63, 0xec, 0x96, 0x87, 0x34, 0x8a, 0x4f,
+	0x35, 0xeb, 0xac, 0xe6, 0x2a, 0x52, 0x7e, 0x4c, 0x63, 0x81, 0x3d, 0x3a, 0x25, 0x38, 0x3f, 0xd6,
+	0xa1, 0x53, 0xd5, 0x86, 0xcd, 0x57, 0xcd, 0x51, 0x07, 0xac, 0xe7, 0x3c, 0x1b, 0x53, 0x89, 0x5a,
+	0xf0, 0x54, 0xcd, 0xdd, 0xca, 0x5f, 0xc8, 0x1d, 0xb9, 0x03, 0x96, 0xaf, 0x7b, 0xce, 0x5e, 0xed,
+	0xd5, 0x66, 0xc4, 0x2a, 0xad, 0xe8, 0x21, 0x8e, 0xdc, 0x81, 0x96, 0xcc, 0x9b, 0xcc, 0x6e, 0x68,
+	0x21, 0x52, 0x08, 0x15, 0xed, 0xe7, 0x4d, 0x41, 0xe4, 0x1e, 0x6c, 0x86, 0xa6, 0x3e, 0x43, 0x05,
+	0x12, 0xb6, 0xa5, 0xa5, 0x2e, 0xcd, 0x7e, 0xe9, 0x58, 0x3d, 0x6f, 0x23, 0x2c, 0x9d, 0x9c, 0x8f,
+	0x61, 0x17, 0x6b, 0x30, 0x97, 0x6d, 0x7b, 0x5a, 0x36, 0x9c, 0x73, 0x78, 0x3c, 0x27, 0xe3, 0x3f,
+	0xd5, 0xc1, 0x9e, 0xd7, 0xf9, 0x5f, 0xce, 0x8b, 0x9c, 0x7f, 0x04, 0x1d, 0x9d, 0x98, 0x0f, 0x99,
+	0xcc, 0x22, 0xff, 0x21, 0x95, 0x34, 0x4f, 0x79, 0x07, 0xac, 0xb1, 0x26, 0xe6, 0xa3, 0xdd, 0x9c,
+	0xce, 0x49, 0xf8, 0xaf, 0x35, 0xd8, 0x9d, 0x53, 0xf8, 0xef, 0xca, 0xb7, 0xf3, 0x6d, 0x0d, 0x3a,
+	0x38, 0x5c, 0x1e, 0x25, 0x22, 0x0a, 0x5f, 0x4c, 0xaf, 0x1c, 0xbb, 0x3c, 0x8e, 0xf2, 0x3e, 0xd5,
+	0x83, 0xa7, 0x98, 0x17, 0xf5, 0xa5, 0xf3, 0x62, 0xa5, 0x92, 0xcc, 0x72, 0xd7, 0xaf, 0xce, 0x74,
+	0xbd, 0xf3, 0x4b, 0x1d, 0x2c, 0x8f, 0xf9, 0x3c, 0x0b, 0xc8, 0x0d, 0x68, 0xb0, 0x63, 0x96, 0xe4,
+	0xf3, 0xaf, 0x5d, 0xf8, 0x7e, 0x94, 0xc8, 0x48, 0x9e, 0x7a, 0x86, 0x4b, 0xde, 0x80, 0x26, 0xae,
+	0x40, 0x38, 0xf8, 0xe6, 0x80, 0x39, 0x9f, 0xb8, 0x00, 0x01, 0x4b, 0x63, 0x7e, 0x3a, 0x56, 0x6a,
+	0x57, 0x16, 0xa3, 0x4b, 0x10, 0x72, 0x0d, 0x56, 0x9e, 0x3e, 0x7e, 0x66, 0xaf, 0x2e, 0x46, 0x2a,
+	0x1e, 0xb9, 0x09, 0xd6, 0x68, 0xe2, 0xbf, 0x62, 0xd2, 0x6e, 0x2c, 0x46, 0x21, 0x9b, 0xdc, 0x86,
+	0xb5, 0x34, 0x4a, 0x99, 0xae, 0x86, 0xb5, 0x18, 0x5a, 0x00, 0x54, 0x50, 0x01, 0x95, 0x54, 0x30,
+	0x69, 0x37, 0x97, 0x04, 0x85, 0x7c, 0x05, 0xcd, 0x2b, 0xb3, 0xb6, 0x04, 0x8a, 0x7c, 0xe7, 0x8f,
+	0x15, 0xb0, 0x0c, 0x6d, 0xae, 0x65, 0x7b, 0xf3, 0x57, 0x57, 0x63, 0xb6, 0x01, 0x6f, 0xc3, 0x1a,
+	0x53, 0xb2, 0x11, 0x33, 0x05, 0x2d, 0x1b, 0x32, 0x15, 0xf3, 0x0a, 0xc0, 0xdf, 0xe8, 0xd6, 0xcb,
+	0xd0, 0x12, 0x92, 0x66, 0x52, 0x7d, 0x04, 0xba, 0x5b, 0x5b, 0xde, 0x94, 0xa0, 0x1a, 0x86, 0x25,
+	0x81, 0xe6, 0x59, 0xa6, 0x61, 0xf0, 0x58, 0x6e, 0xa5, 0xe6, 0xec, 0x00, 0xed, 0xc1, 0x7a, 0xca,
+	0xb2, 0x88, 0x07, 0x4f, 0x95, 0x1a, 0x7b, 0x4d, 0x73, 0xcb, 0x24, 0x65, 0xd3, 0x1c, 0x8f, 0x92,
+	0xc0, 0x6e, 0x19, 0x9b, 0x05, 0x41, 0xc9, 0xc7, 0x74, 0xc4, 0x62, 0x33, 0x51, 0x6c, 0xd0, 0x5b,
+	0x4a, 0x99, 0x44, 0xae, 0xc3, 0xe6, 0x24, 0x29, 0x63, 0xd6, 0x35, 0x66, 0x96, 0xa8, 0x0b, 0x9f,
+	0xaf, 0x5f, 0x1b, 0xcb, 0x0a, 0x8f, 0x00, 0x04, 0xab, 0x6a, 0x09, 0x7b, 0x73, 0x39, 0x58, 0x03,
+	0x14, 0x18, 0x5b, 0x5b, 0xd8, 0x5b, 0x4b, 0xc0, 0x39, 0xc0, 0xb9, 0x0e, 0x1b, 0x87, 0x31, 0xcb,
+	0xce, 0xbe, 0xe7, 0x9d, 0xb7, 0x61, 0x13, 0x51, 0x38, 0xdb, 0x6e, 0x82, 0x45, 0x15, 0x41, 0x2c,
+	0xfb, 0x0c, 0x91, 0x7d, 0xf7, 0x0b, 0x68, 0x1e, 0x9e, 0x08, 0x1d, 0xf1, 0x13, 0x80, 0x01, 0x93,
+	0xb8, 0xd2, 0x93, 0x4e, 0xdf, 0xbc, 0x36, 0xfa, 0xf9, 0x53, 0xa4, 0x7f, 0xa4, 0x9e, 0x22, 0xdd,
+	0x69, 0x4f, 0x54, 0x96, 0x7f, 0xe7, 0xc2, 0x77, 0x3f, 0xff, 0xf6, 0x43, 0x1d, 0xc8, 0x9a, 0x8b,
+	0x4b, 0xff, 0xdd, 0xdf, 0x2d, 0x68, 0x2b, 0xd5, 0xf9, 0x58, 0x3a, 0x4c, 0x23, 0xf2, 0x7d, 0x0d,
+	0xba, 0x03, 0x26, 0x97, 0x3c, 0x06, 0x96, 0x9a, 0xbd, 0x55, 0x98, 0x3d, 0xe7, 0x19, 0xe1, 0xbc,
+	0xa6, 0xdd, 0xb8, 0x42, 0xf6, 0xdc, 0x98, 0x0a, 0x39, 0xf4, 0x11, 0x3a, 0x1c, 0x19, 0xec, 0x50,
+	0xef, 0xc1, 0x5f, 0xc2, 0xe6, 0x80, 0xc9, 0xe9, 0x9b, 0x80, 0x74, 0x0b, 0xfd, 0x73, 0xcf, 0x8a,
+	0xee, 0xde, 0x42, 0x1e, 0x9a, 0xdb, 0xd1, 0xe6, 0xb6, 0xc8, 0x86, 0xab, 0x9f, 0x1e, 0xe6, 0xc9,
+	0x40, 0x5e, 0xc2, 0x85, 0x01, 0x93, 0x33, 0x8b, 0x3d, 0xb9, 0x32, 0x7b, 0x01, 0x56, 0x9e, 0x07,
+	0xdd, 0xff, 0x2f, 0x63, 0xa3, 0xa1, 0x5d, 0x6d, 0x68, 0x9b, 0xb4, 0x5d, 0x6d, 0x63, 0x58, 0x34,
+	0x9f, 0x00, 0x32, 0x60, 0xb2, 0x72, 0xcb, 0x91, 0xab, 0xa5, 0x0b, 0x6a, 0xd1, 0x85, 0xda, 0xed,
+	0x2d, 0x07, 0xa0, 0xc5, 0xae, 0xb6, 0xb8, 0x43, 0x88, 0x1b, 0x28, 0xc4, 0xd0, 0xdc, 0xb8, 0x2a,
+	0x81, 0x94, 0x70, 0xd8, 0xce, 0x03, 0x2c, 0x36, 0x19, 0x52, 0x09, 0xa1, 0xba, 0x36, 0x75, 0xaf,
+	0x2e, 0xe5, 0xa3, 0xc5, 0xff, 0x69, 0x8b, 0x17, 0xc9, 0x36, 0xc6, 0x68, 0xec, 0x2a, 0x09, 0x42,
+	0x75, 0x94, 0x95, 0x7b, 0xae, 0x14, 0xe5, 0xe2, 0x1b, 0xb0, 0x5b, 0x6d, 0xfc, 0x92, 0x09, 0xfc,
+	0x20, 0x87, 0x51, 0xae, 0xec, 0x04, 0x2e, 0x1a, 0x13, 0x33, 0xfb, 0x19, 0xe9, 0x55, 0x57, 0xf2,
+	0xb9, 0xb8, 0xae, 0x9d, 0x81, 0xc0, 0xc8, 0xf6, 0xb4, 0xd9, 0x4b, 0xe4, 0xa2, 0x8b, 0x75, 0x2b,
+	0xc7, 0xf6, 0x18, 0x5a, 0x03, 0x26, 0xf5, 0x17, 0x2c, 0xc8, 0x74, 0x4f, 0x2a, 0x7f, 0xf8, 0xdd,
+	0x4e, 0x95, 0x8c, 0x8a, 0xdb, 0x5a, 0x71, 0x8b, 0x34, 0x5d, 0xf3, 0x45, 0xdf, 0xbf, 0xf9, 0xf9,
+	0x8d, 0xf3, 0xff, 0x7f, 0x78, 0x27, 0x1d, 0x8d, 0x2c, 0xfd, 0x89, 0xbd, 0xf9, 0x67, 0x00, 0x00,
+	0x00, 0xff, 0xff, 0x5b, 0x60, 0x0b, 0x5d, 0xaf, 0x10, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -289,6 +1588,13 @@ var _AwsCost_serviceDesc = grpc.ServiceDesc{
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type CostInsightsApiClient interface {
 	GetLastCompleteBillingDate(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*LastCompleteBillingDateResponse, error)
+	GetUserGroups(ctx context.Context, in *UserGroupsRequest, opts ...grpc.CallOption) (*UserGroupsResponse, error)
+	GetGroupProjects(ctx context.Context, in *GroupProjectsRequest, opts ...grpc.CallOption) (*GroupProjectsResponse, error)
+	GetDailyMetricData(ctx context.Context, in *DailyMetricDataRequest, opts ...grpc.CallOption) (*DailyMetricDataResponse, error)
+	GetGroupDailyCost(ctx context.Context, in *GroupDailyCostRequest, opts ...grpc.CallOption) (*GroupDailyCostResponse, error)
+	GetProductInsights(ctx context.Context, in *ProductInsightsRequest, opts ...grpc.CallOption) (*Entity, error)
+	GetProjectDailyCost(ctx context.Context, in *ProjectDailyCostRequest, opts ...grpc.CallOption) (*ProjectDailyCostResponse, error)
+	GetAlerts(ctx context.Context, in *AlertRequest, opts ...grpc.CallOption) (*AlertResponse, error)
 }
 
 type costInsightsApiClient struct {
@@ -308,9 +1614,79 @@ func (c *costInsightsApiClient) GetLastCompleteBillingDate(ctx context.Context, 
 	return out, nil
 }
 
+func (c *costInsightsApiClient) GetUserGroups(ctx context.Context, in *UserGroupsRequest, opts ...grpc.CallOption) (*UserGroupsResponse, error) {
+	out := new(UserGroupsResponse)
+	err := c.cc.Invoke(ctx, "/awscost.CostInsightsApi/GetUserGroups", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *costInsightsApiClient) GetGroupProjects(ctx context.Context, in *GroupProjectsRequest, opts ...grpc.CallOption) (*GroupProjectsResponse, error) {
+	out := new(GroupProjectsResponse)
+	err := c.cc.Invoke(ctx, "/awscost.CostInsightsApi/GetGroupProjects", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *costInsightsApiClient) GetDailyMetricData(ctx context.Context, in *DailyMetricDataRequest, opts ...grpc.CallOption) (*DailyMetricDataResponse, error) {
+	out := new(DailyMetricDataResponse)
+	err := c.cc.Invoke(ctx, "/awscost.CostInsightsApi/GetDailyMetricData", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *costInsightsApiClient) GetGroupDailyCost(ctx context.Context, in *GroupDailyCostRequest, opts ...grpc.CallOption) (*GroupDailyCostResponse, error) {
+	out := new(GroupDailyCostResponse)
+	err := c.cc.Invoke(ctx, "/awscost.CostInsightsApi/GetGroupDailyCost", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *costInsightsApiClient) GetProductInsights(ctx context.Context, in *ProductInsightsRequest, opts ...grpc.CallOption) (*Entity, error) {
+	out := new(Entity)
+	err := c.cc.Invoke(ctx, "/awscost.CostInsightsApi/GetProductInsights", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *costInsightsApiClient) GetProjectDailyCost(ctx context.Context, in *ProjectDailyCostRequest, opts ...grpc.CallOption) (*ProjectDailyCostResponse, error) {
+	out := new(ProjectDailyCostResponse)
+	err := c.cc.Invoke(ctx, "/awscost.CostInsightsApi/GetProjectDailyCost", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *costInsightsApiClient) GetAlerts(ctx context.Context, in *AlertRequest, opts ...grpc.CallOption) (*AlertResponse, error) {
+	out := new(AlertResponse)
+	err := c.cc.Invoke(ctx, "/awscost.CostInsightsApi/GetAlerts", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CostInsightsApiServer is the server API for CostInsightsApi service.
 type CostInsightsApiServer interface {
 	GetLastCompleteBillingDate(context.Context, *empty.Empty) (*LastCompleteBillingDateResponse, error)
+	GetUserGroups(context.Context, *UserGroupsRequest) (*UserGroupsResponse, error)
+	GetGroupProjects(context.Context, *GroupProjectsRequest) (*GroupProjectsResponse, error)
+	GetDailyMetricData(context.Context, *DailyMetricDataRequest) (*DailyMetricDataResponse, error)
+	GetGroupDailyCost(context.Context, *GroupDailyCostRequest) (*GroupDailyCostResponse, error)
+	GetProductInsights(context.Context, *ProductInsightsRequest) (*Entity, error)
+	GetProjectDailyCost(context.Context, *ProjectDailyCostRequest) (*ProjectDailyCostResponse, error)
+	GetAlerts(context.Context, *AlertRequest) (*AlertResponse, error)
 }
 
 func RegisterCostInsightsApiServer(s *grpc.Server, srv CostInsightsApiServer) {
@@ -335,6 +1711,132 @@ func _CostInsightsApi_GetLastCompleteBillingDate_Handler(srv interface{}, ctx co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CostInsightsApi_GetUserGroups_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserGroupsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CostInsightsApiServer).GetUserGroups(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/awscost.CostInsightsApi/GetUserGroups",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CostInsightsApiServer).GetUserGroups(ctx, req.(*UserGroupsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CostInsightsApi_GetGroupProjects_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GroupProjectsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CostInsightsApiServer).GetGroupProjects(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/awscost.CostInsightsApi/GetGroupProjects",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CostInsightsApiServer).GetGroupProjects(ctx, req.(*GroupProjectsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CostInsightsApi_GetDailyMetricData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DailyMetricDataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CostInsightsApiServer).GetDailyMetricData(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/awscost.CostInsightsApi/GetDailyMetricData",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CostInsightsApiServer).GetDailyMetricData(ctx, req.(*DailyMetricDataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CostInsightsApi_GetGroupDailyCost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GroupDailyCostRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CostInsightsApiServer).GetGroupDailyCost(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/awscost.CostInsightsApi/GetGroupDailyCost",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CostInsightsApiServer).GetGroupDailyCost(ctx, req.(*GroupDailyCostRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CostInsightsApi_GetProductInsights_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ProductInsightsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CostInsightsApiServer).GetProductInsights(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/awscost.CostInsightsApi/GetProductInsights",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CostInsightsApiServer).GetProductInsights(ctx, req.(*ProductInsightsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CostInsightsApi_GetProjectDailyCost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ProjectDailyCostRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CostInsightsApiServer).GetProjectDailyCost(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/awscost.CostInsightsApi/GetProjectDailyCost",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CostInsightsApiServer).GetProjectDailyCost(ctx, req.(*ProjectDailyCostRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CostInsightsApi_GetAlerts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AlertRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CostInsightsApiServer).GetAlerts(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/awscost.CostInsightsApi/GetAlerts",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CostInsightsApiServer).GetAlerts(ctx, req.(*AlertRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _CostInsightsApi_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "awscost.CostInsightsApi",
 	HandlerType: (*CostInsightsApiServer)(nil),
@@ -342,6 +1844,34 @@ var _CostInsightsApi_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetLastCompleteBillingDate",
 			Handler:    _CostInsightsApi_GetLastCompleteBillingDate_Handler,
+		},
+		{
+			MethodName: "GetUserGroups",
+			Handler:    _CostInsightsApi_GetUserGroups_Handler,
+		},
+		{
+			MethodName: "GetGroupProjects",
+			Handler:    _CostInsightsApi_GetGroupProjects_Handler,
+		},
+		{
+			MethodName: "GetDailyMetricData",
+			Handler:    _CostInsightsApi_GetDailyMetricData_Handler,
+		},
+		{
+			MethodName: "GetGroupDailyCost",
+			Handler:    _CostInsightsApi_GetGroupDailyCost_Handler,
+		},
+		{
+			MethodName: "GetProductInsights",
+			Handler:    _CostInsightsApi_GetProductInsights_Handler,
+		},
+		{
+			MethodName: "GetProjectDailyCost",
+			Handler:    _CostInsightsApi_GetProjectDailyCost_Handler,
+		},
+		{
+			MethodName: "GetAlerts",
+			Handler:    _CostInsightsApi_GetAlerts_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

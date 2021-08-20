@@ -15,12 +15,158 @@
     "version": "version not set"
   },
   "paths": {
-    "/get_last_complete_billing_date": {
+    "/alerts": {
+      "get": {
+        "tags": [
+          "CostInsightsApi"
+        ],
+        "operationId": "CostInsightsApiGetAlerts",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "group",
+            "in": "query"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/daily_metric_data": {
+      "get": {
+        "tags": [
+          "CostInsightsApi"
+        ],
+        "operationId": "CostInsightsApiGetDailyMetricData",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "metric",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "intervals",
+            "in": "query"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/group_daily_cost": {
+      "get": {
+        "tags": [
+          "CostInsightsApi"
+        ],
+        "operationId": "CostInsightsApiGetGroupDailyCost",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "group",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "intervals",
+            "in": "query"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/group_projects": {
+      "get": {
+        "tags": [
+          "CostInsightsApi"
+        ],
+        "operationId": "CostInsightsApiGetGroupProjects",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "group",
+            "in": "query"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/last_complete_billing_date": {
       "get": {
         "tags": [
           "CostInsightsApi"
         ],
         "operationId": "CostInsightsApiGetLastCompleteBillingDate",
+        "responses": {}
+      }
+    },
+    "/product_insights": {
+      "get": {
+        "tags": [
+          "CostInsightsApi"
+        ],
+        "operationId": "CostInsightsApiGetProductInsights",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "The product from the cost-insights configuration in app-config.yaml.",
+            "name": "product",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "The group id from getUserGroups or query parameters.",
+            "name": "group",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "An ISO 8601 repeating interval string, such as R2/P3M/2020-09-01.",
+            "name": "intervals",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "(optional) The project id from getGroupProjects or query parameters.",
+            "name": "project",
+            "in": "query"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/project_daily_cost": {
+      "get": {
+        "tags": [
+          "CostInsightsApi"
+        ],
+        "operationId": "CostInsightsApiGetProjectDailyCost",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "project",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "intervals",
+            "in": "query"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/user_groups": {
+      "get": {
+        "tags": [
+          "CostInsightsApi"
+        ],
+        "operationId": "CostInsightsApiGetUserGroups",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "user_id",
+            "in": "query"
+          }
+        ],
         "responses": {}
       }
     },
