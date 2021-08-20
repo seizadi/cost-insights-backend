@@ -1,25 +1,13 @@
-# cost-insight-backend
+# CostInsight Backend
 
-We want to build a Cost Explorer into the Backstage Dev Portal, the 
-[Backstage Cost Insight Plugin](https://backstage.io/blog/2020/10/22/cost-insights-plugin) will be the
-starting point. The Backstage plugin is an overlay on top of Cloud Provider cost management, 
-e.g. [AWS Billing and Cost Management API](https://docs.aws.amazon.com/aws-cost-anagement/latest/APIReference/API_GetCostAndUsage.html).
-We will try to extend the AWS Cost using Kubernetes labels 
-to AWS tags to extract cost information for each application team. 
-Backstage currently does not provide a CostInsightsApi client out of the box. This project is
-intended to implement a CostInsightsApi client that can be called by Backstage Cost Insight Plugin.
-
-General flow of the implementation:
-
-   * Reference the [Cost Insight AWS Doc](https://github.com/backstage/backstage/blob/master/plugins/cost-insights/contrib/aws-cost-explorer-api.md)
-as a guide.
-   * Implement the [CostInsightApi](https://github.com/backstage/backstage/blob/master/plugins/cost-insights/src/api/CostInsightsApi.ts) as stubs that return static data and test with plugin
-   * Integrate with [AWS Billing and Cost Management API](https://docs.aws.amazon.com/aws-cost-anagement/latest/APIReference/API_GetCostAndUsage.html) and test with plugin
-
+CostInsight Backend is intended to complement CostInsight Plugin Frontend to support 
+cost management of workloads running on Cloud Providers like AWS or GCP.
+See project docs for more detail.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine 
+for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
 
@@ -63,7 +51,8 @@ Give an example
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/seizadi/cost-insight-backend/tags).
+We use [SemVer](http://semver.org/) for versioning. For the versions available, 
+see the [tags on this repository](https://github.com/seizadi/cost-insight-backend/tags).
 
 ## Testing
 
@@ -82,4 +71,13 @@ curl http://localhost:8080/cost-insight-backend/v1/product_insights?product=clou
 curl http://localhost:8080/cost-insight-backend/v1/product_insights?product=bigQuery&intervals="R2/P30D/2020-09-01"
 curl http://localhost:8080/cost-insight-backend/v1/product_insights?product=events&intervals="R2/P30D/2020-09-01"
 curl http://localhost:8080/cost-insight-backend/v1/alerts?group=group_id
+```
+
+## Development
+
+### MkDocs
+The docs automatically get built on github using github Actions.
+You can build and serve them locally for development.
+```bash
+mkdocs serve
 ```
