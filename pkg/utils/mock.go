@@ -579,6 +579,7 @@ func MockEventsInsights() *pb.Entity{
 func MockAlerts() []*pb.Entity{
 	alerts := []*pb.Entity{}
 	entity1 := pb.Entity{
+		Type: "ProjectGrowthAlert",
 		Project:          "example-project",
 		PeriodStart: "2020-02",
 		PeriodEnd: "2020-03",
@@ -604,6 +605,7 @@ func MockAlerts() []*pb.Entity{
 	}
 	alerts = append(alerts, &entity1)
 	entity2 := pb.Entity{
+		Type: "UnlabeledDataflowAlert",
 		PeriodStart: "2020-09-1",
 		PeriodEnd: "2020-09-30",
 		LabeledCost: 6200,
@@ -623,6 +625,7 @@ func MockAlerts() []*pb.Entity{
 	}
 	alerts = append(alerts, &entity2)
 	entity3 := pb.Entity{
+		Type: "KubernetesMigrationAlert",
 		StartDate: time.Now().AddDate(0, 0, -30).Format(types.DEFAULT_DATE_FORMAT),
 		EndDate: time.Now().Format(types.DEFAULT_DATE_FORMAT),
 		Aggregation: []int32{60000, 120000},

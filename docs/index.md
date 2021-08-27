@@ -36,7 +36,7 @@ I have kept the terminology adopted by CostInsight since it is in line with Back
 erDiagram
     Metric {
         string date
-        string amount
+        number amount
     }
     CloudProvider ||--|{ User : ""
     CloudProvider ||--|{ Group : ""
@@ -69,6 +69,19 @@ sequenceDiagram
     CI Frontend->>User: View CI Page with Cloud Provider Costs
 ```
 
+## Development
+The project uses a Go microservice, this is a departure with Backstage that is developed using nodeJS
+for the services. We will use the
+[Backstage bacend plugin](https://backstage.io/docs/plugins/backend-plugin)
+to implement the 
+[CostInsight API](https://github.com/backstage/backstage/blob/master/plugins/cost-insights/src/api/CostInsightsApi.ts).
+We will reference the
+[CostInsight API template](https://github.com/backstage/backstage/blob/master/plugins/cost-insights/src/example/templates/CostInsightsClient.ts).
+for our implementation.
+
+```bash
+yarn create-plugin --backend  --no-private cost-insight-backend-plugin
+```
 ## MkDocs References
 * [How to get diagrams in MkDocs](https://chrieke.medium.com/the-best-mkdocs-plugins-and-customizations-fc820eb19759)
 * [How to setup MkDocs on Mac and Github](https://suedbroecker.net/2021/01/25/how-to-install-mkdocs-on-mac-and-setup-the-integration-to-github-pages/)

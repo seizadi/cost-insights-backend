@@ -1891,6 +1891,8 @@ func (m *Entity) Validate() error {
 		return nil
 	}
 
+	// no validation rules for Type
+
 	// no validation rules for Id
 
 	if v, ok := interface{}(m.GetEntities()).(interface{ Validate() error }); ok {

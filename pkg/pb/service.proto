@@ -217,7 +217,7 @@ message GroupDailyCostResponse {
   repeated DateAggregation aggregation = 3;
   ChangeStatistic change = 4;
   Trendline trendline = 5;
-  GroupedCosts grouped_costs = 6;
+  GroupedCosts groupedCosts = 6;
 }
 
 message ProjectDailyCostRequest {
@@ -231,7 +231,7 @@ message ProjectDailyCostResponse {
   repeated DateAggregation aggregation = 3;
   ChangeStatistic change = 4;
   Trendline trendline = 5;
-  GroupedCosts grouped_costs = 6;
+  GroupedCosts groupedCosts = 6;
 }
 
 message DailyMetricDataRequest {
@@ -274,20 +274,21 @@ message Record {
 
 // TODO - Eliminate camel-case paramters
 message Entity {
-  string id = 1;
-  repeated int32 aggregation = 2;
-  Record entities = 3;
-  ChangeStatistic change = 4;
-  string startDate = 5;
-  string endDate = 6;
-  string project = 7;
-  string periodStart = 8;
-  string periodEnd = 9;
-  int32 labeledCost = 10;
-  int32 unlabeledCost = 11;
-  repeated Entity projects = 12;
-  repeated Entity products = 13;
-  repeated Entity services = 14;
+  string type = 1;
+  string id = 2;
+  repeated int32 aggregation = 3;
+  Record entities = 4;
+  ChangeStatistic change = 5;
+  string startDate = 6;
+  string endDate = 7;
+  string project = 8;
+  string periodStart = 9;
+  string periodEnd = 10;
+  int32 labeledCost = 11;
+  int32 unlabeledCost = 12;
+  repeated Entity projects = 13;
+  repeated Entity products = 14;
+  repeated Entity services = 15;
 
 }
 
@@ -295,6 +296,8 @@ message AlertRequest {
   string group = 1;
 }
 
+// TODO - Alert type is mapped to JS Objects ideally this should be changed
+// type = ProjectGrowthAlert | UnlabeledDataflowAlert | KubernetesMigrationAlert
 message AlertResponse {
   repeated Entity alerts = 1;
 }
