@@ -1,11 +1,11 @@
-# Cost-Insight-Backend Docs
+# Cost-Insights-Backend Docs
 
 ## Summary
 
 We want to enable the 
-[CostInsight plugin](https://backstage.io/blog/2020/10/22/cost-insights-plugin) built into the 
+[CostInsights plugin](https://backstage.io/blog/2020/10/22/cost-insights-plugin) built into the 
 Backstage Dev Portal using this backend project. The CostIsnight plugin frontend does not have have
-backend implementation. The CostInsight backend will use the Cloud Provider cost management APIs,
+backend implementation. The CostInsights backend will use the Cloud Provider cost management APIs,
 e.g. [AWS Billing and Cost Management API](https://docs.aws.amazon.com/aws-cost-anagement/latest/APIReference/API_GetCostAndUsage.html).
 
 We will try to extend the CloudProvider tags/labels using Kubernetes labels
@@ -15,23 +15,23 @@ General flow of the implementation:
 
 * Reference the [Cost Insight AWS Doc](https://github.com/backstage/backstage/blob/master/plugins/cost-insights/contrib/aws-cost-explorer-api.md)
   as a guide.
-* Implement the [CostInsightApi](https://github.com/backstage/backstage/blob/master/plugins/cost-insights/src/api/CostInsightsApi.ts) as stubs that return static data and test with plugin
-* Integrate CostInsight Backend using Backstage Plugin and Proxy so that APIs are native to Backstage. This should provide similar function to current CostInsight API Mock but talking to backend server.
+* Implement the [CostInsightsApi](https://github.com/backstage/backstage/blob/master/plugins/cost-insights/src/api/CostInsightsApi.ts) as stubs that return static data and test with plugin
+* Integrate CostInsights Backend using Backstage Plugin and Proxy so that APIs are native to Backstage. This should provide similar function to current CostInsights API Mock but talking to backend server.
 * Integrate with [AWS Billing and Cost Management API](https://docs.aws.amazon.com/aws-cost-anagement/latest/APIReference/API_GetCostAndUsage.html) and test with backend plugin
 
 
 ## Data Model
-The data model for CostInsight that will be supported by the backend is shown below, if we have
+The data model for CostInsights that will be supported by the backend is shown below, if we have
 to relate this to the 
 [CMDB data model](https://seizadi.github.io/cmdb/model/) you have to reference this table:
 
-| CMDB        | CostInsight |
-| :---------: | ----------: |
-| Account	  | Project     |
-| App	      | Service     |
-| KubeCluster | Product     |
+| CMDB        | CostInsights |
+| :---------: | -----------: |
+| Account	  | Project      |
+| App	      | Service      |
+| KubeCluster | Product      |
 
-I have kept the terminology adopted by CostInsight since it is in line with Backsatge terminology.
+I have kept the terminology adopted by CostInsights since it is in line with Backsatge terminology.
 ```mermaid
 erDiagram
     Metric {
@@ -53,7 +53,7 @@ erDiagram
 ```
 
 ## Data Flows
-In the diagrams we will use CI acronym for CostInsight.
+In the diagrams we will use CI acronym for CostInsights.
 
 ```mermaid
 sequenceDiagram
@@ -74,13 +74,13 @@ The project uses a Go microservice, this is a departure with Backstage that is d
 for the services. We will use the
 [Backstage bacend plugin](https://backstage.io/docs/plugins/backend-plugin)
 to implement the 
-[CostInsight API](https://github.com/backstage/backstage/blob/master/plugins/cost-insights/src/api/CostInsightsApi.ts).
+[CostInsights API](https://github.com/backstage/backstage/blob/master/plugins/cost-insights/src/api/CostInsightsApi.ts).
 We will reference the
-[CostInsight API template](https://github.com/backstage/backstage/blob/master/plugins/cost-insights/src/example/templates/CostInsightsClient.ts).
+[CostInsights API template](https://github.com/backstage/backstage/blob/master/plugins/cost-insights/src/example/templates/CostInsightsClient.ts).
 for our implementation.
 
 ```bash
-yarn create-plugin --backend  --no-private cost-insight-backend-plugin
+yarn create-plugin --backend  --no-private cost-insights
 ```
 ## MkDocs References
 * [How to get diagrams in MkDocs](https://chrieke.medium.com/the-best-mkdocs-plugins-and-customizations-fc820eb19759)

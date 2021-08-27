@@ -18,7 +18,7 @@ image:
 
 
 app:
-  namespace: "cost-insight-backend-{{ .Values.env }}"
+  namespace: "cost-insights-backend-{{ .Values.env }}"
   httpPort: 8080
   grpcPort: 9090
 

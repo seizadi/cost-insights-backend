@@ -8,7 +8,7 @@ import "github.com/envoyproxy/protoc-gen-validate/validate/validate.proto";
 import "protoc-gen-swagger/options/annotations.proto";
 
 
-option go_package = "github.com/seizadi/cost-insight-backend/pkg/pb;pb";
+option go_package = "github.com/seizadi/cost-insights-backend/pkg/pb;pb";
 
 // The AwsCost service, GetVersion RPC, and Version message
 // make up a simple "starter" example. It allows the Atlas CLI to generate an

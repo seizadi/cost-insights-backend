@@ -9,8 +9,8 @@ import (
 	errorsPkg "github.com/pkg/errors"
 	"github.com/sajari/regression"
 	
-	"github.com/seizadi/cost-insight-backend/pkg/pb"
-	"github.com/seizadi/cost-insight-backend/pkg/types"
+	"github.com/seizadi/cost-insights-backend/pkg/pb"
+	"github.com/seizadi/cost-insights-backend/pkg/types"
 )
 
 func ChangeOf(aggregation []*pb.DateAggregation) *pb.ChangeStatistic {

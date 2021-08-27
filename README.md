@@ -1,6 +1,6 @@
-# CostInsight Backend
+# CostInsights Backend
 
-CostInsight Backend is intended to complement CostInsight Plugin Frontend to support 
+CostInsights Backend is intended to complement CostInsights Plugin Frontend to support 
 cost management of workloads running on Cloud Providers like AWS or GCP.
 See project docs for more detail.
 
@@ -52,26 +52,26 @@ Give an example
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, 
-see the [tags on this repository](https://github.com/seizadi/cost-insight-backend/tags).
+see the [tags on this repository](https://github.com/seizadi/cost-insights-backend/tags).
 
 ## Testing
 
 ```bash
-curl http://localhost:8080/cost-insight-backend/v1/version
-curl http://localhost:8080/cost-insight-backend/v1/last_complete_billing_date
-curl http://localhost:8080/cost-insight-backend/v1/user_groups
-curl http://localhost:8080/cost-insight-backend/v1/user_groups?user_id=some_id
-curl http://localhost:8080/cost-insight-backend/v1/group_projects
-curl http://localhost:8080/cost-insight-backend/v1/group_projects?group=group_id
-curl http://localhost:8080/cost-insight-backend/v1/daily_metric_data?intervals="R2/P30D/2020-09-01"
-curl http://localhost:8080/cost-insight-backend/v1/group_daily_cost?group=group_id&intervals="R2/P30D/2020-09-01"
-curl http://localhost:8080/cost-insight-backend/v1/project_daily_cost?project=project-a&intervals="R2/P30D/2020-09-01"
-curl http://localhost:8080/cost-insight-backend/v1/product_insights?product=computeEngine&intervals="R2/P30D/2020-09-01"
-curl http://localhost:8080/cost-insight-backend/v1/product_insights?product=cloudDataflow&intervals="R2/P30D/2020-09-01"
-curl http://localhost:8080/cost-insight-backend/v1/product_insights?product=cloudStorage&intervals="R2/P30D/2020-09-01"
-curl http://localhost:8080/cost-insight-backend/v1/product_insights?product=bigQuery&intervals="R2/P30D/2020-09-01"
-curl http://localhost:8080/cost-insight-backend/v1/product_insights?product=events&intervals="R2/P30D/2020-09-01"
-curl http://localhost:8080/cost-insight-backend/v1/alerts?group=group_id
+curl http://localhost:8080/cost-insights-backend/v1/version
+curl http://localhost:8080/cost-insights-backend/v1/last_complete_billing_date
+curl http://localhost:8080/cost-insights-backend/v1/user_groups
+curl http://localhost:8080/cost-insights-backend/v1/user_groups?user_id=some_id
+curl http://localhost:8080/cost-insights-backend/v1/group_projects
+curl http://localhost:8080/cost-insights-backend/v1/group_projects?group=group_id
+curl http://localhost:8080/cost-insights-backend/v1/daily_metric_data?intervals="R2/P30D/2020-09-01"
+curl http://localhost:8080/cost-insights-backend/v1/group_daily_cost?group=group_id&intervals="R2/P30D/2020-09-01"
+curl http://localhost:8080/cost-insights-backend/v1/project_daily_cost?project=project-a&intervals="R2/P30D/2020-09-01"
+curl http://localhost:8080/cost-insights-backend/v1/product_insights?product=computeEngine&intervals="R2/P30D/2020-09-01"
+curl http://localhost:8080/cost-insights-backend/v1/product_insights?product=cloudDataflow&intervals="R2/P30D/2020-09-01"
+curl http://localhost:8080/cost-insights-backend/v1/product_insights?product=cloudStorage&intervals="R2/P30D/2020-09-01"
+curl http://localhost:8080/cost-insights-backend/v1/product_insights?product=bigQuery&intervals="R2/P30D/2020-09-01"
+curl http://localhost:8080/cost-insights-backend/v1/product_insights?product=events&intervals="R2/P30D/2020-09-01"
+curl http://localhost:8080/cost-insights-backend/v1/alerts?group=group_id
 ```
 
 ## Development

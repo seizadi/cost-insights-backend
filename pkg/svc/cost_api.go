@@ -7,14 +7,14 @@ import (
 	
 	"github.com/golang/protobuf/ptypes/empty"
 	
-	"github.com/seizadi/cost-insight-backend/pkg/pb"
-	"github.com/seizadi/cost-insight-backend/pkg/types"
-	"github.com/seizadi/cost-insight-backend/pkg/utils"
+	"github.com/seizadi/cost-insights-backend/pkg/pb"
+	"github.com/seizadi/cost-insights-backend/pkg/types"
+	"github.com/seizadi/cost-insights-backend/pkg/utils"
 )
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Implements the Cost Insight API
+// Implements the Cost Insights API
 //
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -23,12 +23,12 @@ const (
 )
 
 // Default implementation of the AwsCost server interface
-type costInsightServer struct{}
+type costInsightsServer struct{}
 
-// NewCostInsightApiServerServer
+// NewCostInsightsApiServerServer
 // returns an instance of the default server interface
-func NewCostInsightApiServerServer() (pb.CostInsightsApiServer, error) {
-	return &costInsightServer{}, nil
+func NewCostInsightsApiServerServer() (pb.CostInsightsApiServer, error) {
+	return &costInsightsServer{}, nil
 }
 
 // GetLastCompleteBillingDate
@@ -36,8 +36,8 @@ func NewCostInsightApiServerServer() (pb.CostInsightsApiServer, error) {
 // define the intervals used in other API methods to avoid showing incomplete cost. The costs for
 // today, for example, will not be complete. This ideally comes from the cloud provider.
 //
-// Implements CostInsightApiClient getLastCompleteBillingDate(): Promise<string>;
-func (costInsightServer) GetLastCompleteBillingDate(context.Context, *empty.Empty) (*pb.LastCompleteBillingDateResponse, error) {
+// Implements CostInsightsApiClient getLastCompleteBillingDate(): Promise<string>;
+func (costInsightsServer) GetLastCompleteBillingDate(context.Context, *empty.Empty) (*pb.LastCompleteBillingDateResponse, error) {
 	date := time.Now().AddDate(0, 0, -1).Format(types.DEFAULT_DATE_FORMAT)
 	return &pb.LastCompleteBillingDateResponse{Date: date}, nil
 }
@@ -51,10 +51,10 @@ func (costInsightServer) GetLastCompleteBillingDate(context.Context, *empty.Empt
 //
 // @param userId The login id for the current user
 //
-// Implements CostInsightApiClient getUserGroups(userId: string): Promise<Group[]>;
+// Implements CostInsightsApiClient getUserGroups(userId: string): Promise<Group[]>;
 //
 
-func (costInsightServer) GetUserGroups(context.Context, *pb.UserGroupsRequest) (*pb.UserGroupsResponse, error) {
+func (costInsightsServer) GetUserGroups(context.Context, *pb.UserGroupsRequest) (*pb.UserGroupsResponse, error) {
 	groups := []*pb.Group{
 		{Id: "pied-piper"},
 	}
@@ -67,8 +67,8 @@ func (costInsightServer) GetUserGroups(context.Context, *pb.UserGroupsRequest) (
 // choose whether they see all costs for a group, or those from a particular owned project.
 //
 // @param group The group id from getUserGroups or query parameters
-// Implements CostInsightApiClient getGroupProjects(group: string): Promise<Project[]>;
-func (costInsightServer) GetGroupProjects(context.Context, *pb.GroupProjectsRequest) (*pb.GroupProjectsResponse, error) {
+// Implements CostInsightsApiClient getGroupProjects(group: string): Promise<Project[]>;
+func (costInsightsServer) GetGroupProjects(context.Context, *pb.GroupProjectsRequest) (*pb.GroupProjectsResponse, error) {
 	projects := []*pb.Project{
 		{ Id: "project-a" },
 		{ Id: "project-b" },
@@ -92,8 +92,8 @@ func (costInsightServer) GetGroupProjects(context.Context, *pb.GroupProjectsRequ
 // @param intervals An ISO 8601 repeating interval string, such as R2/P30D/2020-09-01
 //   https://en.wikipedia.org/wiki/ISO_8601#Repeating_intervals
 //
-// Implements CostInsightApiClient getGroupDailyCost(group: string, intervals: string): Promise<Cost>;
-func (costInsightServer) GetGroupDailyCost(ctx context.Context, req *pb.GroupDailyCostRequest) (*pb.GroupDailyCostResponse, error) {
+// Implements CostInsightsApiClient getGroupDailyCost(group: string, intervals: string): Promise<Cost>;
+func (costInsightsServer) GetGroupDailyCost(ctx context.Context, req *pb.GroupDailyCostRequest) (*pb.GroupDailyCostResponse, error) {
 	cost := pb.GroupDailyCostResponse{}
 	cost.Format = "number"
 	aggregation, err := utils.AggregationFor(req.Intervals, types.GROUP_COST)
@@ -136,8 +136,8 @@ func (costInsightServer) GetGroupDailyCost(ctx context.Context, req *pb.GroupDai
 //    * @param intervals An ISO 8601 repeating interval string, such as R2/P30D/2020-09-01
 //    *   https://en.wikipedia.org/wiki/ISO_8601#Repeating_intervals
 //    */
-// Implements CostInsightApiClient getDailyMetricData(metric: string, intervals: string): Promise<MetricData>;
-func (costInsightServer) GetDailyMetricData(ctx context.Context, req *pb.DailyMetricDataRequest) (*pb.DailyMetricDataResponse, error) {
+// Implements CostInsightsApiClient getDailyMetricData(metric: string, intervals: string): Promise<MetricData>;
+func (costInsightsServer) GetDailyMetricData(ctx context.Context, req *pb.DailyMetricDataRequest) (*pb.DailyMetricDataResponse, error) {
 	cost := pb.DailyMetricDataResponse{}
 	cost.Format = "number"
 	aggregation, err := utils.AggregationFor(req.Intervals, types.DAILY_COST)
@@ -171,8 +171,8 @@ func (costInsightServer) GetDailyMetricData(ctx context.Context, req *pb.DailyMe
 // @param intervals An ISO 8601 repeating interval string, such as R2/P30D/2020-09-01
 //   https://en.wikipedia.org/wiki/ISO_8601#Repeating_intervals
 //
-// Implements CostInsightApiClient getProjectDailyCost(project: string, intervals: string): Promise<Cost>;
-func (costInsightServer) GetProjectDailyCost(ctx context.Context, req *pb.ProjectDailyCostRequest) (*pb.ProjectDailyCostResponse, error) {
+// Implements CostInsightsApiClient getProjectDailyCost(project: string, intervals: string): Promise<Cost>;
+func (costInsightsServer) GetProjectDailyCost(ctx context.Context, req *pb.ProjectDailyCostRequest) (*pb.ProjectDailyCostResponse, error) {
 	cost := pb.ProjectDailyCostResponse{}
 	cost.Format = "number"
 	aggregation, err := utils.AggregationFor(req.Intervals, types.GROUP_COST)
@@ -212,8 +212,8 @@ func (costInsightServer) GetProjectDailyCost(ctx context.Context, req *pb.Projec
 // @param options Options to use when fetching insights for a particular cloud product and
 //                interval time frame.
 //
-// Implements CostInsightApiClient getProductInsights(options: ProductInsightsOptions): Promise<Entity>;
-func (costInsightServer) GetProductInsights(ctx context.Context, req *pb.ProductInsightsRequest) (*pb.Entity, error) {
+// Implements CostInsightsApiClient getProductInsights(options: ProductInsightsOptions): Promise<Entity>;
+func (costInsightsServer) GetProductInsights(ctx context.Context, req *pb.ProductInsightsRequest) (*pb.Entity, error) {
 	switch (req.Product) {
 	case "computeEngine":
 		return utils.MockComputeEngineInsights(), nil;
@@ -237,7 +237,7 @@ func (costInsightServer) GetProductInsights(ctx context.Context, req *pb.Product
 // Cost Insights page. Alerts may include cost-saving recommendations, such as infrastructure
 // migrations, or cost-related warnings, such as an unexpected billing anomaly.
 //
-// Implements CostInsightApiClient getAlerts(group: string): Promise<Alert[]>;
-func (costInsightServer) GetAlerts(ctx context.Context, req *pb.AlertRequest) (*pb.AlertResponse, error) {
+// Implements CostInsightsApiClient getAlerts(group: string): Promise<Alert[]>;
+func (costInsightsServer) GetAlerts(ctx context.Context, req *pb.AlertRequest) (*pb.AlertResponse, error) {
 	return &pb.AlertResponse{Alerts: utils.MockAlerts()}, nil;
 }

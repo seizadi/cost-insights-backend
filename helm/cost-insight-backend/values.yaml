@@ -1,4 +1,4 @@
-# Default values for cost-insight-backend.
+# Default values for cost-insights-backend.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -7,7 +7,7 @@ grpcProtocol: TCP
 replicaCount: 1
 
 image:
-  name: cost-insight-backend
+  name: cost-insights-backend
   tag: latest
   registry: soheileizadi/
   pullPolicy: Always
@@ -36,7 +36,7 @@ ingress:
   hosts:
     - host: "{{ .Values.env }}.{{ .Values.zone }}"
       paths:
-        - path: "/cost-insight-backend/v1/"
+        - path: "/cost-insights-backend/v1/"
           name: "{{ include \"chart.fullname\" . }}"
           port: "{{ .Values.service.httpPort }}"
 
@@ -64,7 +64,7 @@ tolerations: []
 affinity: {}
 
 app:
-  serviceName: cost-insight-backend
+  serviceName: cost-insights-backend
 
 authURL:
   "{ Fill this in }"

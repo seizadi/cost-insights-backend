@@ -1,11 +1,11 @@
 # Project information
-site_name: Cost-Insight-Backend
-site_url: https://seizadi.github.io/cost-insight-backend
+site_name: Cost-Insights-Backend
+site_url: https://seizadi.github.io/cost-insights-backend
 site_author: Soheil Eizadi
 
 # Repository
-repo_name: Cost-Insight-Backend
-repo_url: https://github.com/seizadi/cost-insight-backend
+repo_name: Cost-Insights-Backend
+repo_url: https://github.com/seizadi/cost-insights-backend
 edit_uri: edit/master/docs
 docs_dir: docs
 

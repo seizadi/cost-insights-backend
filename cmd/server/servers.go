@@ -9,8 +9,8 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/keepalive"
 	
-	"github.com/seizadi/cost-insight-backend/pkg/pb"
-	"github.com/seizadi/cost-insight-backend/pkg/svc"
+	"github.com/seizadi/cost-insights-backend/pkg/pb"
+	"github.com/seizadi/cost-insights-backend/pkg/svc"
 )
 
 func CreateServer(logger *logrus.Logger, interceptors []grpc.UnaryServerInterceptor) (*grpc.Server, error) {
@@ -30,7 +30,7 @@ func CreateServer(logger *logrus.Logger, interceptors []grpc.UnaryServerIntercep
 	}
 	pb.RegisterAwsCostServer(grpcServer, s)
 	
-	cs, err := svc.NewCostInsightApiServerServer()
+	cs, err := svc.NewCostInsightsApiServerServer()
 	if err != nil {
 		return nil, err
 	}

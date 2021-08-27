@@ -1,4 +1,4 @@
-module github.com/seizadi/cost-insight-backend
+module github.com/seizadi/cost-insights-backend
 
 go 1.16
 

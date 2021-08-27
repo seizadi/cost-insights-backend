@@ -13,7 +13,7 @@ const (
 	defaultGatewayEnable      = true
 	defaultGatewayAddress     = "0.0.0.0"
 	defaultGatewayPort        = "8080"
-	defaultGatewayURL         = "/cost-insight-backend/v1/"
+	defaultGatewayURL         = "/cost-insights-backend/v1/"
 	defaultGatewaySwaggerFile = "pkg/pb/service.swagger.json"
 
 	// Database
@@ -62,7 +62,7 @@ const (
 	defaultConfigDirectory = "deploy/"
 	defaultConfigFile      = ""
 	defaultSecretFile      = ""
-	defaultApplicationID   = "cost-insight-backend"
+	defaultApplicationID   = "cost-insights-backend"
 
 	// Heartbeat
 	defaultKeepaliveTime    = 10

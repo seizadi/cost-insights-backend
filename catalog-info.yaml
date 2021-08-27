@@ -3,31 +3,31 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: cost-isight-backend
-  description: Backend Service to Support Backstage CostInsight Frontend Plugin
+  description: Backend Service to Support Backstage CostInsights Frontend Plugin
   annotations: 
-    github.com/project-slug: seizadi/cost-insight-backend
-    backstage.io/source-ref: "https://github.com/seizadi/cost-insight-backend"
-    backstage.io/techdocs-ref: url:https://github.com/seizadi/cost-insight-backend
-    backstage.io/github-actions-id: https://github.com/seizadi/cost-insight-backend
+    github.com/project-slug: seizadi/cost-insights-backend
+    backstage.io/source-ref: "https://github.com/seizadi/cost-insights-backend"
+    backstage.io/techdocs-ref: url:https://github.com/seizadi/cost-insights-backend
+    backstage.io/github-actions-id: https://github.com/seizadi/cost-insights-backend
 spec:
   type: service
   lifecycle: experimental
   owner: seizadi@gmail.com
   providesApis:
-    - cost-insight-backend-api
+    - cost-insights-backend-api
 
 ---
 # API Definition
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: cost-insight-backend-api
-  description: The CMDB Microservice API
+  name: cost-insights-backend-api
+  description: The Cost Insight Backend Microservice API
 spec:
   type: openapi
   lifecycle: experimental
   owner: seizadi@gmailcom
   apiProvidedBy:
-    - cost-insight-backend
+    - cost-insights-backend
   definition:
-    $json: https://raw.githubusercontent.com/seizadi/cost-insight-backend/master/pkg/pb/service.swagger.json
+    $json: https://raw.githubusercontent.com/seizadi/cost-insights-backend/master/pkg/pb/service.swagger.json

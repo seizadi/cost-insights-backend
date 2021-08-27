@@ -9,8 +9,8 @@ import (
 	
 	isoDuration "github.com/senseyeio/duration"
 	
-	"github.com/seizadi/cost-insight-backend/pkg/pb"
-	"github.com/seizadi/cost-insight-backend/pkg/types"
+	"github.com/seizadi/cost-insights-backend/pkg/pb"
+	"github.com/seizadi/cost-insights-backend/pkg/types"
 )
 
 const (
