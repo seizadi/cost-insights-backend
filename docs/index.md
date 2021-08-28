@@ -57,16 +57,16 @@ In the diagrams we will use CI acronym for CostInsights.
 
 ```mermaid
 sequenceDiagram
-    User->>CI Frontend: Open CI Backstage page
-    CI Frontend->>CI ClientAPI: CI API
-    CI ClientAPI->>Backstage Proxy: API Request
+    User->>CI Plugin Frontend: Open CI Backstage page
+    CI Plugin Frontend->>CI Plugin Backend: CI ClientAPI
+    CI Plugin Backend->>Backstage Proxy: API Request
     Backstage Proxy->>CI Backend: API Request
     CI Backend->>Cloud Provider: Cloud Provider API
     Cloud Provider->>CI Backend: Response
     CI Backend->>Backstage Proxy: Map Cloud Provider to CI API
-    Backstage Proxy->>CI ClientAPI: Response
-    CI ClientAPI->>CI Frontend: Map CI Backend CI API
-    CI Frontend->>User: View CI Page with Cloud Provider Costs
+    Backstage Proxy->>CI Plugin Backend: CI Response
+    CI Plugin Backend->>CI Plugin Frontend: Map CI Backend to ClientAPI
+    CI Plugin Frontend->>User: View CI Page with Cloud Provider Costs
 ```
 
 ## Development
