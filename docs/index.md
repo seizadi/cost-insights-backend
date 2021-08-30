@@ -12,10 +12,9 @@ We will try to extend the CloudProvider tags/labels using Kubernetes labels
 to extract cost information for each application team.
 
 General flow of the implementation:
-
-* Reference the [Cost Insight AWS Doc](https://github.com/backstage/backstage/blob/master/plugins/cost-insights/contrib/aws-cost-explorer-api.md)
-  as a guide.
-* Implement the [CostInsightsApi](https://github.com/backstage/backstage/blob/master/plugins/cost-insights/src/api/CostInsightsApi.ts) as stubs that return static data and test with plugin
+Progress to date:
+* Implemented the [CostInsightsApi](https://github.com/backstage/backstage/blob/master/plugins/cost-insights/src/api/CostInsightsApi.ts) in the backend.
+* as stubs that return static data and test with plugin
 * Integrate CostInsights Backend using Backstage Plugin and Proxy so that APIs are native to Backstage. This should provide similar function to current CostInsights API Mock but talking to backend server.
 * Integrate with [AWS Billing and Cost Management API](https://docs.aws.amazon.com/aws-cost-anagement/latest/APIReference/API_GetCostAndUsage.html) and test with backend plugin
 
@@ -69,6 +68,15 @@ sequenceDiagram
     CI Plugin Frontend->>User: View CI Page with Cloud Provider Costs
 ```
 
+## AWS Cost Management API
+There is writeup of 
+[Cost Insights integration with AWS in Backstage](https://github.com/backstage/backstage/blob/master/plugins/cost-insights/contrib/aws-cost-explorer-api.md)
+ 
+The [AWS Go SDK doc here.](https://docs.aws.amazon.com/sdk-for-go/api/)
+
+### AWS Cost Managment API Reference
+* [Get Dimensions](https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_GetDimensionValues.html)
+* [Get Usage](https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_GetCostAndUsage.html)
 ## Development
 The project uses a Go microservice, this is a departure with Backstage that is developed using nodeJS
 for the services. We will use the

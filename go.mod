@@ -3,6 +3,9 @@ module github.com/seizadi/cost-insights-backend
 go 1.16
 
 require (
+	github.com/aws/aws-sdk-go-v2 v1.9.0 // indirect
+	github.com/aws/aws-sdk-go-v2/config v1.7.0
+	github.com/aws/aws-sdk-go-v2/service/costexplorer v1.9.0
 	github.com/envoyproxy/protoc-gen-validate v0.6.1
 	github.com/golang/protobuf v1.5.2
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
