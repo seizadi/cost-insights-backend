@@ -69,6 +69,28 @@ sequenceDiagram
 ```
 
 ## AWS Cost Management API
+I made a significant design decision that is trivial but has some signifcant ramifications.
+```go
+func getAwsMetricAmount(metric ceTypes.MetricValue) int32 {
+	amount, _ := strconv.ParseFloat(*metric.Amount, 64)
+	return int32(math.Round(amount))
+}
+```
+AWS API return a float string and CostInsights API can accept a number which could be float or int.
+I convert them to round integers. The fall out of this is that I end up with infrequently used services
+having dropping out providing any cost for a day or the entire duration, where as AWS CostExplorer would
+report a value, you will also see some small differences in totals of grouped values versus the Project(Account)
+totals.
+
+This filtering effect is desirable so we can focus on the CloudProvider Products that are driving the
+over all cost.
+
+The CostExplorer API will return only 12 months of data, the backend will return 400 error on duration
+that does not meet this spec:
+```bash
+      "message": "operation error Cost Explorer: GetCostAndUsage, https response error StatusCode: 400, RequestID: 3925a325-d037-4f3c-bfd6-351a11b5c5e7, api error ValidationException: start date is too old for daily granularity, max months for data available is 12 months"
+```
+
 There is writeup of 
 [Cost Insights integration with AWS in Backstage](https://github.com/backstage/backstage/blob/master/plugins/cost-insights/contrib/aws-cost-explorer-api.md)
  

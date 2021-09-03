@@ -63,14 +63,14 @@ curl http://localhost:8080/cost-insights-backend/v1/user_groups
 curl http://localhost:8080/cost-insights-backend/v1/user_groups?user_id=some_id
 curl http://localhost:8080/cost-insights-backend/v1/group_projects
 curl http://localhost:8080/cost-insights-backend/v1/group_projects?group=group_id
-curl http://localhost:8080/cost-insights-backend/v1/daily_metric_data?intervals="R2/P30D/2020-09-01"
+curl http://localhost:8080/cost-insights-backend/v1/daily_metric_data?intervals="R2/P30D/2021-06-01"
 curl http://localhost:8080/cost-insights-backend/v1/group_daily_cost?group=group_id&intervals="R2/P30D/2021-06-01"
-curl http://localhost:8080/cost-insights-backend/v1/project_daily_cost?project=project-a&intervals="R2/P30D/2020-09-01"
-curl http://localhost:8080/cost-insights-backend/v1/product_insights?product=computeEngine&intervals="R2/P30D/2020-09-01"
-curl http://localhost:8080/cost-insights-backend/v1/product_insights?product=cloudDataflow&intervals="R2/P30D/2020-09-01"
-curl http://localhost:8080/cost-insights-backend/v1/product_insights?product=cloudStorage&intervals="R2/P30D/2020-09-01"
-curl http://localhost:8080/cost-insights-backend/v1/product_insights?product=bigQuery&intervals="R2/P30D/2020-09-01"
-curl http://localhost:8080/cost-insights-backend/v1/product_insights?product=events&intervals="R2/P30D/2020-09-01"
+curl http://localhost:8080/cost-insights-backend/v1/project_daily_cost?project=project-a&intervals="R2/P30D/2021-06-01"
+curl http://localhost:8080/cost-insights-backend/v1/product_insights?product=computeEngine&intervals="R2/P30D/2021-06-01"
+curl http://localhost:8080/cost-insights-backend/v1/product_insights?product=cloudDataflow&intervals="R2/P30D/2021-06-01"
+curl http://localhost:8080/cost-insights-backend/v1/product_insights?product=cloudStorage&intervals="R2/P30D/2021-06-01"
+curl http://localhost:8080/cost-insights-backend/v1/product_insights?product=bigQuery&intervals="R2/P30D/2021-06-01"
+curl http://localhost:8080/cost-insights-backend/v1/product_insights?product=events&intervals="R2/P30D/2021-06-01"
 curl http://localhost:8080/cost-insights-backend/v1/alerts?group=group_id
 ```
 

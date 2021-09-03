@@ -13,14 +13,8 @@ import (
 	"github.com/seizadi/cost-insights-backend/pkg/types"
 )
 
-func ChangeOf(aggregation []*pb.DateAggregation) *pb.ChangeStatistic {
-	var firstAmount int32 = 0
-	var lastAmount int32 = 0
-	if len(aggregation) > 0 {
-		firstAmount = aggregation[0].Amount
-		lastAmount = aggregation[len(aggregation) - 1].Amount
-	}
-	
+
+func getChange(firstAmount int32, lastAmount int32) *pb.ChangeStatistic {
 	// if either the first or last amounts are zero, the rate of increase/decrease is infinite
 	if firstAmount == 0 || lastAmount == 0 {
 		return &pb.ChangeStatistic{
@@ -32,6 +26,21 @@ func ChangeOf(aggregation []*pb.DateAggregation) *pb.ChangeStatistic {
 		Ratio: float32(lastAmount - firstAmount) / float32(firstAmount),
 		Amount: lastAmount - firstAmount,
 	}
+}
+
+func ChangeOf(aggregation []*pb.DateAggregation) *pb.ChangeStatistic {
+	var firstAmount int32 = 0
+	var lastAmount int32 = 0
+	if len(aggregation) > 0 {
+		firstAmount = aggregation[0].Amount
+		lastAmount = aggregation[len(aggregation) - 1].Amount
+	}
+	
+	return getChange(firstAmount, lastAmount)
+}
+
+func ChangeOfEntity(aggregate []int32) *pb.ChangeStatistic {
+	return getChange(aggregate[0], aggregate[1])
 }
 
 func TrendlineOf(aggregation []*pb.DateAggregation) (*pb.Trendline, error) {
