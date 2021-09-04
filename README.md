@@ -4,6 +4,7 @@ CostInsights Backend is intended to complement CostInsights Plugin Frontend to s
 cost management of workloads running on Cloud Providers like AWS or GCP.
 See project docs for more detail.
 
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine 
