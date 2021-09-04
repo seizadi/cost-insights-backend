@@ -179,7 +179,7 @@ func getGroupedAwsProjects(results []ceTypes.ResultByTime) ([]*pb.ProjectCost, e
 // getEntityAwsProducts
 // Retrieves Entities for AWS Products (i.e. AWS Services) Costs from CostExplorer API
 //
-func getEntityAwsProducts(results []ceTypes.ResultByTime) (*pb.Record, error){
+func getEntityAwsProducts(results []ceTypes.ResultByTime) ([]*pb.Entity, error){
 	keys := getGroupedAwsKeyIndex(results)
 	costs := make([]*pb.Entity, len(keys))
 	
@@ -187,11 +187,8 @@ func getEntityAwsProducts(results []ceTypes.ResultByTime) (*pb.Record, error){
 		entity := &pb.Entity{
 			Id: key,
 			// TODO - Fix the harded coded valeus for Aggregation and Change
-			Aggregation: []int32{100, 100},
-			Change: &pb.ChangeStatistic{
-				Amount: 0,
-				Ratio: 1.0,
-			},
+			Aggregation: []int32{0, 0},
+			Change: &pb.ChangeStatistic{},
 			Entities: &pb.Record{},
 		}
 		costs[index] = entity
@@ -203,36 +200,33 @@ func getEntityAwsProducts(results []ceTypes.ResultByTime) (*pb.Record, error){
 	// or quarter vs quarter) for each resource since this is the expected data type for the Aggregation
 	// field on Entity.
 	
-	//for _, result := range results {
-	//	for _, group := range result.Groups {
-	//		cost := costs[keys[group.Keys[0]]]
-	//		value := pb.DateAggregation {
-	//			Date: *result.TimePeriod.Start,
-	//		}
-	//		// We expect only one metric 'UnblendedCost' in the map but we could query more
-	//		for _, metric := range group.Metrics {
-	//			value.Amount = getAwsMetricAmount(metric)
-	//		}
-	//		if value.Amount > 0 {
-	//			// TODO-Figure out Entity Aggregation
-	//			//cost.Aggregation = append(cost.Aggregation, &value)
-	//		}
-	//		costs[keys[group.Keys[0]]] = cost
-	//	}
-	//}
-	//
-	//filteredCosts := []*pb.Entity{}
-	//for _, index := range keys {
-	//	if len(costs[index].Aggregation) > 0 {
-	//		filteredCosts = append(filteredCosts, costs[index])
-	//	}
-	//}
+	midPoint := len(results)/2
 	
-	record := pb.Record{
-		Service: costs,
+	for i, result := range results {
+		for _, group := range result.Groups {
+			var amount int32
+			// We expect only one metric 'UnblendedCost' in the map but we could query more
+			for _, metric := range group.Metrics {
+				amount = getAwsMetricAmount(metric)
+			}
+			
+			if i >= midPoint {
+				costs[keys[group.Keys[0]]].Aggregation[1] = costs[keys[group.Keys[0]]].Aggregation[1] + amount
+			} else {
+				costs[keys[group.Keys[0]]].Aggregation[0] = costs[keys[group.Keys[0]]].Aggregation[0] + amount
+			}
+		}
 	}
 	
-	return &record, nil
+	filteredCosts := []*pb.Entity{}
+	for _, index := range keys {
+		if !(costs[index].Aggregation[0] == 0 && costs[index].Aggregation[1] == 0) {
+			costs[index].Change = utils.ChangeOfEntity(costs[index].Aggregation)
+			filteredCosts = append(filteredCosts, costs[index])
+		}
+	}
+	
+	return filteredCosts, nil
 }
 
 // GetLastCompleteBillingDate
@@ -539,14 +533,7 @@ func (m costInsightsAwsServer) GetProductInsights(ctx context.Context, req *pb.P
 	// TODO - Need to be able to specify the cost Tag(s) that are used for the query
 	// TODO - Need able to filter based on Product, Project or Group
 	
-	entity := &pb.Entity{
-		// TODO - Fixe the harded coded valeus for Aggregation and Change
-		Aggregation: []int32{100, 100},
-		Change: &pb.ChangeStatistic{
-			Amount: 0,
-			Ratio:  1.0,
-		},
-	}
+	entity := &pb.Entity{}
 	
 	interval, err := utils.ParseIntervals(req.Intervals)
 	if err != nil {
@@ -583,15 +570,17 @@ func (m costInsightsAwsServer) GetProductInsights(ctx context.Context, req *pb.P
 	
 	entity.Id = req.Product
 	
-	entity.Entities, err = getEntityAwsProducts(resp.ResultsByTime)
+	entities, err := getEntityAwsProducts(resp.ResultsByTime)
 	if err != nil {
 		return entity, err
 	}
 	
-	//TODO - Need to figure out how to find the value of Entity->Aggregation
-	// We need to aggregate cost data into two bucketed time periods (e.g. month vs month,
-	// or quarter vs quarter). For each half we will walk through the Entities and add their
-	// aggregate to form the Aggregation field on Entity.
+	entity.Entities = &pb.Record{Service: entities}
+	
+	// We aggregate cost data into two bucketed time periods (e.g. month vs month, or quarter vs quarter).
+	// For each half we will walk through the Entities and add their aggregate to form the Aggregation
+	//field on Entity.
+	
 	var startAggregate int32
 	var endAggregate int32
 	for _, e := range entity.Entities.Service {
