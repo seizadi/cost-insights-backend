@@ -11,6 +11,7 @@ import (
 	ceTypes "github.com/aws/aws-sdk-go-v2/service/costexplorer/types"
 	"github.com/golang/protobuf/ptypes/empty"
 	
+	"github.com/seizadi/cost-insights-backend/metrics"
 	"github.com/seizadi/cost-insights-backend/pkg/pb"
 	"github.com/seizadi/cost-insights-backend/pkg/types"
 	"github.com/seizadi/cost-insights-backend/pkg/utils"
@@ -426,10 +427,15 @@ func (m costInsightsAwsServer) GetGroupDailyCost(ctx context.Context, req *pb.Gr
 func (costInsightsAwsServer) GetDailyMetricData(ctx context.Context, req *pb.DailyMetricDataRequest) (*pb.DailyMetricDataResponse, error) {
 	cost := pb.DailyMetricDataResponse{}
 	cost.Format = "number"
-	aggregation, err := utils.AggregationFor(req.Intervals, types.DAILY_COST)
+	aggregation, err := metrics.GetMetrics(req.Metric, req.Intervals)
 	if err != nil {
 		return &pb.DailyMetricDataResponse{}, err
 	}
+	
+	//aggregation, err := utils.AggregationFor(req.Intervals, types.DAILY_COST)
+	//if err != nil {
+	//	return &pb.DailyMetricDataResponse{}, err
+	//}
 	cost.Aggregation = aggregation
 	cost.Change = utils.ChangeOf(aggregation)
 	trendline, err := utils.TrendlineOf(aggregation)
