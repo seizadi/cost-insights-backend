@@ -4,3 +4,4 @@ bin
 .push-*
 .id
 .DS_Store
+metrics/metrics.json

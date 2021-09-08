@@ -109,6 +109,36 @@ We will reference the
 [CostInsights API template](https://github.com/backstage/backstage/blob/master/plugins/cost-insights/src/example/templates/CostInsightsClient.ts).
 for our implementation.
 
+## Cost Metrics
+There are many different Cost Metrics returned by API.
+Unblended costs represent your usage costs on the day they are charged to you. 
+In finance terms, they represent your costs on a cash basis of accounting.
+
+If you have a saving plan with AWS like
+[AWS Reservation](https://aws.amazon.com/aws-cost-management/reserved-instance-reporting/)
+and pay some amount, let's pick a large amount, then on cash basis you will have that 
+applied on the first of the month on your bill, and the savings applied on the following days. 
+This might not be ideal and not show the true cost of using your resources. 
+Viewing your amortized costs is useful in this case in which it doesn’t make sense 
+to view your costs on the day that they were charged. It’s useful to view costs on an 
+accrual basis rather than a cash basis.
+
+You can read about the other AWS Cost Methods
+[here](https://aws.amazon.com/blogs/aws-cost-management/understanding-your-aws-cost-datasets-a-cheat-sheet/)
+and more detail about
+[AWS Billing](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/con-bill-blended-rates.html#Calculating)
+
+So, which cost dataset should you use?
+If you are a customer who has purchased Savings Plans or Reservations, 
+then amortized costs are most likely the right dataset for analyzing your cost trends.
+Otherwise, looking at unblended costs should suit you just fine.
+
+Finally, if you are operating at scale or have highly specialized use cases, 
+it may make sense to investigate using the net unblended, net amortized, or blended cost datasets.
+
+We set net amortized cost as the default for now assuming if you are going to all the 
+trouble to run CostInsights you are operating at scale.
+
 ```bash
 yarn create-plugin --backend  --no-private cost-insights
 ```

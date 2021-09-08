@@ -11,6 +11,7 @@ import (
 	ceTypes "github.com/aws/aws-sdk-go-v2/service/costexplorer/types"
 	"github.com/golang/protobuf/ptypes/empty"
 	
+	"github.com/seizadi/cost-insights-backend/metrics"
 	"github.com/seizadi/cost-insights-backend/pkg/pb"
 	"github.com/seizadi/cost-insights-backend/pkg/types"
 	"github.com/seizadi/cost-insights-backend/pkg/utils"
@@ -18,6 +19,27 @@ import (
 
 type costInsightsAwsServer struct{
 	client *costexplorer.Client
+}
+
+const (
+	DEFAULT_COST_METHOD = ceTypes.MetricNetAmortizedCost
+)
+
+var AWS_SERVICE = map[string]string{
+	"EC2": "Amazon Elastic Compute Cloud - Compute",
+	"EC2Other": "EC2 - Other",
+	"S3": "Amazon Simple Storage Service",
+	"DynamoDB": "Amazon DynamoDB",
+	"ElasticSearch": "Amazon Elasticsearch Service",
+	"CloudWatch": "Amazon CloudWatch",
+	"CloudTrail": "Amazon CloudTrail",
+	"RDS": "Amazon Relational Data Service",
+	"ELB": "Amazon Elastic Load Balancing",
+	"EMR": "Amazon Elastic MadReduce",
+	"MSK": "Amazon Managed Streaming for Apache Kafka",
+	"Lambda": "AWS Lambda",
+	"SNS": "Amazon Simple Notification Service",
+	"SQS": "Amazon Simple Queue Service",
 }
 
 func NewCeClient() (*costexplorer.Client, error) {
@@ -307,7 +329,7 @@ func (m costInsightsAwsServer) GetGroupDailyCost(ctx context.Context, req *pb.Gr
 	
 	resp, err := m.client.GetCostAndUsage(ctx, &costexplorer.GetCostAndUsageInput{
 		TimePeriod: &ceTypes.DateInterval{Start: &startDate, End: &interval.EndDate},
-		Metrics: []string{"UNBLENDED_COST"},
+		Metrics: []string{string(DEFAULT_COST_METHOD)},
 		// TODO - Need a way to map Group to Account(i.e. Project) to filter
 		//Filter: &ceTypes.Expression{
 		//	Dimensions: &ceTypes.DimensionValues{
@@ -340,7 +362,7 @@ func (m costInsightsAwsServer) GetGroupDailyCost(ctx context.Context, req *pb.Gr
 	groupKey := "SERVICE"
 	respProductGrouped, err := m.client.GetCostAndUsage(context.TODO(), &costexplorer.GetCostAndUsageInput{
 		TimePeriod: &ceTypes.DateInterval{Start: &startDate, End: &interval.EndDate},
-		Metrics: []string{"UNBLENDED_COST"},
+		Metrics: []string{string(DEFAULT_COST_METHOD)},
 		// TODO - Need a way to map Group to Account(i.e. Project) to filter
 		//Filter: &ceTypes.Expression{
 		//	Dimensions: &ceTypes.DimensionValues{
@@ -367,7 +389,7 @@ func (m costInsightsAwsServer) GetGroupDailyCost(ctx context.Context, req *pb.Gr
 	groupKey = "LINKED_ACCOUNT"
 	respProjectGrouped, err := m.client.GetCostAndUsage(context.TODO(), &costexplorer.GetCostAndUsageInput{
 		TimePeriod: &ceTypes.DateInterval{Start: &startDate, End: &interval.EndDate},
-		Metrics: []string{"UNBLENDED_COST"},
+		Metrics: []string{string(DEFAULT_COST_METHOD)},
 		// TODO - Need a way to map Group to Account(i.e. Project) to filter
 		//Filter: &ceTypes.Expression{
 		//	Dimensions: &ceTypes.DimensionValues{
@@ -405,10 +427,15 @@ func (m costInsightsAwsServer) GetGroupDailyCost(ctx context.Context, req *pb.Gr
 func (costInsightsAwsServer) GetDailyMetricData(ctx context.Context, req *pb.DailyMetricDataRequest) (*pb.DailyMetricDataResponse, error) {
 	cost := pb.DailyMetricDataResponse{}
 	cost.Format = "number"
-	aggregation, err := utils.AggregationFor(req.Intervals, types.DAILY_COST)
+	aggregation, err := metrics.GetMetrics(req.Metric, req.Intervals)
 	if err != nil {
 		return &pb.DailyMetricDataResponse{}, err
 	}
+	
+	//aggregation, err := utils.AggregationFor(req.Intervals, types.DAILY_COST)
+	//if err != nil {
+	//	return &pb.DailyMetricDataResponse{}, err
+	//}
 	cost.Aggregation = aggregation
 	cost.Change = utils.ChangeOf(aggregation)
 	trendline, err := utils.TrendlineOf(aggregation)
@@ -453,7 +480,7 @@ func (m costInsightsAwsServer) GetProjectDailyCost(ctx context.Context, req *pb.
 	
 	resp, err := m.client.GetCostAndUsage(context.TODO(), &costexplorer.GetCostAndUsageInput{
 		TimePeriod: &ceTypes.DateInterval{Start: &startDate, End: &interval.EndDate},
-		Metrics: []string{"UNBLENDED_COST"},
+		Metrics: []string{string(DEFAULT_COST_METHOD)},
 		// TODO - Need a way to map Project to Account to filter Project Detail
 		//Filter: &ceTypes.Expression{
 		//	Dimensions: &ceTypes.DimensionValues{
@@ -486,7 +513,7 @@ func (m costInsightsAwsServer) GetProjectDailyCost(ctx context.Context, req *pb.
 	groupKey := "SERVICE"
 	respGrouped, err := m.client.GetCostAndUsage(context.TODO(), &costexplorer.GetCostAndUsageInput{
 		TimePeriod: &ceTypes.DateInterval{Start: &startDate, End: &interval.EndDate},
-		Metrics: []string{"UNBLENDED_COST"},
+		Metrics: []string{string(DEFAULT_COST_METHOD)},
 		// TODO - Need Account(i.e. Project) to filter
 		//Filter: &ceTypes.Expression{
 		//	Dimensions: &ceTypes.DimensionValues{
@@ -550,15 +577,15 @@ func (m costInsightsAwsServer) GetProductInsights(ctx context.Context, req *pb.P
 	
 	resp, err := m.client.GetCostAndUsage(context.TODO(), &costexplorer.GetCostAndUsageInput{
 		TimePeriod: &ceTypes.DateInterval{Start: &startDate, End: &interval.EndDate},
-		Metrics: []string{"UNBLENDED_COST"},
+		Metrics: []string{string(DEFAULT_COST_METHOD)},
 		// TODO - Need Account(i.e. Project) to filter
 		// TODO - Use Group to select Account(s) (i.e. Projects) to filter
-		//Filter: &ceTypes.Expression{
-		//	Dimensions: &ceTypes.DimensionValues{
-		//		Key: ceTypes.DimensionLinkedAccount,
-		//		Values: []string{"ACCOUNT_ID"},
-		//	},
-		//},
+		Filter: &ceTypes.Expression{
+			Dimensions: &ceTypes.DimensionValues{
+				Key: ceTypes.DimensionService,
+				Values: []string{AWS_SERVICE[req.Product]},
+			},
+		},
 		Granularity: ceTypes.GranularityDaily,
 		GroupBy: []ceTypes.GroupDefinition{
 			{Key: &groupKey, Type: ceTypes.GroupDefinitionTypeTag},
