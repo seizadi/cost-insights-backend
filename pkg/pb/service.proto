@@ -175,7 +175,7 @@ message GroupProjectsResponse {
 
 message DateAggregation {
   string date = 1; // YYYY-MM-DD
-  int32 amount = 2;
+  double amount = 2;
 }
 
 message ChangeStatistic {
@@ -184,7 +184,7 @@ message ChangeStatistic {
   // the ratio can be omitted and where applicable, ∞ or -∞ will display based on amount.
   float ratio = 1;
   // The actual USD change between time periods (can be negative if costs decreased)
-  int32 amount = 2;
+  double amount = 2;
 }
 message Trendline {
   float slope = 1;
@@ -276,7 +276,7 @@ message Record {
 message Entity {
   string type = 1;
   string id = 2;
-  repeated int32 aggregation = 3;
+  repeated double aggregation = 3;
   Record entities = 4;
   ChangeStatistic change = 5;
   string startDate = 6;
@@ -284,8 +284,8 @@ message Entity {
   string project = 8;
   string periodStart = 9;
   string periodEnd = 10;
-  int32 labeledCost = 11;
-  int32 unlabeledCost = 12;
+  double labeledCost = 11;
+  double unlabeledCost = 12;
   repeated Entity projects = 13;
   repeated Entity products = 14;
   repeated Entity services = 15;

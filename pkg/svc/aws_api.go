@@ -66,9 +66,9 @@ func NewCostInsightsApiAwsServer() (pb.CostInsightsApiServer, error) {
 // getAwsMetricAmount
 // Retrieves the Cost Amount from AWS CostExplorer API
 // TODO - We ignore Units asssume number USD (could support other units)
-func getAwsMetricAmount(metric ceTypes.MetricValue) int32 {
+func getAwsMetricAmount(metric ceTypes.MetricValue) float64 {
 	amount, _ := strconv.ParseFloat(*metric.Amount, 64)
-	return int32(math.Round(amount))
+	return math.Round(amount)
 }
 
 // aggregationForAWS
@@ -209,7 +209,7 @@ func getEntityAwsProducts(results []ceTypes.ResultByTime) ([]*pb.Entity, error){
 		entity := &pb.Entity{
 			Id: key,
 			// TODO - Fix the harded coded valeus for Aggregation and Change
-			Aggregation: []int32{0, 0},
+			Aggregation: []float64{0, 0},
 			Change: &pb.ChangeStatistic{},
 			Entities: &pb.Record{},
 		}
@@ -226,7 +226,7 @@ func getEntityAwsProducts(results []ceTypes.ResultByTime) ([]*pb.Entity, error){
 	
 	for i, result := range results {
 		for _, group := range result.Groups {
-			var amount int32
+			var amount float64
 			// We expect only one metric 'UnblendedCost' in the map but we could query more
 			for _, metric := range group.Metrics {
 				amount = getAwsMetricAmount(metric)
@@ -608,13 +608,13 @@ func (m costInsightsAwsServer) GetProductInsights(ctx context.Context, req *pb.P
 	// For each half we will walk through the Entities and add their aggregate to form the Aggregation
 	//field on Entity.
 	
-	var startAggregate int32
-	var endAggregate int32
+	var startAggregate float64
+	var endAggregate float64
 	for _, e := range entity.Entities.Service {
 		startAggregate = startAggregate + e.Aggregation[0]
 		endAggregate = endAggregate + e.Aggregation[1]
 	}
-	entity.Aggregation = []int32{startAggregate, endAggregate}
+	entity.Aggregation = []float64{startAggregate, endAggregate}
 	entity.Change = utils.ChangeOfEntity(entity.Aggregation)
 	
 	return entity, nil

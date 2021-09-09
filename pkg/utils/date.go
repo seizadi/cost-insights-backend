@@ -152,7 +152,7 @@ func InclusiveEndDateOf(duration types.Duration, inclusiveEndDate string) (strin
 	return t.AddDate(0, 0, -1).Format(types.DEFAULT_DATE_FORMAT), nil
 }
 
-func nextDelta(baseline int32) float64 {
+func nextDelta(baseline float64) float64 {
 	const varianceFromBaseline = 0.15
 	// Let's give positive vibes in trendlines - higher change for positive delta with >0.5 value
 	const positiveTrendChance = 0.55
@@ -160,7 +160,7 @@ func nextDelta(baseline int32) float64 {
 	return float64(baseline) * (rand.Float64() + normalization) * varianceFromBaseline
 }
 
-func AggregationFor(intervals string, baseline int32) ([]*pb.DateAggregation, error) {
+func AggregationFor(intervals string, baseline float64) ([]*pb.DateAggregation, error) {
 	retDateAggregation := []*pb.DateAggregation{}
 	r, err := ParseIntervals(intervals)
 	if err != nil {
@@ -190,7 +190,7 @@ func AggregationFor(intervals string, baseline int32) ([]*pb.DateAggregation, er
 	days := endDate.Sub(iEndDateT).Hours() / 24 // Number of days to create values
 	
 	for i := 0; i < int(days); i++ {
-		var billAmount int32
+		var billAmount float64
 		if i == 0 {
 			billAmount = baseline
 		} else {
@@ -206,7 +206,7 @@ func AggregationFor(intervals string, baseline int32) ([]*pb.DateAggregation, er
 		}
 		value := pb.DateAggregation {
 			Date: date.AddDate(0, 0, i).Format(types.DEFAULT_DATE_FORMAT),
-			Amount: int32(math.Round(math.Max(0, float64(billAmount)+nextDelta(baseline)))),
+			Amount: math.Round(math.Max(0, billAmount+nextDelta(baseline))),
 		}
 		retDateAggregation = append(retDateAggregation, &value)
 	}

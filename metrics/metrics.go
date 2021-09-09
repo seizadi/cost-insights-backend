@@ -16,8 +16,8 @@ import (
 // a DAR (Daily Average Request) and DAC (Daily Average Client)
 type CustomMetric struct {
 	Date   string `json:"Date"`
-	DAR    int    `json:"DAR"`
-	DAC   int `json:"DAC"`
+	DAR    float64    `json:"DAR"`
+	DAC   float64 `json:"DAC"`
 }
 
 func getMockMetrics() (*[]CustomMetric, error) {
@@ -51,7 +51,7 @@ func getMetricKeyIndex(metrics *[]CustomMetric) map[string]int {
 	return keys
 }
 
-func getMetricValue(metricType string, curValue int, curDate string, keys map[string]int, mockMetrics *[]CustomMetric) int {
+func getMetricValue(metricType string, curValue float64, curDate string, keys map[string]int, mockMetrics *[]CustomMetric) float64 {
 	if index, ok := keys[curDate]; ok {
 		metrics := *mockMetrics
 		metric := metrics[index]
@@ -101,8 +101,8 @@ func GetMetrics(metricType string, intervals string) ([]*pb.DateAggregation, err
 	
 	days := endDate.Sub(iEndDateT).Hours() / 24 // Number of days to create values
 	
-	var startValue int
-	var curValue int
+	var startValue float64
+	var curValue float64
 	
 	for i := 0; i < int(days); i++ {
 		start, err := utils.InclusiveStartDateOf(r.Duration, inclusiveEndDate)
@@ -123,7 +123,7 @@ func GetMetrics(metricType string, intervals string) ([]*pb.DateAggregation, err
 		
 		value := pb.DateAggregation {
 			Date: curDate,
-			Amount: int32(curValue),
+			Amount: curValue,
 		}
 		retDateAggregation = append(retDateAggregation, &value)
 	}
@@ -131,7 +131,7 @@ func GetMetrics(metricType string, intervals string) ([]*pb.DateAggregation, err
 	// Set any zero value to the startValue
 	for i := 0; i < int(days); i++ {
 		if retDateAggregation[i].Amount == 0 {
-			retDateAggregation[i].Amount = int32(startValue)
+			retDateAggregation[i].Amount = startValue
 		}
 	}
 		
