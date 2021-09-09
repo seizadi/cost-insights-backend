@@ -28,7 +28,14 @@
             "in": "query"
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "GET operation response",
+            "schema": {
+              "$ref": "#/definitions/awscostAlertResponse"
+            }
+          }
+        }
       }
     },
     "/daily_metric_data": {
@@ -49,7 +56,14 @@
             "in": "query"
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "GET operation response",
+            "schema": {
+              "$ref": "#/definitions/awscostDailyMetricDataResponse"
+            }
+          }
+        }
       }
     },
     "/group_daily_cost": {
@@ -70,7 +84,14 @@
             "in": "query"
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "GET operation response",
+            "schema": {
+              "$ref": "#/definitions/awscostGroupDailyCostResponse"
+            }
+          }
+        }
       }
     },
     "/group_projects": {
@@ -86,7 +107,14 @@
             "in": "query"
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "GET operation response",
+            "schema": {
+              "$ref": "#/definitions/awscostGroupProjectsResponse"
+            }
+          }
+        }
       }
     },
     "/last_complete_billing_date": {
@@ -95,7 +123,14 @@
           "CostInsightsApi"
         ],
         "operationId": "CostInsightsApiGetLastCompleteBillingDate",
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "GET operation response",
+            "schema": {
+              "$ref": "#/definitions/awscostLastCompleteBillingDateResponse"
+            }
+          }
+        }
       }
     },
     "/product_insights": {
@@ -130,7 +165,14 @@
             "in": "query"
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "GET operation response",
+            "schema": {
+              "$ref": "#/definitions/awscostEntity"
+            }
+          }
+        }
       }
     },
     "/project_daily_cost": {
@@ -151,7 +193,14 @@
             "in": "query"
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "GET operation response",
+            "schema": {
+              "$ref": "#/definitions/awscostProjectDailyCostResponse"
+            }
+          }
+        }
       }
     },
     "/user_groups": {
@@ -167,7 +216,14 @@
             "in": "query"
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "GET operation response",
+            "schema": {
+              "$ref": "#/definitions/awscostUserGroupsResponse"
+            }
+          }
+        }
       }
     },
     "/version": {
@@ -176,7 +232,301 @@
           "AwsCost"
         ],
         "operationId": "AwsCostGetVersion",
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "GET operation response",
+            "schema": {
+              "$ref": "#/definitions/awscostVersionResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "awscostAlertResponse": {
+      "type": "object",
+      "title": "TODO - Alert type is mapped to JS Objects ideally this should be changed\ntype = ProjectGrowthAlert | UnlabeledDataflowAlert | KubernetesMigrationAlert",
+      "properties": {
+        "alerts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/awscostEntity"
+          }
+        }
+      }
+    },
+    "awscostChangeStatistic": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "integer",
+          "format": "int32",
+          "title": "The actual USD change between time periods (can be negative if costs decreased)"
+        },
+        "ratio": {
+          "description": "The ratio of change from one duration to another, expressed as: (newSum - oldSum) / oldSum\nIf a ratio cannot be calculated - such as when a new or old sum is zero,\nthe ratio can be omitted and where applicable, ∞ or -∞ will display based on amount.",
+          "type": "number",
+          "format": "float"
+        }
+      }
+    },
+    "awscostDailyMetricDataResponse": {
+      "type": "object",
+      "properties": {
+        "aggregation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/awscostDateAggregation"
+          }
+        },
+        "change": {
+          "$ref": "#/definitions/awscostChangeStatistic"
+        },
+        "format": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string",
+          "readOnly": true
+        },
+        "trendline": {
+          "$ref": "#/definitions/awscostTrendline"
+        }
+      }
+    },
+    "awscostDateAggregation": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "date": {
+          "type": "string"
+        }
+      }
+    },
+    "awscostEntity": {
+      "properties": {
+        "aggregation": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "change": {
+          "$ref": "#/definitions/awscostChangeStatistic"
+        },
+        "endDate": {
+          "type": "string"
+        },
+        "entities": {
+          "$ref": "#/definitions/awscostRecord_In_awscostEntity"
+        },
+        "id": {
+          "type": "string",
+          "readOnly": true
+        },
+        "labeledCost": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "periodEnd": {
+          "type": "string"
+        },
+        "periodStart": {
+          "type": "string"
+        },
+        "project": {
+          "type": "string"
+        },
+        "startDate": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "unlabeledCost": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "awscostGroup": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "awscostGroupDailyCostResponse": {
+      "type": "object",
+      "properties": {
+        "aggregation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/awscostDateAggregation"
+          }
+        },
+        "change": {
+          "$ref": "#/definitions/awscostChangeStatistic"
+        },
+        "format": {
+          "type": "string"
+        },
+        "groupedCosts": {
+          "$ref": "#/definitions/awscostGroupedCosts"
+        },
+        "id": {
+          "type": "string",
+          "readOnly": true
+        },
+        "trendline": {
+          "$ref": "#/definitions/awscostTrendline"
+        }
+      }
+    },
+    "awscostGroupProjectsResponse": {
+      "type": "object",
+      "properties": {
+        "projects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/awscostProject"
+          }
+        }
+      }
+    },
+    "awscostGroupedCosts": {
+      "type": "object",
+      "properties": {
+        "product": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/awscostProductCost"
+          }
+        },
+        "project": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/awscostProjectCost"
+          }
+        }
+      }
+    },
+    "awscostLastCompleteBillingDateResponse": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string"
+        }
+      }
+    },
+    "awscostProductCost": {
+      "type": "object",
+      "properties": {
+        "aggregation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/awscostDateAggregation"
+          }
+        },
+        "id": {
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "awscostProject": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "readOnly": true
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "awscostProjectCost": {
+      "type": "object",
+      "properties": {
+        "aggregation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/awscostDateAggregation"
+          }
+        },
+        "id": {
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "awscostProjectDailyCostResponse": {
+      "type": "object",
+      "properties": {
+        "aggregation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/awscostDateAggregation"
+          }
+        },
+        "change": {
+          "$ref": "#/definitions/awscostChangeStatistic"
+        },
+        "format": {
+          "type": "string"
+        },
+        "groupedCosts": {
+          "$ref": "#/definitions/awscostGroupedCosts"
+        },
+        "id": {
+          "type": "string",
+          "readOnly": true
+        },
+        "trendline": {
+          "$ref": "#/definitions/awscostTrendline"
+        }
+      }
+    },
+    "awscostRecord_In_awscostEntity": {},
+    "awscostTrendline": {
+      "type": "object",
+      "properties": {
+        "intercept": {
+          "type": "number",
+          "format": "float"
+        },
+        "slope": {
+          "type": "number",
+          "format": "float"
+        }
+      }
+    },
+    "awscostUserGroupsResponse": {
+      "type": "object",
+      "properties": {
+        "groups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/awscostGroup"
+          }
+        }
+      }
+    },
+    "awscostVersionResponse": {
+      "description": "TODO: Structure your own protobuf messages. Each protocol buffer message is a \nsmall logical record of information, containing a series of name-value pairs.",
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string"
+        }
       }
     }
   }
