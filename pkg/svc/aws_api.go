@@ -2,6 +2,7 @@ package svc
 
 import (
 	"context"
+	"github.com/spf13/viper"
 	"math"
 	"strconv"
 	"time"
@@ -68,7 +69,10 @@ func NewCostInsightsApiAwsServer() (pb.CostInsightsApiServer, error) {
 // TODO - We ignore Units asssume number USD (could support other units)
 func getAwsMetricAmount(metric ceTypes.MetricValue) float64 {
 	amount, _ := strconv.ParseFloat(*metric.Amount, 64)
-	return math.Round(amount)
+	if viper.GetBool("cost.round") {
+		return math.Round(amount)
+	}
+	return amount
 }
 
 // aggregationForAWS
