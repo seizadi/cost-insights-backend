@@ -33,7 +33,7 @@ var AWS_SERVICE = map[string]string{
 	"ElasticSearch": "Amazon Elasticsearch Service",
 	"CloudWatch": "Amazon CloudWatch",
 	"CloudTrail": "Amazon CloudTrail",
-	"RDS": "Amazon Relational Data Service",
+	"RDS": "Amazon Relational Database Service",
 	"ELB": "Amazon Elastic Load Balancing",
 	"EMR": "Amazon Elastic MadReduce",
 	"MSK": "Amazon Managed Streaming for Apache Kafka",
