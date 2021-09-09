@@ -31,6 +31,10 @@ to relate this to the
 | KubeCluster | Product      |
 
 I have kept the terminology adopted by CostInsights since it is in line with Backsatge terminology.
+The Metric resource can be used to represent the cost of AWS Service like EC2 or aggregated to present
+the cost for an AWS Account or All Accounts. Metric can also present custom Metric data like 
+Daily Active Users (DAU) or Monthly Subscribers (MSC). In this case Metric.Amount represent the
+appropriate resource, e.g. for DAU, number of Users.
 ```mermaid
 erDiagram
     Metric {
@@ -43,6 +47,7 @@ erDiagram
     User }|--|{ Group : ""
     Group }|--|{ Project : ""    
     Project }|--|{ Product : ""
+    Project }|--|{ Metric : ""
     Product }|--|{ Metric : ""
     Alert }|--|{ Project : ""
     Alert }|--|| Group : ""
