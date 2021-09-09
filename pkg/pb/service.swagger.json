@@ -260,8 +260,8 @@
       "type": "object",
       "properties": {
         "amount": {
-          "type": "integer",
-          "format": "int32",
+          "type": "number",
+          "format": "double",
           "title": "The actual USD change between time periods (can be negative if costs decreased)"
         },
         "ratio": {
@@ -299,8 +299,8 @@
       "type": "object",
       "properties": {
         "amount": {
-          "type": "integer",
-          "format": "int32"
+          "type": "number",
+          "format": "double"
         },
         "date": {
           "type": "string"
@@ -312,8 +312,8 @@
         "aggregation": {
           "type": "array",
           "items": {
-            "type": "integer",
-            "format": "int32"
+            "type": "number",
+            "format": "double"
           }
         },
         "change": {
@@ -330,8 +330,8 @@
           "readOnly": true
         },
         "labeledCost": {
-          "type": "integer",
-          "format": "int32"
+          "type": "number",
+          "format": "double"
         },
         "periodEnd": {
           "type": "string"
@@ -349,8 +349,8 @@
           "type": "string"
         },
         "unlabeledCost": {
-          "type": "integer",
-          "format": "int32"
+          "type": "number",
+          "format": "double"
         }
       }
     },

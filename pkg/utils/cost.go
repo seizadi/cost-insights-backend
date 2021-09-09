@@ -14,7 +14,7 @@ import (
 )
 
 
-func getChange(firstAmount int32, lastAmount int32) *pb.ChangeStatistic {
+func getChange(firstAmount float64, lastAmount float64) *pb.ChangeStatistic {
 	// if either the first or last amounts are zero, the rate of increase/decrease is infinite
 	if firstAmount == 0 || lastAmount == 0 {
 		return &pb.ChangeStatistic{
@@ -29,8 +29,8 @@ func getChange(firstAmount int32, lastAmount int32) *pb.ChangeStatistic {
 }
 
 func ChangeOf(aggregation []*pb.DateAggregation) *pb.ChangeStatistic {
-	var firstAmount int32 = 0
-	var lastAmount int32 = 0
+	var firstAmount float64 = 0
+	var lastAmount float64 = 0
 	if len(aggregation) > 0 {
 		firstAmount = aggregation[0].Amount
 		lastAmount = aggregation[len(aggregation) - 1].Amount
@@ -39,7 +39,7 @@ func ChangeOf(aggregation []*pb.DateAggregation) *pb.ChangeStatistic {
 	return getChange(firstAmount, lastAmount)
 }
 
-func ChangeOfEntity(aggregate []int32) *pb.ChangeStatistic {
+func ChangeOfEntity(aggregate []float64) *pb.ChangeStatistic {
 	return getChange(aggregate[0], aggregate[1])
 }
 
@@ -88,7 +88,7 @@ func TrendlineOf(aggregation []*pb.DateAggregation) (*pb.Trendline, error) {
 	return &trend, nil
 }
 
-func GetProductCost(product string, intervals string, cost int32) (*pb.ProductCost, error) {
+func GetProductCost(product string, intervals string, cost float64) (*pb.ProductCost, error) {
 	aggregation, err := AggregationFor(intervals, cost)
 	if err != nil {
 		return &pb.ProductCost{}, errors.New("failed to get cost for product: " + product)
@@ -152,7 +152,7 @@ func GetGroupedProducts(intervals string) ([]*pb.ProductCost, error){
 	return cost, nil
 }
 
-func GetProjectCost(project string, intervals string, cost int32) (*pb.ProjectCost, error) {
+func GetProjectCost(project string, intervals string, cost float64) (*pb.ProjectCost, error) {
 	aggregation, err := AggregationFor(intervals, cost)
 	if err != nil {
 		return &pb.ProjectCost{}, errors.New("failed to get cost for project: " + project)

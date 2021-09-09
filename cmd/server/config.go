@@ -70,6 +70,9 @@ const (
 
 	// Logging
 	defaultLoggingLevel = "debug"
+	
+	// Cost Amount
+	defaultCostRoundFlag = true;
 )
 
 var (
@@ -128,4 +131,6 @@ var (
 	flagKeepaliveTimeout = pflag.Int("config.keepalive.timeout", defaultKeepaliveTimeout, "default value, in seconds, of the keepalive timeout")
 
 	flagLoggingLevel = pflag.String("logging.level", defaultLoggingLevel, "log level of application")
+	
+	flagCostRoundFlag = pflag.Bool("cost.round", defaultCostRoundFlag, "rounds cost to nearest whole number")
 )
