@@ -4,9 +4,9 @@ import (
 	"context"
 	"errors"
 	"time"
-	
+
 	"github.com/golang/protobuf/ptypes/empty"
-	
+
 	"github.com/seizadi/cost-insights-backend/pkg/pb"
 	"github.com/seizadi/cost-insights-backend/pkg/types"
 	"github.com/seizadi/cost-insights-backend/pkg/utils"
@@ -66,9 +66,9 @@ func (costInsightsMockServer) GetUserGroups(context.Context, *pb.UserGroupsReque
 // Implements CostInsightsApiClient getGroupProjects(group: string): Promise<Project[]>;
 func (costInsightsMockServer) GetGroupProjects(context.Context, *pb.GroupProjectsRequest) (*pb.GroupProjectsResponse, error) {
 	projects := []*pb.Project{
-		{ Id: "project-a" },
-		{ Id: "project-b" },
-		{ Id: "project-c" },
+		{Id: "project-a"},
+		{Id: "project-b"},
+		{Id: "project-c"},
 	}
 	return &pb.GroupProjectsResponse{Projects: projects}, nil
 }
@@ -103,7 +103,7 @@ func (costInsightsMockServer) GetGroupDailyCost(ctx context.Context, req *pb.Gro
 		return &pb.GroupDailyCostResponse{}, err
 	}
 	cost.Trendline = trendline
-	
+
 	// Optional field providing cost groupings / breakdowns keyed by the type. In this example,
 	// daily cost grouped by cloud product OR by project / billing account.
 	var groupedCosts pb.GroupedCosts
@@ -112,14 +112,14 @@ func (costInsightsMockServer) GetGroupDailyCost(ctx context.Context, req *pb.Gro
 		return &cost, err
 	}
 	groupedCosts.Product = productCost
-	
+
 	projectCost, err := utils.GetGroupedProjects(req.Intervals)
 	if err != nil {
 		return &cost, err
 	}
 	groupedCosts.Project = projectCost
 	cost.GroupedCosts = &groupedCosts
-	
+
 	return &cost, nil
 }
 
@@ -147,7 +147,7 @@ func (costInsightsMockServer) GetDailyMetricData(ctx context.Context, req *pb.Da
 		return &pb.DailyMetricDataResponse{}, err
 	}
 	cost.Trendline = trendline
-	
+
 	return &cost, nil
 }
 
@@ -182,14 +182,14 @@ func (costInsightsMockServer) GetProjectDailyCost(ctx context.Context, req *pb.P
 		return &pb.ProjectDailyCostResponse{}, err
 	}
 	cost.Trendline = trendline
-	
+
 	var groupedCosts pb.GroupedCosts
 	projectCost, err := utils.GetGroupedProjects(req.Intervals)
 	if err != nil {
 		return &cost, err
 	}
 	groupedCosts.Project = projectCost
-	
+
 	return &cost, nil
 }
 
@@ -210,17 +210,17 @@ func (costInsightsMockServer) GetProjectDailyCost(ctx context.Context, req *pb.P
 //
 // Implements CostInsightsApiClient getProductInsights(options: ProductInsightsOptions): Promise<Entity>;
 func (costInsightsMockServer) GetProductInsights(ctx context.Context, req *pb.ProductInsightsRequest) (*pb.Entity, error) {
-	switch (req.Product) {
+	switch req.Product {
 	case "computeEngine":
-		return utils.MockComputeEngineInsights(), nil;
+		return utils.MockComputeEngineInsights(), nil
 	case "cloudDataflow":
-		return utils.MockCloudDataflowInsights(), nil;
+		return utils.MockCloudDataflowInsights(), nil
 	case "cloudStorage":
-		return utils.MockCloudStorageInsights(), nil;
+		return utils.MockCloudStorageInsights(), nil
 	case "bigQuery":
-		return utils.MockBigQueryInsights(), nil;
+		return utils.MockBigQueryInsights(), nil
 	case "events":
-		return utils.MockEventsInsights(), nil;
+		return utils.MockEventsInsights(), nil
 	default:
 		return &pb.Entity{}, errors.New("failed to get insights for " + req.Product + " product must match product property in configuration(app-info.yaml)")
 	}
@@ -235,6 +235,5 @@ func (costInsightsMockServer) GetProductInsights(ctx context.Context, req *pb.Pr
 //
 // Implements CostInsightsApiClient getAlerts(group: string): Promise<Alert[]>;
 func (costInsightsMockServer) GetAlerts(ctx context.Context, req *pb.AlertRequest) (*pb.AlertResponse, error) {
-	return &pb.AlertResponse{Alerts: utils.MockAlerts()}, nil;
+	return &pb.AlertResponse{Alerts: utils.MockAlerts()}, nil
 }
-
