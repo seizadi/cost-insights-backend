@@ -8,6 +8,7 @@ package svc
 
 const (
 	DEFAULT_DATE_FORMAT = "%v-%02v-%02v" // "2021-06-16"
+	DATE_PROJECT_ALERT = "%v-%02v" // "2021-06"
 )
 
 

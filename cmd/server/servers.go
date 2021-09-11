@@ -31,8 +31,8 @@ func CreateServer(logger *logrus.Logger, interceptors []grpc.UnaryServerIntercep
 	pb.RegisterAwsCostServer(grpcServer, s)
 	
 	// TODO - Make the selection of backend configurable from app config
-	cs, err := svc.NewCostInsightsApiMockServer()
-	//cs, err := svc.NewCostInsightsApiAwsServer()
+	//cs, err := svc.NewCostInsightsApiMockServer()
+	cs, err := svc.NewCostInsightsApiAwsServer()
 	if err != nil {
 		return nil, err
 	}

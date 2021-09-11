@@ -581,8 +581,8 @@ func MockAlerts() []*pb.Entity{
 	entity1 := pb.Entity{
 		Type: "ProjectGrowthAlert",
 		Project:          "example-project",
-		PeriodStart: "2020-02",
-		PeriodEnd: "2020-03",
+		PeriodStart: "2020-Q2",
+		PeriodEnd: "2020-Q3",
 		Aggregation: []float64{60000, 120000},
 		Change: &pb.ChangeStatistic{
 			Ratio:  1,
