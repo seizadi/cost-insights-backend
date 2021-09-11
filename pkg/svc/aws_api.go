@@ -5,21 +5,21 @@ import (
 	"math"
 	"strconv"
 	"time"
-	
+
 	"github.com/spf13/viper"
-	
+
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/costexplorer"
 	ceTypes "github.com/aws/aws-sdk-go-v2/service/costexplorer/types"
 	"github.com/golang/protobuf/ptypes/empty"
-	
+
 	"github.com/seizadi/cost-insights-backend/metrics"
 	"github.com/seizadi/cost-insights-backend/pkg/pb"
 	"github.com/seizadi/cost-insights-backend/pkg/types"
 	"github.com/seizadi/cost-insights-backend/pkg/utils"
 )
 
-type costInsightsAwsServer struct{
+type costInsightsAwsServer struct {
 	client *costexplorer.Client
 }
 
@@ -28,20 +28,20 @@ const (
 )
 
 var AWS_SERVICE = map[string]string{
-	"EC2": "Amazon Elastic Compute Cloud - Compute",
-	"EC2Other": "EC2 - Other",
-	"S3": "Amazon Simple Storage Service",
-	"DynamoDB": "Amazon DynamoDB",
+	"EC2":           "Amazon Elastic Compute Cloud - Compute",
+	"EC2Other":      "EC2 - Other",
+	"S3":            "Amazon Simple Storage Service",
+	"DynamoDB":      "Amazon DynamoDB",
 	"ElasticSearch": "Amazon Elasticsearch Service",
-	"CloudWatch": "Amazon CloudWatch",
-	"CloudTrail": "Amazon CloudTrail",
-	"RDS": "Amazon Relational Database Service",
-	"ELB": "Amazon Elastic Load Balancing",
-	"EMR": "Amazon Elastic MadReduce",
-	"MSK": "Amazon Managed Streaming for Apache Kafka",
-	"Lambda": "AWS Lambda",
-	"SNS": "Amazon Simple Notification Service",
-	"SQS": "Amazon Simple Queue Service",
+	"CloudWatch":    "Amazon CloudWatch",
+	"CloudTrail":    "Amazon CloudTrail",
+	"RDS":           "Amazon Relational Database Service",
+	"ELB":           "Amazon Elastic Load Balancing",
+	"EMR":           "Amazon Elastic MadReduce",
+	"MSK":           "Amazon Managed Streaming for Apache Kafka",
+	"Lambda":        "AWS Lambda",
+	"SNS":           "Amazon Simple Notification Service",
+	"SQS":           "Amazon Simple Queue Service",
 }
 
 func NewCeClient() (*costexplorer.Client, error) {
@@ -49,7 +49,7 @@ func NewCeClient() (*costexplorer.Client, error) {
 	if err != nil {
 		return nil, err
 	}
-	
+
 	client := costexplorer.NewFromConfig(cfg)
 	return client, nil
 }
@@ -61,7 +61,7 @@ func NewCostInsightsApiAwsServer() (pb.CostInsightsApiServer, error) {
 	if err != nil {
 		return nil, err
 	}
-	
+
 	return &costInsightsAwsServer{client: client}, nil
 }
 
@@ -79,10 +79,10 @@ func getAwsMetricAmount(metric ceTypes.MetricValue) float64 {
 // aggregationForAWS
 // Transforms AWS CostExplorer ResultByTime array to CostInsights DateAggregation array
 //
-func aggregationForAWS (results []ceTypes.ResultByTime) ([]*pb.DateAggregation, error) {
+func aggregationForAWS(results []ceTypes.ResultByTime) ([]*pb.DateAggregation, error) {
 	retDateAggregation := []*pb.DateAggregation{}
 	for _, result := range results {
-		value := pb.DateAggregation {
+		value := pb.DateAggregation{
 			Date: *result.TimePeriod.Start,
 		}
 		// We expect only one metric 'UnblendedCost' in the map but we could query more
@@ -93,7 +93,7 @@ func aggregationForAWS (results []ceTypes.ResultByTime) ([]*pb.DateAggregation, 
 			retDateAggregation = append(retDateAggregation, &value)
 		}
 	}
-	
+
 	return retDateAggregation, nil
 }
 
@@ -122,22 +122,22 @@ func getGroupedAwsKeyIndex(results []ceTypes.ResultByTime) map[string]int {
 // getGroupedAwsProducts
 // Retrieves Grouped AWS Products (i.e. AWS Services) Costs from CostExplorer API
 //
-func getGroupedAwsProducts(results []ceTypes.ResultByTime) ([]*pb.ProductCost, error){
+func getGroupedAwsProducts(results []ceTypes.ResultByTime) ([]*pb.ProductCost, error) {
 	keys := getGroupedAwsKeyIndex(results)
 	costs := make([]*pb.ProductCost, len(keys))
-	
+
 	for key, index := range keys {
 		productCost := &pb.ProductCost{
-			Id: key,
+			Id:          key,
 			Aggregation: []*pb.DateAggregation{},
 		}
 		costs[index] = productCost
 	}
-	
+
 	for _, result := range results {
 		for _, group := range result.Groups {
 			cost := costs[keys[group.Keys[0]]]
-			value := pb.DateAggregation {
+			value := pb.DateAggregation{
 				Date: *result.TimePeriod.Start,
 			}
 			// We expect only one metric 'UnblendedCost' in the map but we could query more
@@ -150,36 +150,36 @@ func getGroupedAwsProducts(results []ceTypes.ResultByTime) ([]*pb.ProductCost, e
 			costs[keys[group.Keys[0]]] = cost
 		}
 	}
-	
+
 	filteredCosts := []*pb.ProductCost{}
 	for _, index := range keys {
 		if len(costs[index].Aggregation) > 0 {
 			filteredCosts = append(filteredCosts, costs[index])
 		}
 	}
-	
+
 	return filteredCosts, nil
 }
 
 // getGroupedAwsProjects
 // Retrieves Grouped AWS Projects (i.e. AWS Accounts) Costs from CostExplorer API
 //
-func getGroupedAwsProjects(results []ceTypes.ResultByTime) ([]*pb.ProjectCost, error){
+func getGroupedAwsProjects(results []ceTypes.ResultByTime) ([]*pb.ProjectCost, error) {
 	keys := getGroupedAwsKeyIndex(results)
 	costs := make([]*pb.ProjectCost, len(keys))
-	
+
 	for key, index := range keys {
 		projectCost := &pb.ProjectCost{
-			Id: key,
+			Id:          key,
 			Aggregation: []*pb.DateAggregation{},
 		}
 		costs[index] = projectCost
 	}
-	
+
 	for _, result := range results {
 		for _, group := range result.Groups {
 			cost := costs[keys[group.Keys[0]]]
-			value := pb.DateAggregation {
+			value := pb.DateAggregation{
 				Date: *result.TimePeriod.Start,
 			}
 			// We expect only one metric 'UnblendedCost' in the map but we could query more
@@ -192,43 +192,43 @@ func getGroupedAwsProjects(results []ceTypes.ResultByTime) ([]*pb.ProjectCost, e
 			costs[keys[group.Keys[0]]] = cost
 		}
 	}
-	
+
 	filteredCosts := []*pb.ProjectCost{}
 	for _, index := range keys {
 		if len(costs[index].Aggregation) > 0 {
 			filteredCosts = append(filteredCosts, costs[index])
 		}
 	}
-	
+
 	return filteredCosts, nil
 }
 
 // getEntityAwsProducts
 // Retrieves Entities for AWS Products (i.e. AWS Services) Costs from CostExplorer API
 //
-func getEntityAwsProducts(results []ceTypes.ResultByTime) ([]*pb.Entity, error){
+func getEntityAwsProducts(results []ceTypes.ResultByTime) ([]*pb.Entity, error) {
 	keys := getGroupedAwsKeyIndex(results)
 	costs := make([]*pb.Entity, len(keys))
-	
+
 	for key, index := range keys {
 		entity := &pb.Entity{
 			Id: key,
 			// TODO - Fix the harded coded valeus for Aggregation and Change
 			Aggregation: []float64{0, 0},
-			Change: &pb.ChangeStatistic{},
-			Entities: &pb.Record{},
+			Change:      &pb.ChangeStatistic{},
+			Entities:    &pb.Record{},
 		}
 		costs[index] = entity
 	}
-	
+
 	// TODO - Compute Aggregation and Change
 	// The ResultsByTime objects provide a Groups array with an entry for each resource and its costs for the
 	// given day. You'll need to aggregate cost data into two bucketed time periods (e.g. month vs month,
 	// or quarter vs quarter) for each resource since this is the expected data type for the Aggregation
 	// field on Entity.
-	
-	midPoint := len(results)/2
-	
+
+	midPoint := len(results) / 2
+
 	for i, result := range results {
 		for _, group := range result.Groups {
 			var amount float64
@@ -236,7 +236,7 @@ func getEntityAwsProducts(results []ceTypes.ResultByTime) ([]*pb.Entity, error){
 			for _, metric := range group.Metrics {
 				amount = getAwsMetricAmount(metric)
 			}
-			
+
 			if i >= midPoint {
 				costs[keys[group.Keys[0]]].Aggregation[1] = costs[keys[group.Keys[0]]].Aggregation[1] + amount
 			} else {
@@ -244,7 +244,7 @@ func getEntityAwsProducts(results []ceTypes.ResultByTime) ([]*pb.Entity, error){
 			}
 		}
 	}
-	
+
 	filteredCosts := []*pb.Entity{}
 	for _, index := range keys {
 		if !(costs[index].Aggregation[0] == 0 && costs[index].Aggregation[1] == 0) {
@@ -252,7 +252,7 @@ func getEntityAwsProducts(results []ceTypes.ResultByTime) ([]*pb.Entity, error){
 			filteredCosts = append(filteredCosts, costs[index])
 		}
 	}
-	
+
 	return filteredCosts, nil
 }
 
@@ -295,9 +295,9 @@ func (costInsightsAwsServer) GetUserGroups(context.Context, *pb.UserGroupsReques
 // Implements CostInsightsApiClient getGroupProjects(group: string): Promise<Project[]>;
 func (costInsightsAwsServer) GetGroupProjects(context.Context, *pb.GroupProjectsRequest) (*pb.GroupProjectsResponse, error) {
 	projects := []*pb.Project{
-		{ Id: "project-a" },
-		{ Id: "project-b" },
-		{ Id: "project-c" },
+		{Id: "project-a"},
+		{Id: "project-b"},
+		{Id: "project-c"},
 	}
 	return &pb.GroupProjectsResponse{Projects: projects}, nil
 }
@@ -321,20 +321,20 @@ func (costInsightsAwsServer) GetGroupProjects(context.Context, *pb.GroupProjects
 func (m costInsightsAwsServer) GetGroupDailyCost(ctx context.Context, req *pb.GroupDailyCostRequest) (*pb.GroupDailyCostResponse, error) {
 	cost := pb.GroupDailyCostResponse{}
 	cost.Format = "number"
-	
+
 	interval, err := utils.ParseIntervals(req.Intervals)
 	if err != nil {
 		return nil, err
 	}
-	
+
 	startDate, err := utils.InclusiveStartDateOf(interval.Duration, interval.EndDate)
 	if err != nil {
 		return nil, err
 	}
-	
+
 	resp, err := m.client.GetCostAndUsage(ctx, &costexplorer.GetCostAndUsageInput{
 		TimePeriod: &ceTypes.DateInterval{Start: &startDate, End: &interval.EndDate},
-		Metrics: []string{string(DEFAULT_COST_METHOD)},
+		Metrics:    []string{string(DEFAULT_COST_METHOD)},
 		// TODO - Need a way to map Group to Account(i.e. Project) to filter
 		//Filter: &ceTypes.Expression{
 		//	Dimensions: &ceTypes.DimensionValues{
@@ -347,7 +347,7 @@ func (m costInsightsAwsServer) GetGroupDailyCost(ctx context.Context, req *pb.Gr
 	if err != nil {
 		return nil, err
 	}
-	
+
 	aggregation, err := aggregationForAWS(resp.ResultsByTime)
 	if err != nil {
 		return &pb.GroupDailyCostResponse{}, err
@@ -359,15 +359,15 @@ func (m costInsightsAwsServer) GetGroupDailyCost(ctx context.Context, req *pb.Gr
 		return &pb.GroupDailyCostResponse{}, err
 	}
 	cost.Trendline = trendline
-	
+
 	// Optional field providing cost groupings / breakdowns keyed by the type. In this example,
 	// daily cost grouped by cloud product OR by project / billing account.
 	cost.GroupedCosts = &pb.GroupedCosts{}
-	
+
 	groupKey := "SERVICE"
 	respProductGrouped, err := m.client.GetCostAndUsage(context.TODO(), &costexplorer.GetCostAndUsageInput{
 		TimePeriod: &ceTypes.DateInterval{Start: &startDate, End: &interval.EndDate},
-		Metrics: []string{string(DEFAULT_COST_METHOD)},
+		Metrics:    []string{string(DEFAULT_COST_METHOD)},
 		// TODO - Need a way to map Group to Account(i.e. Project) to filter
 		//Filter: &ceTypes.Expression{
 		//	Dimensions: &ceTypes.DimensionValues{
@@ -383,18 +383,18 @@ func (m costInsightsAwsServer) GetGroupDailyCost(ctx context.Context, req *pb.Gr
 	if err != nil {
 		return nil, err
 	}
-	
+
 	cost.GroupedCosts.Product, err = getGroupedAwsProducts(respProductGrouped.ResultsByTime)
 	if err != nil {
 		return &cost, err
 	}
-	
+
 	// Optional field providing cost groupings / breakdowns keyed by the type. In this example,
 	// daily cost grouped by cloud product OR by project / billing account.
 	groupKey = "LINKED_ACCOUNT"
 	respProjectGrouped, err := m.client.GetCostAndUsage(context.TODO(), &costexplorer.GetCostAndUsageInput{
 		TimePeriod: &ceTypes.DateInterval{Start: &startDate, End: &interval.EndDate},
-		Metrics: []string{string(DEFAULT_COST_METHOD)},
+		Metrics:    []string{string(DEFAULT_COST_METHOD)},
 		// TODO - Need a way to map Group to Account(i.e. Project) to filter
 		//Filter: &ceTypes.Expression{
 		//	Dimensions: &ceTypes.DimensionValues{
@@ -410,12 +410,12 @@ func (m costInsightsAwsServer) GetGroupDailyCost(ctx context.Context, req *pb.Gr
 	if err != nil {
 		return nil, err
 	}
-	
+
 	cost.GroupedCosts.Project, err = getGroupedAwsProjects(respProjectGrouped.ResultsByTime)
 	if err != nil {
 		return &cost, err
 	}
-	
+
 	return &cost, nil
 }
 
@@ -436,7 +436,7 @@ func (costInsightsAwsServer) GetDailyMetricData(ctx context.Context, req *pb.Dai
 	if err != nil {
 		return &pb.DailyMetricDataResponse{}, err
 	}
-	
+
 	//aggregation, err := utils.AggregationFor(req.Intervals, types.DAILY_COST)
 	//if err != nil {
 	//	return &pb.DailyMetricDataResponse{}, err
@@ -448,10 +448,9 @@ func (costInsightsAwsServer) GetDailyMetricData(ctx context.Context, req *pb.Dai
 		return &pb.DailyMetricDataResponse{}, err
 	}
 	cost.Trendline = trendline
-	
+
 	return &cost, nil
 }
-
 
 // GetProjectDailyCost
 // Get daily cost aggregations for a given billing entity (project in GCP, AWS has a similar
@@ -477,15 +476,15 @@ func (m costInsightsAwsServer) GetProjectDailyCost(ctx context.Context, req *pb.
 	if err != nil {
 		return nil, err
 	}
-	
+
 	startDate, err := utils.InclusiveStartDateOf(interval.Duration, interval.EndDate)
 	if err != nil {
 		return nil, err
 	}
-	
+
 	resp, err := m.client.GetCostAndUsage(context.TODO(), &costexplorer.GetCostAndUsageInput{
 		TimePeriod: &ceTypes.DateInterval{Start: &startDate, End: &interval.EndDate},
-		Metrics: []string{string(DEFAULT_COST_METHOD)},
+		Metrics:    []string{string(DEFAULT_COST_METHOD)},
 		// TODO - Need a way to map Project to Account to filter Project Detail
 		//Filter: &ceTypes.Expression{
 		//	Dimensions: &ceTypes.DimensionValues{
@@ -498,7 +497,7 @@ func (m costInsightsAwsServer) GetProjectDailyCost(ctx context.Context, req *pb.
 	if err != nil {
 		return nil, err
 	}
-	
+
 	aggregation, err := aggregationForAWS(resp.ResultsByTime)
 	if err != nil {
 		return &pb.ProjectDailyCostResponse{}, err
@@ -510,15 +509,15 @@ func (m costInsightsAwsServer) GetProjectDailyCost(ctx context.Context, req *pb.
 		return &pb.ProjectDailyCostResponse{}, err
 	}
 	cost.Trendline = trendline
-	
+
 	// Optional field providing cost groupings / breakdowns keyed by the type. In this example,
 	// daily cost grouped by cloud product (AWS Service)
 	cost.GroupedCosts = &pb.GroupedCosts{}
-	
+
 	groupKey := "SERVICE"
 	respGrouped, err := m.client.GetCostAndUsage(context.TODO(), &costexplorer.GetCostAndUsageInput{
 		TimePeriod: &ceTypes.DateInterval{Start: &startDate, End: &interval.EndDate},
-		Metrics: []string{string(DEFAULT_COST_METHOD)},
+		Metrics:    []string{string(DEFAULT_COST_METHOD)},
 		// TODO - Need Account(i.e. Project) to filter
 		//Filter: &ceTypes.Expression{
 		//	Dimensions: &ceTypes.DimensionValues{
@@ -534,12 +533,12 @@ func (m costInsightsAwsServer) GetProjectDailyCost(ctx context.Context, req *pb.
 	if err != nil {
 		return nil, err
 	}
-	
+
 	cost.GroupedCosts.Product, err = getGroupedAwsProducts(respGrouped.ResultsByTime)
 	if err != nil {
 		return &cost, err
 	}
-	
+
 	return &cost, nil
 }
 
@@ -564,30 +563,30 @@ func (m costInsightsAwsServer) GetProjectDailyCost(ctx context.Context, req *pb.
 func (m costInsightsAwsServer) GetProductInsights(ctx context.Context, req *pb.ProductInsightsRequest) (*pb.Entity, error) {
 	// TODO - Need to be able to specify the cost Tag(s) that are used for the query
 	// TODO - Need able to filter based on Product, Project or Group
-	
+
 	entity := &pb.Entity{}
-	
+
 	interval, err := utils.ParseIntervals(req.Intervals)
 	if err != nil {
 		return nil, err
 	}
-	
+
 	startDate, err := utils.InclusiveStartDateOf(interval.Duration, interval.EndDate)
 	if err != nil {
 		return nil, err
 	}
-	
+
 	// TODO - groupKey is the Cost Tag Name should be configurable (defaults to Product)
 	groupKey := "Product"
-	
+
 	resp, err := m.client.GetCostAndUsage(context.TODO(), &costexplorer.GetCostAndUsageInput{
 		TimePeriod: &ceTypes.DateInterval{Start: &startDate, End: &interval.EndDate},
-		Metrics: []string{string(DEFAULT_COST_METHOD)},
+		Metrics:    []string{string(DEFAULT_COST_METHOD)},
 		// TODO - Need Account(i.e. Project) to filter
 		// TODO - Use Group to select Account(s) (i.e. Projects) to filter
 		Filter: &ceTypes.Expression{
 			Dimensions: &ceTypes.DimensionValues{
-				Key: ceTypes.DimensionService,
+				Key:    ceTypes.DimensionService,
 				Values: []string{AWS_SERVICE[req.Product]},
 			},
 		},
@@ -599,20 +598,20 @@ func (m costInsightsAwsServer) GetProductInsights(ctx context.Context, req *pb.P
 	if err != nil {
 		return nil, err
 	}
-	
+
 	entity.Id = req.Product
-	
+
 	entities, err := getEntityAwsProducts(resp.ResultsByTime)
 	if err != nil {
 		return entity, err
 	}
-	
+
 	entity.Entities = &pb.Record{Service: entities}
-	
+
 	// We aggregate cost data into two bucketed time periods (e.g. month vs month, or quarter vs quarter).
 	// For each half we will walk through the Entities and add their aggregate to form the Aggregation
 	//field on Entity.
-	
+
 	var startAggregate float64
 	var endAggregate float64
 	for _, e := range entity.Entities.Service {
@@ -621,7 +620,7 @@ func (m costInsightsAwsServer) GetProductInsights(ctx context.Context, req *pb.P
 	}
 	entity.Aggregation = []float64{startAggregate, endAggregate}
 	entity.Change = utils.ChangeOfEntity(entity.Aggregation)
-	
+
 	return entity, nil
 }
 
@@ -638,18 +637,15 @@ func (m costInsightsAwsServer) GetAlerts(ctx context.Context, req *pb.AlertReque
 	if err != nil {
 		return &pb.AlertResponse{}, err
 	}
-	
+
 	alerts = append(alerts, growthAlert)
-	
+
 	//unlabeledAlert, err := UnlabeledAlert()
 	//if err != nil {
 	//	return &pb.AlertResponse{}, err
 	//}
 	//
 	//alerts = append(alerts, unlabeledAlert)
-	
-	return &pb.AlertResponse{Alerts: alerts}, nil;
+
+	return &pb.AlertResponse{Alerts: alerts}, nil
 }
-
-
-
