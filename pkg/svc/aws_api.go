@@ -2,10 +2,11 @@ package svc
 
 import (
 	"context"
-	"github.com/spf13/viper"
 	"math"
 	"strconv"
 	"time"
+
+	"github.com/spf13/viper"
 
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/costexplorer"
@@ -626,6 +627,21 @@ func (m costInsightsAwsServer) GetProductInsights(ctx context.Context, req *pb.P
 // migrations, or cost-related warnings, such as an unexpected billing anomaly.
 //
 // Implements CostInsightsApiClient getAlerts(group: string): Promise<Alert[]>;
-func (costInsightsAwsServer) GetAlerts(ctx context.Context, req *pb.AlertRequest) (*pb.AlertResponse, error) {
-	return &pb.AlertResponse{Alerts: utils.MockAlerts()}, nil
+func (m costInsightsAwsServer) GetAlerts(ctx context.Context, req *pb.AlertRequest) (*pb.AlertResponse, error) {
+	alerts := []*pb.Entity{}
+	growthAlert, err := m.ProjectGrowthAlert()
+	if err != nil {
+		return &pb.AlertResponse{}, err
+	}
+
+	alerts = append(alerts, growthAlert)
+
+	//unlabeledAlert, err := UnlabeledAlert()
+	//if err != nil {
+	//	return &pb.AlertResponse{}, err
+	//}
+	//
+	//alerts = append(alerts, unlabeledAlert)
+
+	return &pb.AlertResponse{Alerts: alerts}, nil
 }

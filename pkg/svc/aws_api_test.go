@@ -2,7 +2,7 @@ package svc
 
 import (
 	"testing"
-	
+
 	ceTypes "github.com/aws/aws-sdk-go-v2/service/costexplorer/types"
 	"github.com/spf13/viper"
 )

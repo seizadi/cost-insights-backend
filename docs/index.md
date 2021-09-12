@@ -31,11 +31,17 @@ to relate this to the
 | KubeCluster | Product      |
 
 I have kept the terminology adopted by CostInsights since it is in line with Backsatge terminology.
+The Metric resource can be used to represent the cost of AWS Service like EC2 or aggregated to present
+the cost for an AWS Account or All Accounts. Metric can also present custom Metric data like 
+Daily Active Users (DAU) or Monthly Subscribers (MSC). In this case Metric.Amount represent the
+appropriate resource, e.g. for DAU, number of Users. The custom Metric is related to the Account (Project), 
+this relation can be used to derive COGS metrics based on a custom metric like DAU or MSC. We can
+also look at the growth of custom metric like DAU in relation to how the AWS Costs are growing.
 ```mermaid
 erDiagram
     Metric {
-        string date
-        number amount
+        date string
+        amount number
     }
     CloudProvider ||--|{ User : ""
     CloudProvider ||--|{ Group : ""
@@ -43,6 +49,7 @@ erDiagram
     User }|--|{ Group : ""
     Group }|--|{ Project : ""    
     Project }|--|{ Product : ""
+    Project }|--|{ Metric : ""
     Product }|--|{ Metric : ""
     Alert }|--|{ Project : ""
     Alert }|--|| Group : ""
@@ -50,6 +57,15 @@ erDiagram
     Product }|--|{ Service : ""
     Alert }|--|{ Service : ""
 ```
+
+## API
+You can see this data model on top of the 
+[CostInsightsApi](https://github.com/backstage/backstage/blob/master/plugins/cost-insights/src/api/CostInsightsApi.ts) 
+with the
+[SwaggerEditor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/seizadi/cost-insights-backend/main/pkg/pb/service.swagger.json).
+
+In the Data Flow section below we show how CI Plugin Backend running on BackStage application
+uses this API to materialize the CostInsightsApi for CI Frontend.
 
 ## Data Flows
 In the diagrams we will use CI acronym for CostInsights.
