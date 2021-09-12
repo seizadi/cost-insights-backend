@@ -2,6 +2,7 @@ package svc
 
 import (
 	"context"
+	"github.com/spf13/viper"
 	"time"
 
 	"github.com/aws/aws-sdk-go-v2/service/costexplorer"
@@ -36,7 +37,7 @@ func (m costInsightsAwsServer) ProjectGrowthAlert() (*pb.Entity, error) {
 	groupKey := "SERVICE"
 	resp, err := m.client.GetCostAndUsage(context.TODO(), &costexplorer.GetCostAndUsageInput{
 		TimePeriod: &ceTypes.DateInterval{Start: &startDate, End: &interval.EndDate},
-		Metrics:    []string{string(DEFAULT_COST_METHOD)},
+		Metrics:    []string{viper.GetString("cost.aws.datasets")},
 		// TODO - Need Account(i.e. Project) to filter
 		//Filter: &ceTypes.Expression{
 		//	Dimensions: &ceTypes.DimensionValues{
