@@ -1,6 +1,9 @@
 package main
 
-import "github.com/spf13/pflag"
+import (
+	ceTypes "github.com/aws/aws-sdk-go-v2/service/costexplorer/types"
+	"github.com/spf13/pflag"
+)
 
 const (
 	// configuration defaults support local development (i.e. "go run ...")
@@ -71,8 +74,9 @@ const (
 	// Logging
 	defaultLoggingLevel = "debug"
 	
-	// Cost Amount
-	defaultCostRoundFlag = true;
+	// Cost
+	defaultCostRoundFlag = true
+	defaultCostAwsDatasets = string(ceTypes.MetricNetAmortizedCost)
 )
 
 var (
@@ -133,4 +137,5 @@ var (
 	flagLoggingLevel = pflag.String("logging.level", defaultLoggingLevel, "log level of application")
 	
 	flagCostRoundFlag = pflag.Bool("cost.round", defaultCostRoundFlag, "rounds cost to nearest whole number")
+	flagCostAwsDatasets = pflag.String("cost.aws.datasets", defaultCostAwsDatasets, "selects the dataset for displaying costs")
 )
