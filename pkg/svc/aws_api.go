@@ -23,10 +23,6 @@ type costInsightsAwsServer struct {
 	client *costexplorer.Client
 }
 
-const (
-	DEFAULT_COST_METHOD = ceTypes.MetricNetAmortizedCost
-)
-
 var AWS_SERVICE = map[string]string{
 	"EC2":           "Amazon Elastic Compute Cloud - Compute",
 	"EC2Other":      "EC2 - Other",
@@ -334,7 +330,7 @@ func (m costInsightsAwsServer) GetGroupDailyCost(ctx context.Context, req *pb.Gr
 
 	resp, err := m.client.GetCostAndUsage(ctx, &costexplorer.GetCostAndUsageInput{
 		TimePeriod: &ceTypes.DateInterval{Start: &startDate, End: &interval.EndDate},
-		Metrics:    []string{string(DEFAULT_COST_METHOD)},
+		Metrics:    []string{viper.GetString("cost.aws.datasets")},
 		// TODO - Need a way to map Group to Account(i.e. Project) to filter
 		//Filter: &ceTypes.Expression{
 		//	Dimensions: &ceTypes.DimensionValues{
@@ -367,7 +363,7 @@ func (m costInsightsAwsServer) GetGroupDailyCost(ctx context.Context, req *pb.Gr
 	groupKey := "SERVICE"
 	respProductGrouped, err := m.client.GetCostAndUsage(context.TODO(), &costexplorer.GetCostAndUsageInput{
 		TimePeriod: &ceTypes.DateInterval{Start: &startDate, End: &interval.EndDate},
-		Metrics:    []string{string(DEFAULT_COST_METHOD)},
+		Metrics:    []string{viper.GetString("cost.aws.datasets")},
 		// TODO - Need a way to map Group to Account(i.e. Project) to filter
 		//Filter: &ceTypes.Expression{
 		//	Dimensions: &ceTypes.DimensionValues{
@@ -394,7 +390,7 @@ func (m costInsightsAwsServer) GetGroupDailyCost(ctx context.Context, req *pb.Gr
 	groupKey = "LINKED_ACCOUNT"
 	respProjectGrouped, err := m.client.GetCostAndUsage(context.TODO(), &costexplorer.GetCostAndUsageInput{
 		TimePeriod: &ceTypes.DateInterval{Start: &startDate, End: &interval.EndDate},
-		Metrics:    []string{string(DEFAULT_COST_METHOD)},
+		Metrics:    []string{viper.GetString("cost.aws.datasets")},
 		// TODO - Need a way to map Group to Account(i.e. Project) to filter
 		//Filter: &ceTypes.Expression{
 		//	Dimensions: &ceTypes.DimensionValues{
@@ -484,7 +480,7 @@ func (m costInsightsAwsServer) GetProjectDailyCost(ctx context.Context, req *pb.
 
 	resp, err := m.client.GetCostAndUsage(context.TODO(), &costexplorer.GetCostAndUsageInput{
 		TimePeriod: &ceTypes.DateInterval{Start: &startDate, End: &interval.EndDate},
-		Metrics:    []string{string(DEFAULT_COST_METHOD)},
+		Metrics:    []string{viper.GetString("cost.aws.datasets")},
 		// TODO - Need a way to map Project to Account to filter Project Detail
 		//Filter: &ceTypes.Expression{
 		//	Dimensions: &ceTypes.DimensionValues{
@@ -517,7 +513,7 @@ func (m costInsightsAwsServer) GetProjectDailyCost(ctx context.Context, req *pb.
 	groupKey := "SERVICE"
 	respGrouped, err := m.client.GetCostAndUsage(context.TODO(), &costexplorer.GetCostAndUsageInput{
 		TimePeriod: &ceTypes.DateInterval{Start: &startDate, End: &interval.EndDate},
-		Metrics:    []string{string(DEFAULT_COST_METHOD)},
+		Metrics:    []string{viper.GetString("cost.aws.datasets")},
 		// TODO - Need Account(i.e. Project) to filter
 		//Filter: &ceTypes.Expression{
 		//	Dimensions: &ceTypes.DimensionValues{
@@ -581,7 +577,7 @@ func (m costInsightsAwsServer) GetProductInsights(ctx context.Context, req *pb.P
 
 	resp, err := m.client.GetCostAndUsage(context.TODO(), &costexplorer.GetCostAndUsageInput{
 		TimePeriod: &ceTypes.DateInterval{Start: &startDate, End: &interval.EndDate},
-		Metrics:    []string{string(DEFAULT_COST_METHOD)},
+		Metrics:    []string{viper.GetString("cost.aws.datasets")},
 		// TODO - Need Account(i.e. Project) to filter
 		// TODO - Use Group to select Account(s) (i.e. Projects) to filter
 		Filter: &ceTypes.Expression{
