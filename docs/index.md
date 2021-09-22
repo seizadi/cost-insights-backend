@@ -37,6 +37,8 @@ Daily Active Users (DAU) or Monthly Subscribers (MSC). In this case Metric.Amoun
 appropriate resource, e.g. for DAU, number of Users. The custom Metric is related to the Account (Project), 
 this relation can be used to derive COGS metrics based on a custom metric like DAU or MSC. We can
 also look at the growth of custom metric like DAU in relation to how the AWS Costs are growing.
+When metric is tied to a Project (AWS Account) it could represent the aggregate cost for an Account or
+the Budget for a Project and can be used to compare budgeted versus actual cost.
 ```mermaid
 erDiagram
     Metric {
@@ -51,6 +53,7 @@ erDiagram
     Project }|--|{ Product : ""
     Project }|--|{ Metric : ""
     Product }|--|{ Metric : ""
+    Service }|--|{ Metric : ""
     Alert }|--|{ Project : ""
     Alert }|--|| Group : ""
     Group }|--|{ Service : ""
