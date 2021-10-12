@@ -277,7 +277,7 @@ func (costInsightsAwsServer) GetLastCompleteBillingDate(context.Context, *empty.
 
 func (costInsightsAwsServer) GetUserGroups(context.Context, *pb.UserGroupsRequest) (*pb.UserGroupsResponse, error) {
 	groups := []*pb.Group{
-		{Id: "pied-piper"},
+		{Id: "default-group"},
 	}
 	return &pb.UserGroupsResponse{Groups: groups}, nil
 }
