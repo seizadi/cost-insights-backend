@@ -3,7 +3,7 @@ package svc
 import (
 	"strconv"
 	"testing"
-	
+
 	ceTypes "github.com/aws/aws-sdk-go-v2/service/costexplorer/types"
 	"github.com/spf13/viper"
 )
@@ -41,40 +41,39 @@ func TestAggregationForAws(t *testing.T) {
 
 	type testData struct {
 		startDate string
-		endDate string
-		amount string
-		unit string
+		endDate   string
+		amount    string
+		unit      string
 	}
-	
+
 	type testIterations struct {
-		testData []testData
+		testData            []testData
 		expectedSupportCost map[AwsAccountType]float64
 	}
-	
+
 	var testCases = []testIterations{
 		{
-			testData: []testData {
+			testData: []testData{
 				{"2020-08-01", "2020-08-02", "1500.00", "USD"},
 				{"2020-08-02", "2020-08-03", "1000.00", "USD"},
-				{"2020-08-03", "2020-08-04","4000.00", "USD"},
-				
+				{"2020-08-03", "2020-08-04", "4000.00", "USD"},
 			},
 			expectedSupportCost: map[AwsAccountType]float64{
-				DeveloperAccount: 195.00,
-				BusinessAccount: 650.00,
-					EnterpriseAccount: 15000.00,
+				DeveloperAccount:  195.00,
+				BusinessAccount:   650.00,
+				EnterpriseAccount: 15000.00,
 			},
 		},
 		{
-			testData: []testData {
+			testData: []testData{
 				{"2020-08-01", "2020-08-02", "15.00", "USD"},
 				{"2020-08-02", "2020-08-03", "10.00", "USD"},
-				{"2020-08-03", "2020-08-04","40.00", "USD"},
+				{"2020-08-03", "2020-08-04", "40.00", "USD"},
 				{"2020-08-04", "2020-08-05", "10.00", "USD"},
 			},
 			expectedSupportCost: map[AwsAccountType]float64{
-				DeveloperAccount: 29.00,
-				BusinessAccount: 100.00,
+				DeveloperAccount:  29.00,
+				BusinessAccount:   100.00,
 				EnterpriseAccount: 15000.00,
 			},
 		},
@@ -92,20 +91,19 @@ func TestAggregationForAws(t *testing.T) {
 			},
 		},
 		{
-			testData: []testData {
-				{startDate: "2020-09-01", endDate:"2020-10-01", amount: "755828.00", unit: "USD"},
+			testData: []testData{
+				{startDate: "2020-09-01", endDate: "2020-10-01", amount: "755828.00", unit: "USD"},
 			},
 			expectedSupportCost: map[AwsAccountType]float64{
-				DeveloperAccount: 22674.84,
-				BusinessAccount: 29574.84,
+				DeveloperAccount:  22674.84,
+				BusinessAccount:   29574.84,
 				EnterpriseAccount: 52291.40,
 			},
 		},
-		
 	}
-	
-	for _ ,test := range testCases {
-		
+
+	for _, test := range testCases {
+
 		resultByTime := []ceTypes.ResultByTime{}
 		for index, _ := range test.testData {
 			result := ceTypes.ResultByTime{
@@ -122,19 +120,19 @@ func TestAggregationForAws(t *testing.T) {
 			}
 			resultByTime = append(resultByTime, result)
 		}
-		
+
 		// 9/15/2021 - https://aws.amazon.com/premiumsupport/pricing/
-		
+
 		// Test whether an error is thrown
 		// Test if the number of aggregation items outputted matches the number of values given
 		// Test to see if the expected sum matches that outputted by the summing function
 		// Test to see if changing the business type alters the aggregation sum value
-		
+
 		for _, account := range AwsAccounts {
-			
+
 			viper.Set("account.type", string(account.AccountType))
 			viper.Set("support.cost", true)
-			
+
 			results, err := aggregationForAWS(resultByTime)
 			if err != nil {
 				t.Error("Unexpected error:", err)
@@ -142,29 +140,29 @@ func TestAggregationForAws(t *testing.T) {
 			if len(results) != len(resultByTime) {
 				t.Errorf("Output %d not equal to expected %d", len(results), len(resultByTime))
 			}
-			
+
 			supportCost, _ := SupportCostForAWS(account, resultByTime)
 			if supportCost != test.expectedSupportCost[account.AccountType] {
 				t.Errorf("Output %f not equal to expected %f", supportCost, test.expectedSupportCost[account.AccountType])
 			}
-			
+
 			for index, result := range results {
-				
-				cost,_ := strconv.ParseFloat(test.testData[index].amount, 64)
+
+				cost, _ := strconv.ParseFloat(test.testData[index].amount, 64)
 				expectedCost := cost + supportCost/float64(len(results))
-				
+
 				if expectedCost != result.Amount {
 					t.Errorf("Expected Cost %f not equal to expected %f", expectedCost, result.Amount)
 				}
 			}
 		}
 	}
-		
-		// 9/15/2021 - https://aws.amazon.com/premiumsupport/pricing/
-		
-		// Test whether an error is thrown
-		// Test if the number of aggregation items outputted matches the number of values given
-		// Test to see if the expected sum matches that outputted by the summing function
-		// Test to see if changing the business type alters the aggregation sum value
-	
+
+	// 9/15/2021 - https://aws.amazon.com/premiumsupport/pricing/
+
+	// Test whether an error is thrown
+	// Test if the number of aggregation items outputted matches the number of values given
+	// Test to see if the expected sum matches that outputted by the summing function
+	// Test to see if changing the business type alters the aggregation sum value
+
 }

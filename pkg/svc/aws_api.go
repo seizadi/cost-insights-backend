@@ -5,14 +5,14 @@ import (
 	"math"
 	"strconv"
 	"time"
-	
+
 	"github.com/spf13/viper"
-	
+
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/costexplorer"
 	ceTypes "github.com/aws/aws-sdk-go-v2/service/costexplorer/types"
 	"github.com/golang/protobuf/ptypes/empty"
-	
+
 	"github.com/seizadi/cost-insights-backend/metrics"
 	"github.com/seizadi/cost-insights-backend/pkg/pb"
 	"github.com/seizadi/cost-insights-backend/pkg/types"
@@ -50,22 +50,28 @@ const (
 
 type AwsAccount struct {
 	AccountType           AwsAccountType
-	MinSupportCost float64
-	SupportCostThresholds [][]float64
+	MinSupportCost        float64
+	SupportCostThresholds []SupportCostThreshold
+}
+
+type SupportCostThreshold struct {
+	CostMultiplier    float64
+	CostStartInterval float64
+	CostEndInterval   float64
 }
 
 var AwsAccounts = map[AwsAccountType]AwsAccount{
 	DeveloperAccount: {
 		DeveloperAccount,
 		29.00,
-		[][]float64{
+		[]SupportCostThreshold{
 			{0.03, 0, 0},
 		},
 	},
 	BusinessAccount: {
 		BusinessAccount,
 		100.00,
-		[][]float64{
+		[]SupportCostThreshold{
 			{0.10, 0, 10000.00},
 			{0.07, 10000.00, 80000.00},
 			{0.05, 80000.00, 250000.00},
@@ -75,7 +81,7 @@ var AwsAccounts = map[AwsAccountType]AwsAccount{
 	EnterpriseAccount: {
 		EnterpriseAccount,
 		15000.00,
-		[][]float64{
+		[]SupportCostThreshold{
 			{0.10, 0, 150000.00},
 			{0.07, 150000.00, 500000.00},
 			{0.05, 500000.00, 1000000.00},
@@ -122,13 +128,13 @@ func getAwsMetricAmount(metric ceTypes.MetricValue) float64 {
 func aggregationForAWS(results []ceTypes.ResultByTime) ([]*pb.DateAggregation, error) {
 	retDateAggregation := []*pb.DateAggregation{}
 	supCost := 0.00
-	
+
 	if viper.GetBool("support.cost") {
 		awsTest := AwsAccountType(viper.GetString("account.type"))
 		supportCost, _ := SupportCostForAWS(AwsAccounts[awsTest], results)
 		supCost = supportCost
 	}
-	
+
 	for _, result := range results {
 		value := pb.DateAggregation{
 			Date: *result.TimePeriod.Start,
@@ -137,12 +143,12 @@ func aggregationForAWS(results []ceTypes.ResultByTime) ([]*pb.DateAggregation, e
 		for _, metric := range result.Total {
 			value.Amount = getAwsMetricAmount(metric) + supCost/float64(len(results))
 		}
-		
+
 		if value.Amount > 0 {
 			retDateAggregation = append(retDateAggregation, &value)
 		}
 	}
-	
+
 	//TODO enter the correct configuration for the account
 	//TODO add the support Cost to the aggregation data somehow/split it across all the dates of aggregation?
 	//	for _, date := range retDateAggregation {
@@ -153,37 +159,36 @@ func aggregationForAWS(results []ceTypes.ResultByTime) ([]*pb.DateAggregation, e
 }
 
 func SupportCostForAWS(account AwsAccount, results []ceTypes.ResultByTime) (float64, error) {
-	
+
 	var sumDateAggregationAmounts float64
 	var supportCost float64
 	for _, result := range results {
 		amount, _ := strconv.ParseFloat(*result.Total[string(ceTypes.MetricNetAmortizedCost)].Amount, 64)
 		sumDateAggregationAmounts += amount
 	}
-	
-	if (sumDateAggregationAmounts * account.SupportCostThresholds[0][0]) < account.MinSupportCost {
+
+	if (sumDateAggregationAmounts * account.SupportCostThresholds[0].CostMultiplier) < account.MinSupportCost {
 		return account.MinSupportCost, nil
 	}
-	
-	for _,costThreshold := range account.SupportCostThresholds {
-		if costThreshold[1] > sumDateAggregationAmounts {
+
+	for _, costThreshold := range account.SupportCostThresholds {
+		if costThreshold.CostStartInterval > sumDateAggregationAmounts {
 			return supportCost, nil
 		}
-		if costThreshold[2] != 0 {
-			if costThreshold[2] > sumDateAggregationAmounts {
-				supportCost += (sumDateAggregationAmounts-costThreshold[1])*costThreshold[0]
+		if costThreshold.CostEndInterval != 0 {
+			if costThreshold.CostEndInterval > sumDateAggregationAmounts {
+				supportCost += (sumDateAggregationAmounts - costThreshold.CostStartInterval) * costThreshold.CostMultiplier
 				return supportCost, nil
 			}
-			if sumDateAggregationAmounts > costThreshold[2] {
-				supportCost += (costThreshold[2]-costThreshold[1])*costThreshold[0]
+			if sumDateAggregationAmounts > costThreshold.CostEndInterval {
+				supportCost += (costThreshold.CostEndInterval - costThreshold.CostStartInterval) * costThreshold.CostMultiplier
 			}
-		}
-		if costThreshold[2] == 0 {
-			supportCost += (sumDateAggregationAmounts-costThreshold[1])*costThreshold[0]
+		} else {
+			supportCost += (sumDateAggregationAmounts - costThreshold.CostStartInterval) * costThreshold.CostMultiplier
 			return supportCost, nil
 		}
 	}
-	
+
 	return supportCost, nil
 }
 

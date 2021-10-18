@@ -77,7 +77,7 @@ const (
 	// Cost
 	defaultCostRoundFlag = true
 	defaultCostAwsDatasets = string(ceTypes.MetricNetAmortizedCost)
-	defaultCostAwsSupport = true
+	defaultCostAwsSupport = false
 	defaultCostAccountType = "DeveloperAccount"
 	//TODO: Add a config option for the AWS EDP, default is none; match year with discount and return savings
 	
