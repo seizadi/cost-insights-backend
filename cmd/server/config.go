@@ -77,6 +77,12 @@ const (
 	// Cost
 	defaultCostRoundFlag = true
 	defaultCostAwsDatasets = string(ceTypes.MetricNetAmortizedCost)
+	defaultCostAwsSupport = true
+	defaultCostAccountType = "DeveloperAccount"
+	//TODO: Add a config option for the AWS EDP, default is none; match year with discount and return savings
+	
+	//TODO: Make a value for both OPEX and CAPEX accounts, default is null
+	//AWS Accounts
 )
 
 var (
@@ -138,4 +144,6 @@ var (
 	
 	flagCostRoundFlag = pflag.Bool("cost.round", defaultCostRoundFlag, "rounds cost to nearest whole number")
 	flagCostAwsDatasets = pflag.String("cost.aws.datasets", defaultCostAwsDatasets, "selects the dataset for displaying costs")
+	flagCostAwsSupport = pflag.Bool("support.cost", defaultCostAwsSupport, "adds a support cost to the aggregation")
+	flagCostAccountType = pflag.String("account.type", defaultCostAccountType, "defines an account type")
 )
