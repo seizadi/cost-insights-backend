@@ -39,6 +39,8 @@ this relation can be used to derive COGS metrics based on a custom metric like D
 also look at the growth of custom metric like DAU in relation to how the AWS Costs are growing.
 When metric is tied to a Project (AWS Account) it could represent the aggregate cost for an Account or
 the Budget for a Project and can be used to compare budgeted versus actual cost.
+
+GCloud Data Model:
 ```mermaid
 erDiagram
     Metric {
@@ -59,6 +61,29 @@ erDiagram
     Group }|--|{ Service : ""
     Product }|--|{ Service : ""
     Alert }|--|{ Service : ""
+```
+
+AWS Data Model:
+```mermaid
+erDiagram
+    Metric {
+        date string
+        amount number
+    }
+    CloudProvider ||--|{ User : ""
+    CloudProvider ||--|{ Group : ""
+    CloudProvider ||--|{ Account : ""
+    User }|--|{ Group : ""
+    Group }|--|{ Project : ""    
+    Account }|--|{ Product : ""
+    Account }|--|{ Metric : ""
+    Service }|--|{ Metric : ""
+    App }|--|{ Metric : ""
+    Alert }|--|{ Account : ""
+    Alert }|--|| Group : ""
+    Group }|--|{ App : ""
+    Service }|--|{ App : ""
+    Alert }|--|{ App : ""
 ```
 
 ## API
