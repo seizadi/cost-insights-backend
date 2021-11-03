@@ -74,7 +74,7 @@ erDiagram
     CloudProvider ||--|{ Group : ""
     CloudProvider ||--|{ Account : ""
     User }|--|{ Group : ""
-    Group }|--|{ Project : ""    
+    Group }|--|{ Account : ""    
     Account }|--|{ Product : ""
     Account }|--|{ Metric : ""
     Service }|--|{ Metric : ""
