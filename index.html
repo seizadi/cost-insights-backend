@@ -1,0 +1,471 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Soheil Eizadi" name="author"/>
+<link href="https://seizadi.github.io/cost-insights-backend/" rel="canonical"/>
+<link href="assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.2.3, mkdocs-material-7.3.6" name="generator"/>
+<title>Cost-Insights-Backend</title>
+<link href="assets/stylesheets/main.a57b2b03.min.css" rel="stylesheet"/>
+<link href="assets/stylesheets/palette.3f5d1f46.min.css" rel="stylesheet"/>
+<meta content="#2094f3" name="theme-color"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,400,400i,700%7CIBM+Plex+Mono&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font-family:"IBM Plex Sans";--md-code-font-family:"IBM Plex Mono"}</style>
+</head>
+<body data-md-color-accent="blue" data-md-color-primary="blue" data-md-color-scheme="default" dir="ltr">
+<script>function __prefix(e){return new URL(".",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#cost-insights-backend-docs">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Cost-Insights-Backend" class="md-header__button md-logo" data-md-component="logo" href="." title="Cost-Insights-Backend">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Cost-Insights-Backend
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Home
+            
+          </span>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/seizadi/cost-insights-backend/" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    Cost-Insights-Backend
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Cost-Insights-Backend" class="md-nav__button md-logo" data-md-component="logo" href="." title="Cost-Insights-Backend">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"></path></svg>
+</a>
+    Cost-Insights-Backend
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/seizadi/cost-insights-backend/" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    Cost-Insights-Backend
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          Home
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href=".">
+        Home
+      </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#summary">
+    Summary
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-model">
+    Data Model
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#api">
+    API
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-flows">
+    Data Flows
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#aws-cost-management-api">
+    AWS Cost Management API
+  </a>
+<nav aria-label="AWS Cost Management API" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#aws-cost-managment-api-reference">
+    AWS Cost Managment API Reference
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#development">
+    Development
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cost-metrics">
+    Cost Metrics
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocs-references">
+    MkDocs References
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#summary">
+    Summary
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-model">
+    Data Model
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#api">
+    API
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-flows">
+    Data Flows
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#aws-cost-management-api">
+    AWS Cost Management API
+  </a>
+<nav aria-label="AWS Cost Management API" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#aws-cost-managment-api-reference">
+    AWS Cost Managment API Reference
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#development">
+    Development
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cost-metrics">
+    Cost Metrics
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocs-references">
+    MkDocs References
+  </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/seizadi/cost-insights-backend/edit/master/docs/index.md" title="Edit this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
+</a>
+<h1 id="cost-insights-backend-docs">Cost-Insights-Backend Docs<a class="headerlink" href="#cost-insights-backend-docs" title="Permanent link">¶</a></h1>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">¶</a></h2>
+<p>We want to enable the 
+<a href="https://backstage.io/blog/2020/10/22/cost-insights-plugin">CostInsights plugin</a> built into the 
+Backstage Dev Portal using this backend project. The CostIsnight plugin frontend does not have have
+backend implementation. The CostInsights backend will use the Cloud Provider cost management APIs,
+e.g. <a href="https://docs.aws.amazon.com/aws-cost-anagement/latest/APIReference/API_GetCostAndUsage.html">AWS Billing and Cost Management API</a>.</p>
+<p>We will try to extend the CloudProvider tags/labels using Kubernetes labels
+to extract cost information for each application team.</p>
+<p>General flow of the implementation:
+Progress to date:
+* Implemented the <a href="https://github.com/backstage/backstage/blob/master/plugins/cost-insights/src/api/CostInsightsApi.ts">CostInsightsApi</a> in the backend.
+* as stubs that return static data and test with plugin
+* Integrate CostInsights Backend using Backstage Plugin and Proxy so that APIs are native to Backstage. This should provide similar function to current CostInsights API Mock but talking to backend server.
+* Integrate with <a href="https://docs.aws.amazon.com/aws-cost-anagement/latest/APIReference/API_GetCostAndUsage.html">AWS Billing and Cost Management API</a> and test with backend plugin</p>
+<h2 id="data-model">Data Model<a class="headerlink" href="#data-model" title="Permanent link">¶</a></h2>
+<p>The data model for CostInsights that will be supported by the backend is shown below, if we have
+to relate this to the 
+<a href="https://seizadi.github.io/cmdb/model/">CMDB data model</a> you have to reference this table:</p>
+<table>
+<thead>
+<tr>
+<th align="center">CMDB</th>
+<th align="right">CostInsights</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">Account</td>
+<td align="right">Project</td>
+</tr>
+<tr>
+<td align="center">App</td>
+<td align="right">Service</td>
+</tr>
+<tr>
+<td align="center">KubeCluster</td>
+<td align="right">Product</td>
+</tr>
+</tbody>
+</table>
+<p>I have kept the terminology adopted by CostInsights since it is in line with Backsatge terminology.
+The Metric resource can be used to represent the cost of AWS Service like EC2 or aggregated to present
+the cost for an AWS Account or All Accounts. Metric can also present custom Metric data like 
+Daily Active Users (DAU) or Monthly Subscribers (MSC). In this case Metric.Amount represent the
+appropriate resource, e.g. for DAU, number of Users. The custom Metric is related to the Account (Project), 
+this relation can be used to derive COGS metrics based on a custom metric like DAU or MSC. We can
+also look at the growth of custom metric like DAU in relation to how the AWS Costs are growing.
+When metric is tied to a Project (AWS Account) it could represent the aggregate cost for an Account or
+the Budget for a Project and can be used to compare budgeted versus actual cost.</p>
+<p>GCloud Data Model:
+<div class="mermaid">erDiagram
+    Metric {
+        date string
+        amount number
+    }
+    CloudProvider ||--|{ User : ""
+    CloudProvider ||--|{ Group : ""
+    CloudProvider ||--|{ Project : ""
+    User }|--|{ Group : ""
+    Group }|--|{ Project : ""    
+    Project }|--|{ Product : ""
+    Project }|--|{ Metric : ""
+    Product }|--|{ Metric : ""
+    Service }|--|{ Metric : ""
+    Alert }|--|{ Project : ""
+    Alert }|--|| Group : ""
+    Group }|--|{ Service : ""
+    Product }|--|{ Service : ""
+    Alert }|--|{ Service : ""
+</div></p>
+<p>AWS Data Model:
+<div class="mermaid">erDiagram
+    Metric {
+        date string
+        amount number
+    }
+    CloudProvider ||--|{ User : ""
+    CloudProvider ||--|{ Group : ""
+    CloudProvider ||--|{ Account : ""
+    User }|--|{ Group : ""
+    Group }|--|{ Account : ""    
+    Account }|--|{ Service : ""
+    Account }|--|{ Metric : ""
+    Service }|--|{ Metric : ""
+    App }|--|{ Metric : ""
+    Alert }|--|{ Account : ""
+    Alert }|--|| Group : ""
+    Group }|--|{ App : ""
+    Service }|--|{ App : ""
+    Alert }|--|{ App : ""
+</div></p>
+<h2 id="api">API<a class="headerlink" href="#api" title="Permanent link">¶</a></h2>
+<p>You can see this data model on top of the 
+<a href="https://github.com/backstage/backstage/blob/master/plugins/cost-insights/src/api/CostInsightsApi.ts">CostInsightsApi</a> 
+with the
+<a href="https://editor.swagger.io/?url=https://raw.githubusercontent.com/seizadi/cost-insights-backend/main/pkg/pb/service.swagger.json">SwaggerEditor</a>.</p>
+<p>In the Data Flow section below we show how CI Plugin Backend running on BackStage application
+uses this API to materialize the CostInsightsApi for CI Frontend.</p>
+<h2 id="data-flows">Data Flows<a class="headerlink" href="#data-flows" title="Permanent link">¶</a></h2>
+<p>In the diagrams we will use CI acronym for CostInsights.</p>
+<div class="mermaid">sequenceDiagram
+    User-&gt;&gt;CI Plugin Frontend: Open CI Backstage page
+    CI Plugin Frontend-&gt;&gt;CI Plugin Backend: CI ClientAPI
+    CI Plugin Backend-&gt;&gt;Backstage Proxy: API Request
+    Backstage Proxy-&gt;&gt;CI Backend: API Request
+    CI Backend-&gt;&gt;Cloud Provider: Cloud Provider API
+    Cloud Provider-&gt;&gt;CI Backend: Response
+    CI Backend-&gt;&gt;Backstage Proxy: Map Cloud Provider to CI API
+    Backstage Proxy-&gt;&gt;CI Plugin Backend: CI Response
+    CI Plugin Backend-&gt;&gt;CI Plugin Frontend: Map CI Backend to ClientAPI
+    CI Plugin Frontend-&gt;&gt;User: View CI Page with Cloud Provider Costs
+</div>
+<h2 id="aws-cost-management-api">AWS Cost Management API<a class="headerlink" href="#aws-cost-management-api" title="Permanent link">¶</a></h2>
+<p>I made a significant design decision that is trivial but has some signifcant ramifications.
+<div class="highlight"><pre><span></span><code><span class="kd">func</span> <span class="nx">getAwsMetricAmount</span><span class="p">(</span><span class="nx">metric</span> <span class="nx">ceTypes</span><span class="p">.</span><span class="nx">MetricValue</span><span class="p">)</span> <span class="kt">int32</span> <span class="p">{</span>
+    <span class="nx">amount</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nx">ParseFloat</span><span class="p">(</span><span class="o">*</span><span class="nx">metric</span><span class="p">.</span><span class="nx">Amount</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">int32</span><span class="p">(</span><span class="nx">math</span><span class="p">.</span><span class="nx">Round</span><span class="p">(</span><span class="nx">amount</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></div>
+AWS API return a float string and CostInsights API can accept a number which could be float or int.
+I convert them to round integers. The fall out of this is that I end up with infrequently used services
+having dropping out providing any cost for a day or the entire duration, where as AWS CostExplorer would
+report a value, you will also see some small differences in totals of grouped values versus the Project(Account)
+totals.</p>
+<p>This filtering effect is desirable so we can focus on the CloudProvider Products that are driving the
+over all cost.</p>
+<p>The CostExplorer API will return only 12 months of data, the backend will return 400 error on duration
+that does not meet this spec:
+<div class="highlight"><pre><span></span><code>      <span class="s2">"message"</span>: <span class="s2">"operation error Cost Explorer: GetCostAndUsage, https response error StatusCode: 400, RequestID: 3925a325-d037-4f3c-bfd6-351a11b5c5e7, api error ValidationException: start date is too old for daily granularity, max months for data available is 12 months"</span>
+</code></pre></div></p>
+<p>There is writeup of 
+<a href="https://github.com/backstage/backstage/blob/master/plugins/cost-insights/contrib/aws-cost-explorer-api.md">Cost Insights integration with AWS in Backstage</a></p>
+<p>The <a href="https://docs.aws.amazon.com/sdk-for-go/api/">AWS Go SDK doc here.</a></p>
+<h3 id="aws-cost-managment-api-reference">AWS Cost Managment API Reference<a class="headerlink" href="#aws-cost-managment-api-reference" title="Permanent link">¶</a></h3>
+<ul>
+<li><a href="https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_GetDimensionValues.html">Get Dimensions</a></li>
+<li><a href="https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_GetCostAndUsage.html">Get Usage</a></li>
+</ul>
+<h2 id="development">Development<a class="headerlink" href="#development" title="Permanent link">¶</a></h2>
+<p>The project uses a Go microservice, this is a departure with Backstage that is developed using nodeJS
+for the services. We will use the
+<a href="https://backstage.io/docs/plugins/backend-plugin">Backstage bacend plugin</a>
+to implement the 
+<a href="https://github.com/backstage/backstage/blob/master/plugins/cost-insights/src/api/CostInsightsApi.ts">CostInsights API</a>.
+We will reference the
+<a href="https://github.com/backstage/backstage/blob/master/plugins/cost-insights/src/example/templates/CostInsightsClient.ts">CostInsights API template</a>.
+for our implementation.</p>
+<h2 id="cost-metrics">Cost Metrics<a class="headerlink" href="#cost-metrics" title="Permanent link">¶</a></h2>
+<p>There are many different Cost Metrics returned by API.
+Unblended costs represent your usage costs on the day they are charged to you. 
+In finance terms, they represent your costs on a cash basis of accounting.</p>
+<p>If you have a saving plan with AWS like
+<a href="https://aws.amazon.com/aws-cost-management/reserved-instance-reporting/">AWS Reservation</a>
+and pay some amount, let's pick a large amount, then on cash basis you will have that 
+applied on the first of the month on your bill, and the savings applied on the following days. 
+This might not be ideal and not show the true cost of using your resources. 
+Viewing your amortized costs is useful in this case in which it doesn’t make sense 
+to view your costs on the day that they were charged. It’s useful to view costs on an 
+accrual basis rather than a cash basis.</p>
+<p>You can read about the other AWS Cost Methods
+<a href="https://aws.amazon.com/blogs/aws-cost-management/understanding-your-aws-cost-datasets-a-cheat-sheet/">here</a>
+and more detail about
+<a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/con-bill-blended-rates.html#Calculating">AWS Billing</a></p>
+<p>So, which cost dataset should you use?
+If you are a customer who has purchased Savings Plans or Reservations, 
+then amortized costs are most likely the right dataset for analyzing your cost trends.
+Otherwise, looking at unblended costs should suit you just fine.</p>
+<p>Finally, if you are operating at scale or have highly specialized use cases, 
+it may make sense to investigate using the net unblended, net amortized, or blended cost datasets.</p>
+<p>We set net amortized cost as the default for now assuming if you are going to all the 
+trouble to run CostInsights you are operating at scale.</p>
+<div class="highlight"><pre><span></span><code>yarn create-plugin --backend  --no-private cost-insights
+</code></pre></div>
+<h2 id="mkdocs-references">MkDocs References<a class="headerlink" href="#mkdocs-references" title="Permanent link">¶</a></h2>
+<ul>
+<li><a href="https://chrieke.medium.com/the-best-mkdocs-plugins-and-customizations-fc820eb19759">How to get diagrams in MkDocs</a></li>
+<li><a href="https://suedbroecker.net/2021/01/25/how-to-install-mkdocs-on-mac-and-setup-the-integration-to-github-pages/">How to setup MkDocs on Mac and Github</a></li>
+<li><a href="https://mermaid-js.github.io/mermaid">Mermaid</a></li>
+<li><a href="https://github.com/fralau/mkdocs-mermaid2-plugin#declaring-the-superfences-extension">Mermaid2 plugin</a></li>
+<li><a href="https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoiZ3JhcGggVERcbiAgICBBW0NocmlzdG1hc10gLS0-fEdldCBtb25leXwgQihHbyBzaG9wcGluZylcbiAgICBCIC0tPiBDe0xldCBtZSB0aGlua31cbiAgICBDIC0tPnxPbmV8IERbTGFwdG9wXVxuICAgIEMgLS0-fFR3b3wgRVtpUGhvbmVdXG4gICAgQyAtLT58VGhyZWV8IEZbZmE6ZmEtY2FyIENhcl0iLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ">Mermaid Live Editor</a></li>
+<li><a href="https://mermaid-js.github.io/mermaid/#/flowchart?id=flowcharts-basic-syntax">Mermaid Diagram Syntax</a></li>
+</ul>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-footer-copyright">
+        
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+            Material for MkDocs
+          </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": ".", "features": ["navigation.instant", "navigation.expand"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "assets/javascripts/workers/search.fcfe8b6d.min.js", "version": null}</script>
+<script src="assets/javascripts/bundle.b1047164.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.10.2/mermaid.min.js"></script>
+<script>mermaid.initialize({});</script></body>
+</html>
